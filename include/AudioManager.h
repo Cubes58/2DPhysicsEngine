@@ -13,11 +13,11 @@ private:
 public:
 	AudioManager();
 
-	void LoadMusicFile(const std::string &p_PathToAudioFile);
-	void LoadSoundEffect(const std::string &p_Name, const std::string &p_PathToAudioFile);
+	void loadMusicFile(const std::string &p_PathToAudioFile);
+	void loadSoundEffect(const std::string &p_Name, const std::string &p_PathToAudioFile);
 
-	sf::Sound GetSoundEffect(const std::string &p_Name) const;
-	sf::Music *GetBackgroundMusic();
+	sf::Sound getSoundEffect(const std::string &p_Name) const;
+	sf::Music *getBackgroundMusic();
 
 	//Delete the copy and assignment operators.
 	AudioManager(AudioManager const&) = delete;

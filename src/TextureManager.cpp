@@ -7,17 +7,17 @@ TextureManager::TextureManager() {
 	//LoadTexture("BlackBlock", "./assets/textures/BlackBlock.png");
 }
 
-TextureManager& TextureManager::Instance() {
+TextureManager& TextureManager::instance() {
 	static TextureManager instance;
 
 	return instance;
 }
 
-const sf::Texture* TextureManager::GetTexture(const std::string &p_Name) const {
+const sf::Texture* TextureManager::getTexture(const std::string &p_Name) const {
 	return &m_Textures.at(p_Name);
 }
 
-void TextureManager::LoadTexture(const std::string &p_Name, const std::string &p_PathToTextureFile) {
+void TextureManager::loadTexture(const std::string &p_Name, const std::string &p_PathToTextureFile) {
 	sf::Texture newTexture;
 	if (newTexture.loadFromFile(p_PathToTextureFile)) {										//Check to make sure it can find the texture file.
 		newTexture.setSmooth(true);
@@ -26,6 +26,6 @@ void TextureManager::LoadTexture(const std::string &p_Name, const std::string &p
 	}
 }
 
-const sf::Vector2u* TextureManager::GetTextureSize(const std::string &p_Name) const {
+const sf::Vector2u* TextureManager::getTextureSize(const std::string &p_Name) const {
 	return (&(m_Textures.at(p_Name)).getSize());
 }
