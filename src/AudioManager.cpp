@@ -6,7 +6,7 @@ AudioManager::AudioManager() {
 
 void AudioManager::loadMusicFile(const std::string &p_PathToAudioFile) {
 	if (m_BackgroundMusic.openFromFile(p_PathToAudioFile))
-		;
+		return;
 }
 
 void AudioManager::loadSoundEffect(const std::string &p_Name, const std::string &p_PathToAudioFile) {

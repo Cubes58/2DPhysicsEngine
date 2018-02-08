@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game() : m_bIsRunning(true) {
 
 }
 
@@ -23,7 +23,7 @@ void Game::update(sf::Time p_DeltaTime) {
 }
 
 void Game::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
-	//target.draw();
+	p_Target.draw(m_Terrain);
 }
 
 bool Game::isRunning() {

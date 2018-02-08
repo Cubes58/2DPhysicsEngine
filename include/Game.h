@@ -2,8 +2,12 @@
 
 #include <SFML\Graphics.hpp>
 
+#include "Terrain.h"
+
 class Game : public sf::Drawable {
-private:	
+private:
+	Terrain m_Terrain;
+
 	bool m_bIsRunning;
 public:
 	Game();

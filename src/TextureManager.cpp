@@ -1,16 +1,28 @@
 #include "TextureManager.h"
 
 TextureManager::TextureManager() {
-	//Load from a text file
+	//Load from a text file.
+
+	// Load the Terrain.
+	loadTerrain("./assets/scenes/Default.png");
 
 	//Populate the texture vector.
-	//LoadTexture("BlackBlock", "./assets/textures/BlackBlock.png");
+	//loadTexture("BlackBlock", "./assets/textures/BlackBlock.png");
 }
 
 TextureManager& TextureManager::instance() {
 	static TextureManager instance;
 
 	return instance;
+}
+
+void TextureManager::createTexture(const std::string &p_Name, sf::Image p_Image) {
+	sf::Texture newTexture;
+	newTexture.loadFromFile("./assets/scenes/Temp.png");
+	newTexture.setSmooth(true);
+	newTexture.setRepeated(true);
+	newTexture.update(p_Image);
+	m_Textures.insert(std::pair<std::string, sf::Texture>(p_Name, newTexture));
 }
 
 const sf::Texture* TextureManager::getTexture(const std::string &p_Name) const {
@@ -26,6 +38,22 @@ void TextureManager::loadTexture(const std::string &p_Name, const std::string &p
 	}
 }
 
-const sf::Vector2u* TextureManager::getTextureSize(const std::string &p_Name) const {
-	return (&(m_Textures.at(p_Name)).getSize());
+void TextureManager::updateTexture(const std::string &p_Name, sf::Image p_Image) {
+	m_Textures.at(p_Name).update(p_Image);
+}
+
+sf::Vector2u TextureManager::getTextureSize(const std::string &p_Name) const {
+	return ((m_Textures.at(p_Name)).getSize());
+}
+
+// Have this in the Terrain? Rename it?
+void TextureManager::loadTerrain(const std::string &p_FileLocation) {
+	if (m_Terrain.loadFromFile(p_FileLocation))
+		return;
+	else
+		m_Terrain.loadFromFile("./assets/scenes/Default");
+}
+
+sf::Image &TextureManager::getTerrain() {
+	return m_Terrain;
 }
