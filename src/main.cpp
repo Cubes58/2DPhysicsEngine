@@ -1,8 +1,8 @@
 #include "Game.h"
 
 int main() {
-	const int kiWidth = 480;
-	const int kiHeight = 480;
+	const int kiWidth = 800;
+	const int kiHeight = 600;
 
 	sf::RenderWindow window(sf::VideoMode(kiWidth, kiHeight), "Blaster", sf::Style::Default);
 	Game game;
@@ -12,7 +12,7 @@ int main() {
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
 	while (game.isRunning()) {
-		window.clear(sf::Color::Black);
+		window.clear(sf::Color::White);
 		sf::Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
 
