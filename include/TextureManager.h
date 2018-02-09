@@ -8,7 +8,6 @@
 class TextureManager {
 private:
 	std::map<std::string, sf::Texture> m_Textures;
-
 	sf::Image m_Terrain;
 
 	TextureManager();

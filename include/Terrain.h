@@ -5,7 +5,6 @@
 #include <SFML\Graphics.hpp>
 //#include <SFML\Graphics\Image.hpp>
 
-#include "Vector2D.h"
 #include "TextureManager.h"
 #include "DynamicPixel.h"
 

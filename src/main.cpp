@@ -12,7 +12,7 @@ int main() {
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
 	while (game.isRunning()) {
-		window.clear(sf::Color::White);
+		window.clear(sf::Color::Black);
 		sf::Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
 

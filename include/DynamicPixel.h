@@ -1,19 +1,21 @@
 #pragma once
 
-#include "Vector2D.h"
+#include <SFML\Graphics.hpp>
 
 class DynamicPixel {
 private:
-	Vector2D<unsigned int> m_Position;
-	Vector2D<float> m_Velocity;
-	Vector2D<float> m_Acceleration;
-	Vector2D<float> m_PreviousPosition;
+	sf::Vector2u m_Position;
+	sf::Vector2f m_Velocity;
+	sf::Vector2f m_Acceleration;
+	sf::Vector2f m_PreviousPosition;
 
 	float m_Colour;
 	float m_Friction;
 	float m_Restitution;
 public:
-	DynamicPixel(Vector2D<unsigned int> p_Position);
-	DynamicPixel(Vector2D<unsigned int> p_Position, Vector2D<float> p_Velocity);
-	DynamicPixel(Vector2D<unsigned int> p_Position, Vector2D<float> p_Velocity, Vector2D<float> p_Acceleration);
+	DynamicPixel(sf::Vector2u p_Position);
+	DynamicPixel(sf::Vector2u p_Position, sf::Vector2f p_Velocity);
+	DynamicPixel(sf::Vector2u p_Position, sf::Vector2f p_Velocity, sf::Vector2f p_Acceleration);
+
+	//Draw pixel sized squares, which zoom around based on their velocity, and acceleration.
 };
