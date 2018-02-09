@@ -18,7 +18,7 @@ TextureManager& TextureManager::instance() {
 
 void TextureManager::createTexture(const std::string &p_Name, sf::Image p_Image) {
 	sf::Texture newTexture;
-	newTexture.loadFromFile("./assets/scenes/Temp.png");
+	newTexture.loadFromFile("./assets/scenes/Temp.png");	//Must have an image there, to update.
 	newTexture.setSmooth(true);
 	newTexture.setRepeated(true);
 	newTexture.update(p_Image);

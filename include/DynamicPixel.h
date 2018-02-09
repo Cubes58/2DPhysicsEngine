@@ -14,4 +14,5 @@ private:
 	float m_Restitution;
 public:
 	DynamicPixel();
+
 };
