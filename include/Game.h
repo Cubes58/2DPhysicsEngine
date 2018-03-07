@@ -3,10 +3,17 @@
 #include <SFML\Graphics.hpp>
 
 #include "Terrain.h"
+#include "Soldier.h"
+#include "Rocket.h"
+
+#include "Manifold.h"
 
 class Game : public sf::Drawable {
 private:
 	Terrain m_Terrain;
+	DynamicPixel m_DynamicPixelTest;
+
+	Soldier m_Soldier;
 
 	bool m_bIsRunning;
 public:
@@ -21,4 +28,7 @@ public:
 
 	bool isRunning();
 	void setRunningState(bool p_bRunningState);
+
+
+	bool Collision(Terrain t, Soldier s, std::vector<sf::Vector2f> &p_CollisionPoints);
 };
