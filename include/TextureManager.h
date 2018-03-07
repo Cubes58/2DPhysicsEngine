@@ -7,14 +7,14 @@
 
 class TextureManager {
 private:
-	std::map<const std::string&, sf::Texture> m_Textures;
+	std::map<std::string, sf::Texture> m_Textures;
 	sf::Image m_Terrain;
 
 	TextureManager();
 public:
 	static TextureManager &instance();
 
-	void createTexture(const std::string &p_Name, const sf::Image &p_Image);
+	bool createTexture(const std::string &p_Name, const sf::Image &p_Image);
 	const sf::Texture *getTexture(const std::string &p_Name);
 	bool loadTexture(const std::string &p_Name, const std::string &p_PathToTextureFile);
 	void updateTexture(const std::string &p_Name, sf::Image p_Image);

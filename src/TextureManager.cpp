@@ -16,17 +16,22 @@ TextureManager &TextureManager::instance() {
 	return instance;
 }
 
-void TextureManager::createTexture(const std::string &p_Name, const sf::Image &p_Image) {
-	sf::Texture newTexture;
-	newTexture.loadFromFile("./assets/scenes/Default.bmp");	//Must have an image there, to update.
-	newTexture.setSmooth(true);
-	newTexture.setRepeated(true);
-	newTexture.update(p_Image);
-	m_Textures.insert(std::pair<std::string, sf::Texture>(p_Name, newTexture));
+bool TextureManager::createTexture(const std::string &p_Name, const sf::Image &p_Image) {
+	if (p_Image.getSize().x != 0 && p_Image.getSize().y != 0) {
+		sf::Texture newTexture;
+		newTexture.loadFromFile("./assets/scenes/Default.bmp");	//Must have an image there, to update.
+		newTexture.setSmooth(true);
+		newTexture.setRepeated(true);
+		newTexture.update(p_Image);
+		m_Textures.insert(std::pair<std::string, sf::Texture>(p_Name, newTexture));
+
+		return true;
+	}
+	return false;
 }
 
 const sf::Texture *TextureManager::getTexture(const std::string &p_Name) {
-	std::map<const std::string&, sf::Texture>::iterator iter = m_Textures.find(p_Name);
+	std::map<std::string, sf::Texture>::iterator iter = m_Textures.find(p_Name);
 	
 	if (iter != m_Textures.end())
 		return &iter->second;
