@@ -36,9 +36,8 @@ int main() {
 
 		while (timeSinceLastUpdate >= timePerFrame) {
 			timeSinceLastUpdate -= timePerFrame;
-			game.update(timePerFrame);
+			game.update(timePerFrame.asSeconds());
 		}
-		//window.clear(sf::Color::Black);
 		window.draw(game);		
 		window.display();
 	}

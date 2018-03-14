@@ -1,6 +1,7 @@
 #include "Game.h"
 
-Game::Game() : m_bIsRunning(true), m_DynamicPixelTest(sf::Vector2f(400, 300), sf::Vector2f(1, 1)) {
+Game::Game() : m_bIsRunning(true), 
+	m_DynamicPixelTest(sf::Vector2f(400, 300)), m_Soldier(sf::Vector2f(400, 300), sf::Vector2f(100, 100), sf::Vector2f(1, 1), sf::Vector2f(0, 1)) {
 
 }
 
@@ -9,7 +10,7 @@ Game::~Game() {
 }
 
 void Game::processKeyPress(sf::Keyboard::Key p_Key) {
-	//Process user input.
+	// Process user input. TEST!
 	for (float i = 0; i < 600; i++) {
 		for (float j = 0; j < 100; j++) {
 			m_Terrain.removePixel(sf::Vector2f(i, j));
@@ -21,23 +22,25 @@ void Game::processKeyRelease(sf::Keyboard::Key p_Key) {
 
 }
 
-void Game::update(sf::Time p_DeltaTime) {
-	//Update game logic.
+void Game::update(float p_DeltaTime) {
+	// Update game logic.
 	m_Terrain.update(p_DeltaTime);
 
 	m_DynamicPixelTest.update(p_DeltaTime);
+	m_Soldier.update(p_DeltaTime);
 
 	/* DETECT COLLISION??? */
-	std::vector<sf::Vector2f> temp;
-	if (Collision(m_Terrain, m_Soldier, temp)) {
+	std::vector<sf::Vector2f> normals;
+	if (Collision(m_Terrain, m_Soldier, normals)) {
 		//COLLISION DETECTED.
-		Manifold manifold(&m_Terrain, &m_Soldier);
+		Manifold manifold(&m_Terrain, &m_Soldier, normals);
 	}
 }
 
 void Game::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
 	p_Target.draw(m_Terrain);
 
+	p_Target.draw(m_Soldier);
 	p_Target.draw(m_DynamicPixelTest);
 }
 
@@ -59,7 +62,7 @@ bool Game::Collision(Terrain t, Soldier s, std::vector<sf::Vector2f> &p_Collisio
 		for (int j = startPoint.y; j <= endPoint.y; j++) {
 			if (t.getPixel(sf::Vector2f(i, j)) != sf::Color::Transparent) {
 				p_CollisionPoints.push_back(sf::Vector2f(i, j));
-				//Check to see if the soldier's pixel[s] are transparent.
+				// Check to see if the soldier's pixel[s] are transparent.
 				bCollision = true;
 			}
 		}

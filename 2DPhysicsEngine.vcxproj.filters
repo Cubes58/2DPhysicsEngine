@@ -68,5 +68,11 @@
     <ClInclude Include="include\Rocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DynamicObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
