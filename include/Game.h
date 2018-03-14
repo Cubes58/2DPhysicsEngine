@@ -31,4 +31,6 @@ public:
 
 	// Change to two GameObjects - Double Dispatch issue.
 	bool Collision(Terrain t, Soldier s, std::vector<sf::Vector2f> &p_CollisionPoints);
+	bool Collision(Terrain t, DynamicPixel d, std::vector<sf::Vector2f> &p_CollisionPoints);
+	bool falling = true;
 };

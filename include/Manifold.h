@@ -22,4 +22,4 @@ public:
 	Manifold(Soldier *p_Soldier, Rocket *p_Rocket, std::vector<sf::Vector2f> p_CollisionNormals);
 };
 
-//DD
+// Double Dispatch.
