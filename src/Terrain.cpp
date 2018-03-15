@@ -1,7 +1,7 @@
 #include "Terrain.h"
 
 Terrain::Terrain() {
-	loadTerrain("./assets/scenes/Temp.png");
+	loadTerrain("./assets/scenes/MapOne.png");	// Has to be an 8 bit image.
 	TextureManager::instance().loadTexture("Terrain", m_StaticTerrain);
 
 	/*

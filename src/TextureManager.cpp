@@ -16,7 +16,7 @@ TextureManager &TextureManager::instance() {
 bool TextureManager::loadTexture(const std::string &p_Name, const sf::Image &p_Image) {
 	if (p_Image.getSize().x != 0 && p_Image.getSize().y != 0) {
 		sf::Texture newTexture;
-		newTexture.loadFromFile("./assets/scenes/Default.bmp");	//Must have an image there, to update.
+		newTexture.loadFromFile("./assets/scenes/MapOne.png");	// Must have an image there, to update.
 		newTexture.setSmooth(true);
 		newTexture.setRepeated(true);
 		newTexture.update(p_Image);
