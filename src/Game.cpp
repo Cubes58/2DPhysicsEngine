@@ -23,7 +23,7 @@ void Game::update(float p_DeltaTime) {
 
 	//m_DynamicPixelTest.update(p_DeltaTime);
 
-	if (falling)
+	//if (falling)
 		m_Soldier.update(p_DeltaTime);
 	
 	/* DETECT COLLISION??? */

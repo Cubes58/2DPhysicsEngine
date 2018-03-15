@@ -1,18 +1,23 @@
 #include "Game.h"
 
 int main() {
-	const int kiWidth = 1920;
-	const int kiHeight = 1200;
+	const int kiWidth = 1280;
+	const int kiHeight = 720;
 
 	sf::RenderWindow window(sf::VideoMode(kiWidth, kiHeight), "Blaster", sf::Style::Default);
-	Game game;
+	Game game;	// Might pass it the game view, or have it in there?
 	const sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
+
+	sf::View gameView;
+	gameView.setCenter(sf::Vector2f(960, 600));
+	gameView.setSize(sf::Vector2f(1920, 1200));
+	window.setView(gameView);
 
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
 	while (game.isRunning()) {
-		window.clear(sf::Color::Magenta);
+		window.clear(sf::Color::Black);
 		sf::Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
 

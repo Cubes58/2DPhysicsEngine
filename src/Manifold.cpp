@@ -1,6 +1,7 @@
 #include "Manifold.h"
 
 Manifold::Manifold(Terrain *p_Terrain, Soldier *p_Soldier, std::vector<sf::Vector2f> p_CollisionNormals) {
+	/*
 	for (auto i : p_CollisionNormals) {
 		m_FinalCollisionNormal += i;
 	}
@@ -13,7 +14,8 @@ Manifold::Manifold(Terrain *p_Terrain, Soldier *p_Soldier, std::vector<sf::Vecto
 	velocity.x -= m_FinalCollisionNormal.x * projection.x;
 	velocity.y -= m_FinalCollisionNormal.y * projection.y;
 
-	//p_Soldier->setVelocity(velocity);
+	p_Soldier->setVelocity(velocity);
+	*/
 
 	p_Soldier->applyImpulse(sf::Vector2f(5.0f, -150.0f));
 }
