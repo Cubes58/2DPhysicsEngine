@@ -5,6 +5,7 @@
 #include "Terrain.h"
 #include "Soldier.h"
 #include "Rocket.h"
+#include "Collision.h"
 
 #include "Manifold.h"
 
@@ -12,8 +13,10 @@ class Game : public sf::Drawable {
 private:
 	Terrain m_Terrain;
 	DynamicPixel m_DynamicPixelTest;
+	Collision m_Collision;
 
 	Soldier m_Soldier;
+	Rocket m_Rocket;
 
 	bool m_bIsRunning;
 public:
@@ -28,9 +31,4 @@ public:
 
 	bool isRunning();
 	void setRunningState(bool p_bRunningState);
-
-	// Change to two GameObjects - Double Dispatch issue.
-	bool Collision(Terrain t, Soldier s, std::vector<sf::Vector2f> &p_CollisionPoints);
-	bool Collision(Terrain t, DynamicPixel d, std::vector<sf::Vector2f> &p_CollisionPoints);
-	bool falling = true;
 };

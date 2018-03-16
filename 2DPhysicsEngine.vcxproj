@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AudioManager.h" />
+    <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\DynamicObject.h" />
     <ClInclude Include="include\DynamicPixel.h" />
     <ClInclude Include="include\Game.h" />
