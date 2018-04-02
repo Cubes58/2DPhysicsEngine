@@ -22,7 +22,7 @@ public:
 
 	sf::Vector2f calculateCollisionNormal(const sf::Vector2f &p_Position) const;
 	
-	void update(float p_DeltaTime);			//Maybe add a bool that checks if the image/texture has been updated. 'Cause updating the image is expensive.
+	void update(float p_DeltaTime);			// Maybe add a bool that checks if the image/texture has been updated. 'Cause updating the image is expensive.
 	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
 
 	bool loadTerrain(const std::string &p_FileLocation);

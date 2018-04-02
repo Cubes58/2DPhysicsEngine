@@ -25,7 +25,6 @@ void Game::update(float p_DeltaTime) {
 
 	m_DynamicPixelTest.update(p_DeltaTime);
 
-	//if (falling)
 	m_Soldier.update(p_DeltaTime);
 	
 	// Explode.
@@ -47,7 +46,6 @@ void Game::update(float p_DeltaTime) {
 	if (m_Collision(m_Terrain, m_Soldier, normals)) {
 		//COLLISION DETECTED.
 		Manifold manifold(&m_Terrain, &m_Soldier, normals, p_DeltaTime);
-		//falling = false;
 	}
 
 }

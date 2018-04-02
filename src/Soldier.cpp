@@ -13,6 +13,12 @@ Soldier::~Soldier() {
 
 }
 
+void Soldier::update(MouseClickEvent p_State) {
+	std::cout << "Mouse button " << m_ButtonText[(int)p_State.getButton()] << std::endl;
+	std::cout << "X Position: " << p_State.getXPosition() << std::endl;
+	std::cout << "Y Position: " << p_State.getYPosition() << std::endl;
+}
+
 void Soldier::update(float p_DeltaTime) {
 	m_Velocity = m_Velocity + m_Acceleration * p_DeltaTime;
 	m_Position = m_Position + m_Velocity * p_DeltaTime;

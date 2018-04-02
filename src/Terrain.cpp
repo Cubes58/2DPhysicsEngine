@@ -13,7 +13,7 @@ Terrain::Terrain() {
 }
 
 sf::Color Terrain::getPixel(const sf::Vector2f &p_Position) {
-	return m_StaticTerrain.getPixel(p_Position.x, p_Position.y);
+	return m_StaticTerrain.getPixel(static_cast<unsigned int>(p_Position.x), static_cast<unsigned int>(p_Position.y));
 }
 
 void Terrain::removePixel(const sf::Vector2f &p_Position) {

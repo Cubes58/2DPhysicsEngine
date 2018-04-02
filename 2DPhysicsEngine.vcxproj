@@ -150,12 +150,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\Rocket.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\DynamicPixel.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Manifold.cpp" />
+    <ClCompile Include="src\MouseClickEvent.cpp" />
+    <ClCompile Include="src\MouseClickSubscriber.cpp" />
+    <ClCompile Include="src\Rocket.cpp" />
     <ClCompile Include="src\Soldier.cpp" />
     <ClCompile Include="src\Terrain.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
@@ -168,6 +170,9 @@
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Manifold.h" />
+    <ClInclude Include="include\MouseClickEvent.h" />
+    <ClInclude Include="include\MouseClickObserver.h" />
+    <ClInclude Include="include\MouseClickSubscriber.h" />
     <ClInclude Include="include\Rocket.h" />
     <ClInclude Include="include\Soldier.h" />
     <ClInclude Include="include\Terrain.h" />
