@@ -29,10 +29,12 @@ int main() {
 				game.setRunningState(false);
 				break;
 			case sf::Event::KeyPressed:
-				game.processKeyPress(event.key.code);
+			case sf::Event::MouseButtonPressed:
+				game.processKeyPress(event);
 				break;
 			case sf::Event::KeyReleased:
-				game.processKeyRelease(event.key.code);
+			case sf::Event::MouseButtonReleased:
+				game.processKeyRelease(event);
 				break;
 			default:
 				continue;
