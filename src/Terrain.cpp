@@ -10,6 +10,7 @@ Terrain::Terrain() {
 	normal.x = normal.x * 50;
 	normal.y = normal.y * 50;
 	*/
+	DestroyTerrain();
 }
 
 sf::Color Terrain::getPixel(const sf::Vector2f &p_Position) {
@@ -104,4 +105,38 @@ sf::Image &Terrain::getTerrain() {
 
 sf::Vector2f Terrain::getSize() {
 	return static_cast<sf::Vector2f>(m_StaticTerrain.getSize());
+}
+
+void Terrain::DestroyTerrain() {
+	sf::RenderTexture renderTexture; 
+	renderTexture.create(m_StaticTerrain.getSize().x, m_StaticTerrain.getSize().y);
+	renderTexture.clear(sf::Color::Transparent);
+
+	sf::Sprite terrainTexture;
+	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"));
+
+	sf::CircleShape circle;
+	float radius = 80.0f;
+	sf::Vector2f position = sf::Vector2f(400, 500);
+
+	circle.setOrigin(sf::Vector2f(radius, radius));
+	circle.setRadius(radius);
+	circle.setPosition(position);
+
+	circle.setFillColor(sf::Color::Magenta);		// Be careful not to use Magenta for other objects.
+
+	renderTexture.draw(terrainTexture);
+	renderTexture.draw(circle);
+
+	sf::Texture newTexture(renderTexture.getTexture());
+	m_StaticTerrain = newTexture.copyToImage();
+	m_StaticTerrain.flipVertically();	// Have to flip the pixels back 'cause the renderTexture flips them.
+
+	 
+	for (int i = circle.getPosition().x - circle.getRadius(); i < circle.getPosition().x + circle.getRadius(); i++) {
+		for (int j = circle.getPosition().y - circle.getRadius(); j < circle.getPosition().y + circle.getRadius(); j++) {
+			if (getPixel(sf::Vector2f(i, j)) == sf::Color::Magenta)
+				removePixel(sf::Vector2f(i, j));
+		}
+	}
 }

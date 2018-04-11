@@ -3,11 +3,13 @@
 #include <SFML\Graphics.hpp>
 
 #include "MouseClickSubscriber.h"
+#include "Collision.h"
+#include "Manifold.h"
+
 #include "Terrain.h"
 #include "Soldier.h"
 #include "Rocket.h"
-#include "Collision.h"
-#include "Manifold.h"
+
 
 class Game : public sf::Drawable {
 private:

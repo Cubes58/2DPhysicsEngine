@@ -32,4 +32,5 @@ public:
 	//sf::Vector2f normal;
 
 	sf::Vector2f getSize();
+	void DestroyTerrain();
 };

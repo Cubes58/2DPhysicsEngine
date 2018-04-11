@@ -5,6 +5,7 @@
 
 // TEMP TEST
 #include <iostream>
+#include <math.h>
 
 class Soldier : public DynamicObject, public MouseClickObserver {
 private:

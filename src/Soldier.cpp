@@ -17,6 +17,14 @@ void Soldier::update(MouseClickEvent p_State) {
 	std::cout << "Mouse button " << m_ButtonText[(int)p_State.getButton()] << std::endl;
 	std::cout << "X Position: " << p_State.getXPosition() << std::endl;
 	std::cout << "Y Position: " << p_State.getYPosition() << std::endl;
+
+	// Make player jump. 
+	sf::Vector2f soldierVec = m_Position;
+	sf::Vector2f mousePosVec = sf::Vector2f(p_State.getXPosition(), p_State.getYPosition());
+	sf::Vector2f distanceVec = mousePosVec - soldierVec;
+	float distanceVecMag = std::sqrt((int)distanceVec.x ^ 2 + (int)distanceVec.y ^ 2);
+	//applyImpulse(sf::Vector2f(distanceVec.x, -distanceVec.y));
+	m_Velocity = distanceVec;
 }
 
 void Soldier::update(float p_DeltaTime) {
