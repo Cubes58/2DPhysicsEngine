@@ -32,5 +32,6 @@ public:
 	//sf::Vector2f normal;
 
 	sf::Vector2f getSize();
-	void DestroyTerrain();
+	void DestroyTerrain(sf::CircleShape &p_CircleShape);
+	void DestroyTerrain(const sf::Vector2f &p_Position, float size = 120);
 };
