@@ -59,9 +59,9 @@ void Terrain::update(float p_DeltaTime) {
 	for (auto i = m_DynamicPixels.begin(); i != m_DynamicPixels.end(); ++i) {
 		i->update(p_DeltaTime);
 
-		//Change this to the position of the pixel - if it's say 100 pixels away from its original position.
+		// Change this to the position of the pixel - if it's say 100 pixels away from its original position.
 		if (i->getVelocity().x < 0 && i->getVelocity().y < 0) {
-			//Delete it
+			// Delete it
 			m_DynamicPixels.erase(i);
 		}
 	}

@@ -152,11 +152,13 @@
   <ItemGroup>
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\DynamicPixel.cpp" />
+    <ClCompile Include="src\DynamicPixelManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Manifold.cpp" />
     <ClCompile Include="src\MouseClickEvent.cpp" />
     <ClCompile Include="src\MouseClickSubscriber.cpp" />
+    <ClCompile Include="src\Randomiser.cpp" />
     <ClCompile Include="src\Rocket.cpp" />
     <ClCompile Include="src\Soldier.cpp" />
     <ClCompile Include="src\Terrain.cpp" />
@@ -167,12 +169,14 @@
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\DynamicObject.h" />
     <ClInclude Include="include\DynamicPixel.h" />
+    <ClInclude Include="include\DynamicPixelManager.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Manifold.h" />
     <ClInclude Include="include\MouseClickEvent.h" />
     <ClInclude Include="include\MouseClickObserver.h" />
     <ClInclude Include="include\MouseClickSubscriber.h" />
+    <ClInclude Include="include\randomiser.h" />
     <ClInclude Include="include\Rocket.h" />
     <ClInclude Include="include\Soldier.h" />
     <ClInclude Include="include\Terrain.h" />

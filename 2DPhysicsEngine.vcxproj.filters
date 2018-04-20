@@ -48,6 +48,12 @@
     <ClCompile Include="src\MouseClickSubscriber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\DynamicPixelManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Randomiser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h">
@@ -90,6 +96,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\MouseClickSubscriber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DynamicPixelManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\randomiser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,6 +5,7 @@ TextureManager::TextureManager() {
 
 	//Populate the texture vector.
 	//loadTexture("BlackBlock", "./assets/textures/BlackBlock.png");
+	loadTexture("Soldier", "./assets/textures/Soldier.png");
 }
 
 TextureManager &TextureManager::instance() {

@@ -1,9 +1,9 @@
 #include "Game.h"
 
 Game::Game() : m_bIsRunning(true), 
-	m_DynamicPixelTest(sf::Vector2f(400, 300)), 
-	m_Soldier(sf::Vector2f(400, 300), sf::Vector2f(100, 100), sf::Vector2f(1, 1), sf::Vector2f(0, 1)),
-	m_Rocket(sf::Vector2f(400, 300), sf::Vector2f(100, 100), sf::Vector2f(1, 1), sf::Vector2f(0, 1)) {
+	//m_DynamicPixelTest(sf::Vector2f(400, 300)), 
+	m_Soldier(sf::Vector2f(400, 300), sf::Vector2f(60, 100), sf::Vector2f(1, 1), sf::Vector2f(0, 1)),
+	m_Rocket(sf::Vector2f(400, 300), sf::Vector2f(30, 30), sf::Vector2f(1, 1), sf::Vector2f(0, 1)) {
 
 	// Add subscribers.
 	m_MouseSubscriber.attach(&m_Soldier);
@@ -52,7 +52,7 @@ void Game::update(float p_DeltaTime) {
 	// Update game logic.
 	m_Terrain.update(p_DeltaTime);
 
-	m_DynamicPixelTest.update(p_DeltaTime);
+	//m_DynamicPixelTest.update(p_DeltaTime);
 
 	m_Soldier.update(p_DeltaTime);
 
@@ -68,7 +68,7 @@ void Game::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
 	p_Target.draw(m_Terrain);
 
 	p_Target.draw(m_Soldier);
-	p_Target.draw(m_DynamicPixelTest);
+	//p_Target.draw(m_DynamicPixelTest);
 }
 
 bool Game::isRunning() {

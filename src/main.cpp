@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "randomiser.h"
 
 int main() {
 	const int kiWidth = 1280;
@@ -15,6 +16,11 @@ int main() {
 
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+
+	Randomiser *raner = Randomiser::getInstance();
+
+	float num = raner->getRand(3.3, 9.5);
+	int num2 = raner->getRand(1, 10);
 
 	while (game.isRunning()) {
 		window.clear(sf::Color::Black);

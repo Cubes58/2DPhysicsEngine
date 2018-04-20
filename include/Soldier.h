@@ -1,5 +1,6 @@
 #pragma once
 
+#include "TextureManager.h"
 #include "DynamicObject.h"
 #include "MouseClickObserver.h"
 
@@ -12,6 +13,7 @@ private:
 	sf::RectangleShape m_Shape;
 
 	sf::Color m_Colour;
+
 public:
 	Soldier(sf::Vector2f p_Position, sf::Vector2f p_Size, sf::Vector2f p_Velocity, sf::Vector2f p_Acceleration);
 	~Soldier();

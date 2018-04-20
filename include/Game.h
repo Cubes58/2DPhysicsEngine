@@ -16,11 +16,12 @@ private:
 	MouseClickSubscriber m_MouseSubscriber;
 
 	Terrain m_Terrain;
-	DynamicPixel m_DynamicPixelTest;
 	Collision m_Collision;
 
 	Soldier m_Soldier;
 	Rocket m_Rocket;
+	std::vector<Rocket> m_Rockets;
+	std::vector<DynamicPixel> m_DynamicPixels;
 
 	bool m_bIsRunning;
 public:
