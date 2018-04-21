@@ -1,41 +1,34 @@
 #include "Randomiser.h"
 
-Randomiser::Randomiser()
-{
-	instance = new Randomiser();
-	created = true;
+Randomiser::Randomiser() {
 	srand((int)time(NULL));
 }
 
-Randomiser * Randomiser::getInstance()
-{
-	if (created)
-	{
-		return instance;
-	}
-	else
-	{
-		return new Randomiser();
-	}
+Randomiser::~Randomiser() {
+
 }
 
-int Randomiser::getRand(int lower, int upper)
-{
-	double scalar = rand() / RAND_MAX;
-	double result = lower + (upper - lower) * scalar;
-	return (int) result;
+Randomiser &Randomiser::getInstance() {
+	static Randomiser instance;
+
+	return instance;	
 }
 
-float Randomiser::getRand(float lower, float upper)
-{
+int Randomiser::getRand(int p_Min, int p_Max) {
 	double scalar = rand() / RAND_MAX;
-	double result = lower + (upper - lower) * scalar;
+	double result = p_Min + (p_Max - p_Min) * scalar;
+	return (int)result;
+}
+
+float Randomiser::getRand(float p_Min, float p_Max) {
+	double scalar = rand() / RAND_MAX;
+	double result = p_Min + (p_Max - p_Min) * scalar;
 	return (float)result;
 }
 
-double Randomiser::getRand(double lower, double upper)
+double Randomiser::getRand(double p_Min, double p_Max)
 {
 	double scalar = rand() / RAND_MAX;
-	double result = lower + (upper - lower) * scalar;
+	double result = p_Min + (p_Max - p_Min) * scalar;
 	return result;
 }

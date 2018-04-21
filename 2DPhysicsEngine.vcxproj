@@ -176,7 +176,7 @@
     <ClInclude Include="include\MouseClickEvent.h" />
     <ClInclude Include="include\MouseClickObserver.h" />
     <ClInclude Include="include\MouseClickSubscriber.h" />
-    <ClInclude Include="include\randomiser.h" />
+    <ClInclude Include="include\Randomiser.h" />
     <ClInclude Include="include\Rocket.h" />
     <ClInclude Include="include\Soldier.h" />
     <ClInclude Include="include\Terrain.h" />

@@ -17,12 +17,13 @@ int main() {
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
-	Randomiser *raner = Randomiser::getInstance();
+	Randomiser &raner = Randomiser::getInstance();
 
-	float num = raner->getRand(3.3, 9.5);
-	int num2 = raner->getRand(1, 10);
+	float num = raner.getRand(3.3, 9.5);
+	int num2 = raner.getRand(4, 10);
+	int num3 = raner.getRand(1, 10);
 
-	while (game.isRunning()) {
+ 	while (game.isRunning()) {
 		window.clear(sf::Color::Black);
 		sf::Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;

@@ -101,7 +101,7 @@
     <ClInclude Include="include\DynamicPixelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\randomiser.h">
+    <ClInclude Include="include\Randomiser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
