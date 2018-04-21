@@ -39,19 +39,13 @@
     <ClCompile Include="src\Soldier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MouseClickEvent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Rocket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MouseClickSubscriber.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\DynamicPixelManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Randomiser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Bomb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,9 +71,6 @@
     <ClInclude Include="include\Soldier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Rocket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -89,19 +80,13 @@
     <ClInclude Include="include\Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\MouseClickEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\MouseClickObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\MouseClickSubscriber.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\DynamicPixelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Randomiser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Bomb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

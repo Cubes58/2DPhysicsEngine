@@ -2,33 +2,27 @@
 
 #include <SFML\Graphics.hpp>
 
-#include "MouseClickSubscriber.h"
 #include "Collision.h"
 #include "Manifold.h"
 
 #include "Terrain.h"
 #include "Soldier.h"
-#include "Rocket.h"
+#include "Bomb.h"
 
 
 class Game : public sf::Drawable {
 private:
-	MouseClickSubscriber m_MouseSubscriber;
-
-	Terrain m_Terrain;
 	Collision m_Collision;
+	Terrain m_Terrain;
 
 	Soldier m_Soldier;
-	Rocket m_Rocket;
-	std::vector<Rocket> m_Rockets;
-	std::vector<DynamicPixel> m_DynamicPixels;
 
 	bool m_bIsRunning;
 public:
 	Game();
 	~Game();
 
-	void processKeyPress(sf::Event p_Event);
+	void processKeyPress(const sf::Event &p_Event, const sf::Vector2f &p_MousePosition = sf::Vector2f(0, 0));
 	void processKeyRelease(sf::Event p_Event);
 
 	void update(float p_DeltaTime);

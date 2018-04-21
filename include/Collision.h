@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Soldier.h"
-#include "Rocket.h"
+#include "Bomb.h"
 #include "Terrain.h"
 
 class Collision {
@@ -13,8 +13,6 @@ public:
 
 		sf::Vector2f startPoint = sf::Vector2f(p_Soldier.getPosition().x - (p_Soldier.getSize().x / 2), p_Soldier.getPosition().y - (p_Soldier.getSize().y / 2));
 		sf::Vector2f endPoint = sf::Vector2f(p_Soldier.getPosition().x + (p_Soldier.getSize().x / 2), p_Soldier.getPosition().y + (p_Soldier.getSize().y / 2));
-
-		/* Have to check that i and j are larger than 0, and that they're smaller than the height/width. */
 
 		for (int i = startPoint.x; (i > 0 && i < p_Terrain.getSize().x) && i <= endPoint.x; i++) {
 			for (int j = startPoint.y; (j > 0 && j < p_Terrain.getSize().y) && j <= endPoint.y; j++) {
@@ -29,13 +27,11 @@ public:
 		return bCollision;
 	}
 
-	bool operator()(Terrain &p_Terrain, Rocket &p_Rocket, std::vector<sf::Vector2f> &p_CollisionPoints) {
+	bool operator()(Terrain &p_Terrain, Bomb &p_Rocket, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		bool bCollision(false);
 
 		sf::Vector2f startPoint = sf::Vector2f(p_Rocket.getPosition().x - (p_Rocket.getSize().x / 2), p_Rocket.getPosition().y - (p_Rocket.getSize().y / 2));
 		sf::Vector2f endPoint = sf::Vector2f(p_Rocket.getPosition().x + (p_Rocket.getSize().x / 2), p_Rocket.getPosition().y + (p_Rocket.getSize().y / 2));
-
-		/* Have to check that i and j are larger than 0, and that they're smaller than the height/width. */
 
 		for (int i = startPoint.x; (i > 0 && i < p_Terrain.getSize().x) && i <= endPoint.x; i++) {
 			for (int j = startPoint.y; (j > 0 && j < p_Terrain.getSize().y) && j <= endPoint.y; j++) {
@@ -72,7 +68,7 @@ public:
 		return bCollision;
 	}
 
-	bool operator()(Soldier &p_Soldier, Rocket &p_Rocket, std::vector<sf::Vector2f> &p_CollisionPoints) {
+	bool operator()(Soldier &p_Soldier, Bomb &p_Rocket, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		bool bCollision(false);
 
 		

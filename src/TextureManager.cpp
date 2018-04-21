@@ -1,10 +1,11 @@
 #include "TextureManager.h"
 
 TextureManager::TextureManager() {
-	//Load from a text file.
+	// Load from a text file.
 
-	//Populate the texture vector.
+	// Populate the texture vector.
 	//loadTexture("BlackBlock", "./assets/textures/BlackBlock.png");
+	loadTexture("Bomb", "./assets/textures/Bomb.png");
 	loadTexture("Soldier", "./assets/textures/Soldier.png");
 }
 

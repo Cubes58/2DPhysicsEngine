@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "randomiser.h"
+#include "Randomiser.h"
 
 int main() {
 	const int kiWidth = 1280;
@@ -9,19 +9,8 @@ int main() {
 	Game game;	// Might pass it the game view, or have it in there?
 	const sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 
-	sf::View gameView;
-	gameView.setCenter(sf::Vector2f(960, 600));
-	gameView.setSize(sf::Vector2f(1920, 1200));
-	window.setView(gameView);
-
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-
-	Randomiser &raner = Randomiser::getInstance();
-
-	float num = raner.getRand(3.3, 9.5);
-	int num2 = raner.getRand(4, 10);
-	int num3 = raner.getRand(1, 10);
 
  	while (game.isRunning()) {
 		window.clear(sf::Color::Black);
