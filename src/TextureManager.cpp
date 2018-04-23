@@ -9,6 +9,10 @@ TextureManager::TextureManager() {
 	loadTexture("Soldier", "./assets/textures/Soldier.png");
 }
 
+TextureManager::~TextureManager() {
+
+}
+
 TextureManager &TextureManager::instance() {
 	static TextureManager instance;
 
@@ -56,3 +60,37 @@ void TextureManager::updateTexture(const std::string &p_Name, sf::Image p_Image)
 sf::Vector2u TextureManager::getTextureSize(const std::string &p_Name) const {
 	return ((m_Textures.at(p_Name)).getSize());
 }
+
+
+
+/*
+std::vector<std::string> FileHelper::getDirectoryNameList(std::string p_FilePath)
+{
+//Reference: http://www.martinbroadhurst.com/list-the-files-in-a-directory-in-c.html
+std::vector<std::string> names;
+
+p_FilePath.append("\\*");
+
+WIN32_FIND_DATA fileData;
+HANDLE hFind;
+hFind = FindFirstFile(p_FilePath.c_str(), &fileData);
+if (hFind != INVALID_HANDLE_VALUE) {
+std::cout << "Directory found" << std::endl;
+std::cout << "Files in directory:" << std::endl;
+do {
+names.push_back(p_FilePath + "\\" + fileData.cFileName);
+std::cout << p_FilePath + "\\" + fileData.cFileName << std::endl;
+} while (FindNextFile(hFind, &fileData) != 0);
+}
+else {
+std::cout << "No directory found" << std::endl;
+}
+FindClose(hFind);
+return names;
+}
+
+
+Sometimes . and ... are considered files.
+
+cast to c++ string
+*/

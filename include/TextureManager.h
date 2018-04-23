@@ -10,6 +10,7 @@ private:
 	std::map<std::string, sf::Texture> m_Textures;
 
 	TextureManager();
+	~TextureManager();
 public:
 	static TextureManager &instance();
 

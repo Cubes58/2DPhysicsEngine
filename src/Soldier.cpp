@@ -67,7 +67,6 @@ void Soldier::shoot(const sf::Vector2f &p_MousePosition) {
 	}
 
 	sf::Vector2f bombSize = sf::Vector2f(25, 25);
-
 	m_Bomb = std::make_shared<Bomb>(m_Position, bombSize, bombVelocity);
 }
 
@@ -95,24 +94,20 @@ void Soldier::update(float p_DeltaTime) {
 	m_Acceleration.x = 0.0f;
 	m_Acceleration.y = 98.1f;
 
-	// Update the soldier's bomb (if there's one).
-	if (m_Bomb != nullptr) {
-		m_Bomb->update(p_DeltaTime);
-
-		if(m_Bomb->getHitSomething()) {
-			m_Bomb = nullptr;
-		}
+	if(m_Bomb != nullptr && m_Bomb->getHitSomething()) {
+		m_Bomb = nullptr;
 	}
 }
 
 void Soldier::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
 	p_Target.draw(m_Shape);
-
-	if (m_Bomb != nullptr) {
-		p_Target.draw(*m_Bomb);
-	}
 }
 
 std::shared_ptr<Bomb> Soldier::getBomb() {
 	return m_Bomb;
+}
+
+sf::Color Soldier::getPixel(const sf::Vector2f &p_Position) {
+	sf::Image image;
+	return image.getPixel((unsigned int)p_Position.x, (unsigned int)p_Position.y);
 }

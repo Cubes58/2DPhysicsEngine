@@ -24,4 +24,5 @@ public:
 	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
 
 	std::shared_ptr<Bomb> getBomb();
+	sf::Color getPixel(const sf::Vector2f &p_Position);
 };

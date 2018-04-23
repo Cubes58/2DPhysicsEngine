@@ -156,6 +156,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Manifold.cpp" />
+    <ClCompile Include="src\PixelPerfectObject.cpp" />
     <ClCompile Include="src\Randomiser.cpp" />
     <ClCompile Include="src\Bomb.cpp" />
     <ClCompile Include="src\Soldier.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Manifold.h" />
+    <ClInclude Include="include\PixelPerfectObject.h" />
     <ClInclude Include="include\Randomiser.h" />
     <ClInclude Include="include\Bomb.h" />
     <ClInclude Include="include\Soldier.h" />
