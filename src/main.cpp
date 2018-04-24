@@ -6,7 +6,7 @@ int main() {
 	const int kiHeight = 720;
 
 	sf::RenderWindow window(sf::VideoMode(kiWidth, kiHeight), "Blaster", sf::Style::Default);
-	Game game;	// Might pass it the game view, or have it in there?
+	Game game;
 	const sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 
 	sf::Clock clock;

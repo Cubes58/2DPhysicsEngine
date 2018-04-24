@@ -40,8 +40,6 @@ void Soldier::jump(const sf::Vector2f &p_MousePosition) {
 
 void Soldier::shoot(const sf::Vector2f &p_MousePosition) {
 	// Create a bomb.
-	// Keep updating it, in the update method.
-	// Calculate the bomb's velocity.
 	float yDifference = m_Position.y - p_MousePosition.y;
 
 	sf::Vector2f initialVelocity;	/* Sqrt-u = 2 * A * -y */

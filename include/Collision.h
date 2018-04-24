@@ -6,7 +6,12 @@
 
 class Collision {
 private:
+	bool inBounds(const sf::Vector2f &p_Position, const sf::Vector2f &p_TerrainSize) {
+		if ((p_Position.x < 0 || p_Position.x >= p_TerrainSize.x || p_TerrainSize.x) && (p_Position.y < 0 || p_Position.y >= p_TerrainSize.y || p_TerrainSize.y))
+			return true;
 
+		return true;
+	}
 public:
 	bool operator()(Terrain &p_Terrain, Soldier &p_Soldier, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		bool bCollision(false);
@@ -19,7 +24,7 @@ public:
 
 		for (int i = startPoint.x; (i > 0 && i < p_Terrain.getSize().x) && i <= endPoint.x; i++) {
 			for (int j = startPoint.y; (j > 0 && j < p_Terrain.getSize().y) && j <= endPoint.y; j++) {
-				if (p_Terrain.getPixel(sf::Vector2f(i, j)) != sf::Color::Transparent) {
+				if (inBounds(sf::Vector2f(i, j), p_Terrain.getSize()) && p_Terrain.getPixel(sf::Vector2f(i, j)) != sf::Color::Transparent) {
 					p_CollisionPoints.push_back(sf::Vector2f(i, j));
 
 					bCollision = true;
@@ -41,7 +46,7 @@ public:
 
 		for (int i = startPoint.x; (i > 0 && i < p_Terrain.getSize().x) && i <= endPoint.x; i++) {
 			for (int j = startPoint.y; (j > 0 && j < p_Terrain.getSize().y) && j <= endPoint.y; j++) {
-				if (p_Terrain.getPixel(sf::Vector2f(i, j)) != sf::Color::Transparent) {
+				if (inBounds(sf::Vector2f(i, j), p_Terrain.getSize()) && p_Terrain.getPixel(sf::Vector2f(i, j)) != sf::Color::Transparent) {
 					p_CollisionPoints.push_back(sf::Vector2f(i, j));
 
 					bCollision = true;
@@ -63,7 +68,7 @@ public:
 
 		for (int i = startPoint.x; (i > 0 && i < p_SoldierTwo.getSize().x) && i <= endPoint.x; i++) {
 			for (int j = startPoint.y; (j > 0 && j < p_SoldierTwo.getSize().y) && j <= endPoint.y; j++) {
-				if (p_SoldierTwo.getPixel(sf::Vector2f(i, j)) != sf::Color::Transparent) {
+				if (inBounds(sf::Vector2f(i, j), p_SoldierTwo.getSize()) && p_SoldierTwo.getPixel(sf::Vector2f(i, j)) != sf::Color::Transparent) {
 					p_CollisionPoints.push_back(sf::Vector2f(i, j));
 
 					bCollision = true;
@@ -77,15 +82,16 @@ public:
 	bool operator()(Soldier &p_Soldier, Bomb &p_Bomb, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		bool bCollision(false);
 
+		
 		sf::Vector2f startPoint = sf::Vector2f(p_Soldier.getPosition().x - (p_Soldier.getSize().x / 2), p_Soldier.getPosition().y - (p_Soldier.getSize().y / 2));
 		sf::Vector2f endPoint = sf::Vector2f(p_Soldier.getPosition().x + (p_Soldier.getSize().x / 2), p_Soldier.getPosition().y + (p_Soldier.getSize().y / 2));
 
 		/* Have to check that i and j are larger than 0, and that they're smaller than the height/width. */
 		/* Have to check whether the other objects pixel is also transparent. - && p_Soldier.getPixel(sf::Vector2f(i, j) != sf::Color::Transparent)*/
-
+		
 		for (int i = startPoint.x; (i > 0 && i < p_Bomb.getSize().x) && i <= endPoint.x; i++) {
 			for (int j = startPoint.y; (j > 0 && j < p_Bomb.getSize().y) && j <= endPoint.y; j++) {
-				if (p_Bomb.getPixel(sf::Vector2f(i, j)) != sf::Color::Transparent) {
+				if (inBounds(sf::Vector2f(i, j), p_Soldier.getSize()) && p_Bomb.getPixel(sf::Vector2f(i, j)) != sf::Color::Transparent) {
 					p_CollisionPoints.push_back(sf::Vector2f(i, j));
 
 					bCollision = true;

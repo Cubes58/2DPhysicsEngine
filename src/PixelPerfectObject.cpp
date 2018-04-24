@@ -54,7 +54,3 @@ void PixelPerfectObject::setPixel(sf::Vector2f p_Position, const sf::Color &p_Co
 	dealWithinBounds(p_Position);
 	m_Image.setPixel(p_Position.x, p_Position.y, p_Colour);
 }
-
-sf::Vector2f PixelPerfectObject::getSize() {
-	return static_cast<sf::Vector2f>(m_Image.getSize());
-}

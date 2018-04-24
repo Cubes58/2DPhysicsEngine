@@ -3,8 +3,6 @@
 Terrain::Terrain() {
 	loadTerrain("./assets/scenes/MapOne.png");	// Has to be an 8 bit image.
 	TextureManager::instance().loadTexture("Terrain", m_StaticTerrain);
-
-	DestroyTerrain(sf::Vector2f(400, 600));
 }
 
 Terrain::~Terrain() {
@@ -121,8 +119,7 @@ void Terrain::DestroyTerrain(const sf::Vector2f &p_Position, float size) {
 	renderTexture.clear(sf::Color::Transparent);
 
 	sf::Sprite terrainTexture;
-	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"));
-
+	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"))
 	
 	sf::CircleShape circle;
 	circle.setOrigin(sf::Vector2f(size / 2, size / 2));

@@ -1,9 +1,10 @@
 #pragma once
 
 #include "DynamicObject.h"
+#include "PixelPerfectObject.h"
 #include "TextureManager.h"
 
-class Bomb : public DynamicObject {
+class Bomb : public DynamicObject, public PixelPerfectObject {
 private:
 	sf::RectangleShape m_Shape;
 
