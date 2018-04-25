@@ -1,6 +1,7 @@
 #include "Game.h"
 
 Game::Game() : m_bIsRunning(true), 
+	m_Terrain(sf::Vector2f(640, 360), sf::Vector2f(1280, 720)),
 	m_Soldier(sf::Vector2f(400, 300), sf::Vector2f(30, 50), sf::Vector2f(1, 1), sf::Vector2f(0, 1)) {
 
 	m_Bombs.reserve(3);
@@ -55,7 +56,7 @@ void Game::update(float p_DeltaTime) {
 		normals.clear();
 		if (m_Collision(m_Terrain, (**iter), normals)) {
 			Manifold manifold(&m_Terrain, (&**iter), normals, p_DeltaTime);
-			m_Terrain.DestroyTerrain((*iter)->getPosition());
+			m_Terrain.destroyTerrain((*iter)->getPosition());
 			(*iter)->setHitSomething(true);
 			(*iter).reset();
 

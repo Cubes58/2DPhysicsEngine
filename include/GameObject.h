@@ -7,7 +7,8 @@ protected:
 	sf::Vector2f m_Position;
 	sf::Vector2f m_Size;
 
-	GameObject(sf::Vector2f p_Position, sf::Vector2f p_Size) : m_Position(p_Position), m_Size(p_Size) {
+	GameObject() = default;
+	GameObject(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size) : m_Position(p_Position), m_Size(p_Size) {
 
 	}
 public:

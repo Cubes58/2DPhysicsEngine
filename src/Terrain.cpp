@@ -1,24 +1,14 @@
 #include "Terrain.h"
 
-Terrain::Terrain() {
-	loadTerrain("./assets/scenes/MapOne.png");	// Has to be an 8 bit image.
-	TextureManager::instance().loadTexture("Terrain", m_StaticTerrain);
+Terrain::Terrain(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size) 
+	: GameObject(p_Position, p_Size), PixelPerfectObject("./assets/scenes/MapOne.png") {
+
+	//loadTerrain("./assets/scenes/MapOne.png");	// Has to be an 8 bit image.
+	TextureManager::instance().loadTexture("Terrain", m_Image);
 }
 
 Terrain::~Terrain() {
 
-}
-
-sf::Color Terrain::getPixel(const sf::Vector2f &p_Position) {
-	return m_StaticTerrain.getPixel(static_cast<unsigned int>(p_Position.x), static_cast<unsigned int>(p_Position.y));
-}
-
-void Terrain::removePixel(const sf::Vector2f &p_Position) {
-	m_StaticTerrain.setPixel(p_Position.x, p_Position.y, sf::Color::Transparent);
-}
-
-void Terrain::addPixel(const sf::Vector2f &p_Position, const sf::Color &p_Colour) {
-	m_StaticTerrain.setPixel(p_Position.x, p_Position.y, p_Colour);
 }
 
 void Terrain::setDynamicPixel(const sf::Vector2f &p_Position, const sf::Color &p_Colour) {
@@ -39,7 +29,7 @@ sf::Vector2f Terrain::calculateCollisionNormal(const sf::Vector2f &p_Position) c
 	int counter(0);
 	for (int i = -s_kiSearchBoxSize; i <= s_kiSearchBoxSize; i++) {
 		for (int j = -s_kiSearchBoxSize; j <= s_kiSearchBoxSize; j++) {
-			if (m_StaticTerrain.getPixel(p_Position.x + i, p_Position.y + j) != sf::Color::Transparent) {
+			if (m_Image.getPixel(p_Position.x + i, p_Position.y + j) != sf::Color::Transparent) {
 				average.x -= i;
 				average.y -= j;
 				counter++;
@@ -53,7 +43,7 @@ sf::Vector2f Terrain::calculateCollisionNormal(const sf::Vector2f &p_Position) c
 }
 
 void Terrain::update(float p_DeltaTime) {
-	TextureManager::instance().updateTexture("Terrain", m_StaticTerrain);
+	TextureManager::instance().updateTexture("Terrain", m_Image);
 
 	m_DynamicPixelManager.update(p_DeltaTime);
 }
@@ -61,33 +51,19 @@ void Terrain::update(float p_DeltaTime) {
 void Terrain::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
 	static sf::Sprite sprite;
 	sprite.setTexture(*TextureManager::instance().getTexture("Terrain"));
+	sprite.setOrigin(sf::Vector2f(640, 360));
+	sprite.setPosition(sf::Vector2f(640, 360));
 	
 	p_Target.draw(sprite);
 	p_Target.draw(m_DynamicPixelManager);
 }
 
-bool Terrain::loadTerrain(const std::string &p_FileLocation) {
-	if (m_StaticTerrain.loadFromFile(p_FileLocation))
-		return true;
-
-	m_StaticTerrain.loadFromFile("./assets/scenes/Default");
-	return false;
-}
-
-sf::Image &Terrain::getTerrain() {
-	return m_StaticTerrain;
-}
-
-sf::Vector2f Terrain::getSize() {
-	return static_cast<sf::Vector2f>(m_StaticTerrain.getSize());
-}
-
-void Terrain::DestroyTerrain(sf::CircleShape &p_CircleShape) {
+void Terrain::destroyTerrain(sf::CircleShape &p_CircleShape) {
 	// Spawn some dynamic pixels, before the pixel[s] are removed, so we know the colour.
 	setDynamicPixelCluster(p_CircleShape.getPosition(), getPixel(p_CircleShape.getPosition()));
 
 	sf::RenderTexture renderTexture; 
-	renderTexture.create(m_StaticTerrain.getSize().x, m_StaticTerrain.getSize().y);
+	renderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
 	renderTexture.clear(sf::Color::Transparent);
 
 	sf::Sprite terrainTexture;
@@ -98,24 +74,26 @@ void Terrain::DestroyTerrain(sf::CircleShape &p_CircleShape) {
 	renderTexture.draw(p_CircleShape);
 
 	sf::Texture newTexture(renderTexture.getTexture());
-	m_StaticTerrain = newTexture.copyToImage();
-	m_StaticTerrain.flipVertically();	// Have to flip the pixels back 'cause the renderTexture flips them.
+	m_Image = newTexture.copyToImage();
+	m_Image.flipVertically();	// Have to flip the pixels back 'cause the renderTexture flips them.
 	
 	for (int i = p_CircleShape.getPosition().x - p_CircleShape.getRadius(); i < p_CircleShape.getPosition().x + p_CircleShape.getRadius(); i++) {
 		for (int j = p_CircleShape.getPosition().y - p_CircleShape.getRadius(); j < p_CircleShape.getPosition().y + p_CircleShape.getRadius(); j++) {
-			if (getPixel(sf::Vector2f(i, j)) == sf::Color::Magenta)
-				removePixel(sf::Vector2f(i, j));
+			if ((i >= 0 && i < m_Image.getSize().x) && (j >= 0 && j < m_Image.getSize().y)) {
+				if (getPixel(sf::Vector2f(i, j)) == sf::Color::Magenta)
+					removePixel(sf::Vector2f(i, j));
+			}
 		}
 	}
 }
 
-void Terrain::DestroyTerrain(const sf::Vector2f &p_Position, float size) {
+void Terrain::destroyTerrain(const sf::Vector2f &p_Position, float size) {
 	// Spawn some dynamic pixels, before the pixel[s] are removed, so we know the colour.
 	//setDynamicPixelCluster(p_Position, getPixel(p_Position));
 	setDynamicPixelCluster(p_Position, sf::Color::Green);
 
 	sf::RenderTexture renderTexture;
-	renderTexture.create(m_StaticTerrain.getSize().x, m_StaticTerrain.getSize().y);
+	renderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
 	renderTexture.clear(sf::Color::Transparent);
 
 	sf::Sprite terrainTexture;
@@ -131,12 +109,12 @@ void Terrain::DestroyTerrain(const sf::Vector2f &p_Position, float size) {
 	renderTexture.draw(circle);
 
 	sf::Texture newTexture(renderTexture.getTexture());
-	m_StaticTerrain = newTexture.copyToImage();
-	m_StaticTerrain.flipVertically();	// Have to flip the pixels back because the renderTexture flips them.
+	m_Image = newTexture.copyToImage();
+	m_Image.flipVertically();	// Have to flip the pixels back because the renderTexture flips them.
 
 	for (int i = circle.getPosition().x - circle.getRadius(); i < circle.getPosition().x + circle.getRadius(); i++) {
 		for (int j = circle.getPosition().y - circle.getRadius(); j < circle.getPosition().y + circle.getRadius(); j++) {
-			if ((i >= 0 && i < m_StaticTerrain.getSize().x) && (j >= 0 && j < m_StaticTerrain.getSize().y)) {
+			if ((i >= 0 && i < m_Image.getSize().x) && (j >= 0 && j < m_Image.getSize().y)) {
 				if (getPixel(sf::Vector2f(i, j)) == sf::Color::Magenta)
 					removePixel(sf::Vector2f(i, j));
 			}

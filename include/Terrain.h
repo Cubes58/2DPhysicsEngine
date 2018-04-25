@@ -3,23 +3,20 @@
 #include <vector>
 
 #include <SFML\Graphics.hpp>
-//#include <SFML\Graphics\Image.hpp>
 
+#include "GameObject.h"
+#include "PixelPerfectObject.h"
 #include "TextureManager.h"
 #include "DynamicPixelManager.h"
 #include "DynamicPixel.h"
 
-class Terrain : public sf::Drawable {
+class Terrain : public GameObject, public PixelPerfectObject {
 private:
-	sf::Image m_StaticTerrain;
 	DynamicPixelManager m_DynamicPixelManager;
 public:
-	Terrain();
+	Terrain(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size);
 	~Terrain();
 
-	sf::Color getPixel(const sf::Vector2f &p_Position);
-	void removePixel(const sf::Vector2f &p_Position);
-	void addPixel(const sf::Vector2f &p_Position, const sf::Color &p_Colour);
 	void setDynamicPixel(const sf::Vector2f &p_Position, const sf::Color &p_Colour);
 	void setDynamicPixelCluster(const sf::Vector2f &p_Position, const sf::Color &p_Colour, int p_NumberOfPixels = 20);
 
@@ -28,11 +25,6 @@ public:
 	void update(float p_DeltaTime);	
 	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
 
-	bool loadTerrain(const std::string &p_FileLocation);
-	sf::Image &getTerrain();
-
-	sf::Vector2f getSize();
-
-	void DestroyTerrain(sf::CircleShape &p_CircleShape);
-	void DestroyTerrain(const sf::Vector2f &p_Position, float size = 60);
+	void destroyTerrain(sf::CircleShape &p_CircleShape);
+	void destroyTerrain(const sf::Vector2f &p_Position, float size = 80);
 };
