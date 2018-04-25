@@ -17,8 +17,8 @@ public:
 	virtual void update(float p_DeltaTime) = 0;
 	virtual void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const = 0;
 
-	void applyImpulse(sf::Vector2f p_ImpulseVector) {
-		m_Acceleration += p_ImpulseVector;
+	void applyImpulse(const sf::Vector2f &p_ImpulseVector) {
+		m_Velocity += p_ImpulseVector;
 	}
 
 	sf::Vector2f getVelocity() {

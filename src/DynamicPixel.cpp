@@ -18,9 +18,9 @@ DynamicPixel::DynamicPixel(sf::Vector2f p_Position, sf::Vector2f p_Velocity, sf:
 DynamicPixel::DynamicPixel(sf::Vector2f p_Position, sf::Vector2f p_Velocity, sf::Vector2f p_Acceleration, sf::Color p_Colour, sf::Vector2f p_Size) :
 	DynamicObject::DynamicObject(p_Position, p_Size, p_Velocity, p_Acceleration), m_Colour(p_Colour), m_PixelRectangle(sf::Vector2f(3, 3)) {	
 	
-	m_PixelRectangle.setOrigin(m_Position.x / 2, m_Position.y / 2);
+	m_PixelRectangle.setOrigin(p_Position.x / 2, p_Position.y / 2);
 	m_PixelRectangle.setFillColor(m_Colour);
-	m_PixelRectangle.setPosition(m_Position);
+	m_PixelRectangle.setPosition(p_Position);
 }
 
 void DynamicPixel::update(float p_DeltaTime) {

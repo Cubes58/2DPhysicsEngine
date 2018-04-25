@@ -119,7 +119,7 @@ void Terrain::DestroyTerrain(const sf::Vector2f &p_Position, float size) {
 	renderTexture.clear(sf::Color::Transparent);
 
 	sf::Sprite terrainTexture;
-	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"))
+	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"));
 	
 	sf::CircleShape circle;
 	circle.setOrigin(sf::Vector2f(size / 2, size / 2));
@@ -136,8 +136,10 @@ void Terrain::DestroyTerrain(const sf::Vector2f &p_Position, float size) {
 
 	for (int i = circle.getPosition().x - circle.getRadius(); i < circle.getPosition().x + circle.getRadius(); i++) {
 		for (int j = circle.getPosition().y - circle.getRadius(); j < circle.getPosition().y + circle.getRadius(); j++) {
-			if (getPixel(sf::Vector2f(i, j)) == sf::Color::Magenta)
-				removePixel(sf::Vector2f(i, j));
+			if ((i >= 0 && i < m_StaticTerrain.getSize().x) && (j >= 0 && j < m_StaticTerrain.getSize().y)) {
+				if (getPixel(sf::Vector2f(i, j)) == sf::Color::Magenta)
+					removePixel(sf::Vector2f(i, j));
+			}
 		}
 	}
 }

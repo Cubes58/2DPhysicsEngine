@@ -1,10 +1,9 @@
 #include "Game.h"
 
 Game::Game() : m_bIsRunning(true), 
-	//m_DynamicPixelTest(sf::Vector2f(400, 300)), 
 	m_Soldier(sf::Vector2f(400, 300), sf::Vector2f(30, 50), sf::Vector2f(1, 1), sf::Vector2f(0, 1)) {
 
-	m_Bombs.reserve(2);
+	m_Bombs.reserve(3);
 }
 
 Game::~Game() {

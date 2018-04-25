@@ -6,11 +6,11 @@
 
 class Collision {
 private:
-	bool inBounds(const sf::Vector2f &p_Position, const sf::Vector2f &p_TerrainSize) {
-		if ((p_Position.x < 0 || p_Position.x >= p_TerrainSize.x || p_TerrainSize.x) && (p_Position.y < 0 || p_Position.y >= p_TerrainSize.y || p_TerrainSize.y))
+	bool inBounds(const sf::Vector2f &p_Position, const sf::Vector2f &p_MaxSize) {
+		if ((p_Position.x >= 0 && p_Position.x < p_MaxSize.x) && (p_Position.y >= 0 && p_Position.y < p_MaxSize.y))
 			return true;
 
-		return true;
+		return false;
 	}
 public:
 	bool operator()(Terrain &p_Terrain, Soldier &p_Soldier, std::vector<sf::Vector2f> &p_CollisionPoints) {
@@ -19,7 +19,6 @@ public:
 		sf::Vector2f startPoint = sf::Vector2f(p_Soldier.getPosition().x - (p_Soldier.getSize().x / 2), p_Soldier.getPosition().y - (p_Soldier.getSize().y / 2));
 		sf::Vector2f endPoint = sf::Vector2f(p_Soldier.getPosition().x + (p_Soldier.getSize().x / 2), p_Soldier.getPosition().y + (p_Soldier.getSize().y / 2));
 
-		/* Have to check that i and j are larger than 0, and that they're smaller than the height/width. */
 		/* Have to check whether the other objects pixel is also transparent. */
 
 		for (int i = startPoint.x; (i > 0 && i < p_Terrain.getSize().x) && i <= endPoint.x; i++) {
@@ -41,7 +40,6 @@ public:
 		sf::Vector2f startPoint = sf::Vector2f(p_Bomb.getPosition().x - (p_Bomb.getSize().x / 2), p_Bomb.getPosition().y - (p_Bomb.getSize().y / 2));
 		sf::Vector2f endPoint = sf::Vector2f(p_Bomb.getPosition().x + (p_Bomb.getSize().x / 2), p_Bomb.getPosition().y + (p_Bomb.getSize().y / 2));
 
-		/* Have to check that i and j are larger than 0, and that they're smaller than the height/width. */
 		/* Have to check whether the other objects pixel is also transparent. */
 
 		for (int i = startPoint.x; (i > 0 && i < p_Terrain.getSize().x) && i <= endPoint.x; i++) {
@@ -63,7 +61,6 @@ public:
 		sf::Vector2f startPoint = sf::Vector2f(p_SoldierOne.getPosition().x - (p_SoldierOne.getSize().x / 2), p_SoldierOne.getPosition().y - (p_SoldierOne.getSize().y / 2));
 		sf::Vector2f endPoint = sf::Vector2f(p_SoldierOne.getPosition().x + (p_SoldierOne.getSize().x / 2), p_SoldierOne.getPosition().y + (p_SoldierOne.getSize().y / 2));
 
-		/* Have to check that i and j are larger than 0, and that they're smaller than the height/width. */
 		/* Have to check whether the other objects pixel is also transparent. */
 
 		for (int i = startPoint.x; (i > 0 && i < p_SoldierTwo.getSize().x) && i <= endPoint.x; i++) {
@@ -86,7 +83,6 @@ public:
 		sf::Vector2f startPoint = sf::Vector2f(p_Soldier.getPosition().x - (p_Soldier.getSize().x / 2), p_Soldier.getPosition().y - (p_Soldier.getSize().y / 2));
 		sf::Vector2f endPoint = sf::Vector2f(p_Soldier.getPosition().x + (p_Soldier.getSize().x / 2), p_Soldier.getPosition().y + (p_Soldier.getSize().y / 2));
 
-		/* Have to check that i and j are larger than 0, and that they're smaller than the height/width. */
 		/* Have to check whether the other objects pixel is also transparent. - && p_Soldier.getPixel(sf::Vector2f(i, j) != sf::Color::Transparent)*/
 		
 		for (int i = startPoint.x; (i > 0 && i < p_Bomb.getSize().x) && i <= endPoint.x; i++) {
