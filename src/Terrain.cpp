@@ -1,10 +1,11 @@
 #include "Terrain.h"
 
 Terrain::Terrain(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size) 
-	: GameObject(p_Position, p_Size), PixelPerfectObject("./assets/scenes/MapOne.png") {
+	: GameObject(p_Position, p_Size), PixelPerfectObject(p_Position, "./assets/scenes/MapOne.png") {
 
 	//loadTerrain("./assets/scenes/MapOne.png");	// Has to be an 8 bit image.
 	TextureManager::instance().loadTexture("Terrain", m_Image);
+	m_RenderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
 }
 
 Terrain::~Terrain() {
@@ -58,33 +59,22 @@ void Terrain::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const 
 	p_Target.draw(m_DynamicPixelManager);
 }
 
-void Terrain::destroyTerrain(sf::CircleShape &p_CircleShape) {
+void Terrain::destroyTerrain(sf::Shape *p_Shape) {
 	// Spawn some dynamic pixels, before the pixel[s] are removed, so we know the colour.
-	setDynamicPixelCluster(p_CircleShape.getPosition(), getPixel(p_CircleShape.getPosition()));
+	setDynamicPixelCluster(p_Shape->getPosition(), getPixel(p_Shape->getPosition()));
 
-	sf::RenderTexture renderTexture; 
-	renderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
-	renderTexture.clear(sf::Color::Transparent);
+	m_RenderTexture.clear(sf::Color::Transparent);
 
 	sf::Sprite terrainTexture;
 	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"));
 
-	renderTexture.draw(terrainTexture);
-	p_CircleShape.setFillColor(sf::Color::Magenta);	// Be careful not to use Magenta for terrain pixels.
-	renderTexture.draw(p_CircleShape);
+	m_RenderTexture.draw(terrainTexture);
+	p_Shape->setFillColor(sf::Color::Transparent);	// Be careful not to use Magenta for terrain pixels.
+	m_RenderTexture.draw(*p_Shape, sf::BlendMultiply);
 
-	sf::Texture newTexture(renderTexture.getTexture());
+	sf::Texture newTexture(m_RenderTexture.getTexture());
 	m_Image = newTexture.copyToImage();
 	m_Image.flipVertically();	// Have to flip the pixels back 'cause the renderTexture flips them.
-	
-	for (int i = p_CircleShape.getPosition().x - p_CircleShape.getRadius(); i < p_CircleShape.getPosition().x + p_CircleShape.getRadius(); i++) {
-		for (int j = p_CircleShape.getPosition().y - p_CircleShape.getRadius(); j < p_CircleShape.getPosition().y + p_CircleShape.getRadius(); j++) {
-			if ((i >= 0 && i < m_Image.getSize().x) && (j >= 0 && j < m_Image.getSize().y)) {
-				if (getPixel(sf::Vector2f(i, j)) == sf::Color::Magenta)
-					removePixel(sf::Vector2f(i, j));
-			}
-		}
-	}
 }
 
 void Terrain::destroyTerrain(const sf::Vector2f &p_Position, float size) {
@@ -92,9 +82,8 @@ void Terrain::destroyTerrain(const sf::Vector2f &p_Position, float size) {
 	//setDynamicPixelCluster(p_Position, getPixel(p_Position));
 	setDynamicPixelCluster(p_Position, sf::Color::Green);
 
-	sf::RenderTexture renderTexture;
-	renderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
-	renderTexture.clear(sf::Color::Transparent);
+	m_RenderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
+	m_RenderTexture.clear(sf::Color::Transparent);
 
 	sf::Sprite terrainTexture;
 	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"));
@@ -103,21 +92,12 @@ void Terrain::destroyTerrain(const sf::Vector2f &p_Position, float size) {
 	circle.setOrigin(sf::Vector2f(size / 2, size / 2));
 	circle.setRadius(size / 2);
 	circle.setPosition(p_Position);
-	circle.setFillColor(sf::Color::Magenta);
+	circle.setFillColor(sf::Color::Transparent);
 
-	renderTexture.draw(terrainTexture);
-	renderTexture.draw(circle);
+	m_RenderTexture.draw(terrainTexture);
+	m_RenderTexture.draw(circle, sf::BlendMultiply);
 
-	sf::Texture newTexture(renderTexture.getTexture());
+	sf::Texture newTexture(m_RenderTexture.getTexture());
 	m_Image = newTexture.copyToImage();
 	m_Image.flipVertically();	// Have to flip the pixels back because the renderTexture flips them.
-
-	for (int i = circle.getPosition().x - circle.getRadius(); i < circle.getPosition().x + circle.getRadius(); i++) {
-		for (int j = circle.getPosition().y - circle.getRadius(); j < circle.getPosition().y + circle.getRadius(); j++) {
-			if ((i >= 0 && i < m_Image.getSize().x) && (j >= 0 && j < m_Image.getSize().y)) {
-				if (getPixel(sf::Vector2f(i, j)) == sf::Color::Magenta)
-					removePixel(sf::Vector2f(i, j));
-			}
-		}
-	}
 }

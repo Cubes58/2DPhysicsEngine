@@ -2,16 +2,22 @@
 
 PixelPerfectObject::PixelPerfectObject() {
 	m_Image.loadFromFile("./assets/Textures/Default");
-}
-
-PixelPerfectObject::PixelPerfectObject(const sf::Image &p_Image) 
-	: m_Image(p_Image) {
 	
 }
 
-PixelPerfectObject::PixelPerfectObject(const std::string &p_FileLocation) {
+PixelPerfectObject::PixelPerfectObject(const sf::Vector2f &p_Position, const sf::Image &p_Image) 
+	: m_Image(p_Image) {
+	
+	m_Sprite.setOrigin(m_Image.getSize().x / 2, m_Image.getSize().y / 2);
+	m_Sprite.setPosition(p_Position);
+}
+
+PixelPerfectObject::PixelPerfectObject(const sf::Vector2f &p_Position, const std::string &p_FileLocation) {
 	if (!m_Image.loadFromFile(p_FileLocation))
 		m_Image.loadFromFile("./assets/Textures/Default");
+
+	m_Sprite.setOrigin(m_Image.getSize().x / 2, m_Image.getSize().y / 2);
+	m_Sprite.setPosition(p_Position);
 }
 
 PixelPerfectObject::~PixelPerfectObject() {

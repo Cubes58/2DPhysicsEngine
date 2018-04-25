@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include "DynamicObject.h"
+
 Game::Game() : m_bIsRunning(true), 
 	m_Terrain(sf::Vector2f(640, 360), sf::Vector2f(1280, 720)),
 	m_Soldier(sf::Vector2f(400, 300), sf::Vector2f(30, 50), sf::Vector2f(1, 1), sf::Vector2f(0, 1)) {
@@ -55,6 +57,7 @@ void Game::update(float p_DeltaTime) {
 	for (auto iter = m_Bombs.begin(); iter != m_Bombs.end(); ++iter) {
 		normals.clear();
 		if (m_Collision(m_Terrain, (**iter), normals)) {
+			std::vector<sf::Color> colours;
 			Manifold manifold(&m_Terrain, (&**iter), normals, p_DeltaTime);
 			m_Terrain.destroyTerrain((*iter)->getPosition());
 			(*iter)->setHitSomething(true);

@@ -1,7 +1,7 @@
 #include "Bomb.h"
 
 Bomb::Bomb(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration)
-	: DynamicObject(p_Position, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject("./assets/Textures/Bomb.png") {
+	: DynamicObject(p_Position, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, "./assets/Textures/Bomb.png") {
 
 	m_Shape.setSize(m_Size);
 	m_Shape.setOrigin(p_Size.x / 2, p_Size.y / 2);

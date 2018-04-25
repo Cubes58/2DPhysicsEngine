@@ -6,6 +6,7 @@ class DynamicPixel : public DynamicObject {
 private:
 	sf::RectangleShape m_PixelRectangle;
 
+	float m_LifeTime;
 	sf::Color m_Colour;
 public:
 	DynamicPixel(sf::Vector2f p_Position);

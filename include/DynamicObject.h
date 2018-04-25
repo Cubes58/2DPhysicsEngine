@@ -1,6 +1,12 @@
+/*! 
+@file DynamicObject.h
+*/
+
 #pragma once
 
 #include "GameObject.h"
+
+#include <SFML/Graphics.hpp>
 
 class DynamicObject : public GameObject {
 protected:
@@ -9,8 +15,8 @@ protected:
 	sf::Vector2f m_Velocity;
 	sf::Vector2f m_Acceleration;
 
-	DynamicObject(sf::Vector2f p_Position, sf::Vector2f p_Size, sf::Vector2f p_Velocity, sf::Vector2f p_Acceleration) :
-		GameObject::GameObject(p_Position, p_Size), m_Velocity(p_Velocity) , m_Acceleration(p_Acceleration) {
+	DynamicObject(const  sf::Vector2f &p_Position, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration) :
+		GameObject::GameObject(p_Position, p_Size), m_Velocity(p_Velocity), m_Acceleration(p_Acceleration) {
 		
 	}
 public:

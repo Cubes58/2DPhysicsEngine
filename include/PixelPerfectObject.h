@@ -1,15 +1,16 @@
 #pragma once
 
-//#include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Image.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 class PixelPerfectObject {
 protected:
 	sf::Image m_Image;
+	sf::Sprite m_Sprite;
 	
 	PixelPerfectObject();
-	PixelPerfectObject(const sf::Image &p_Image);
-	PixelPerfectObject(const std::string &p_FileLocation);
+	PixelPerfectObject(const sf::Vector2f &p_Position, const sf::Image &p_Image);
+	PixelPerfectObject(const sf::Vector2f &p_Position, const std::string &p_FileLocation);
 	~PixelPerfectObject();
 
 	void dealWithBounds(sf::Vector2f &p_Position);
