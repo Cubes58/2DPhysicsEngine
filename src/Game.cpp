@@ -44,6 +44,8 @@ void Game::update(float p_DeltaTime) {
 		i->update(p_DeltaTime);
 	}
 
+	m_DynamicPixelManager.update(p_DeltaTime);
+
 	std::vector<sf::Vector2f> collisionNormals;
 	if (m_Collision(m_Terrain, m_Soldier, collisionNormals)) {
 		Manifold manifold(&m_Terrain, &m_Soldier, collisionNormals, p_DeltaTime);
@@ -60,7 +62,7 @@ void Game::update(float p_DeltaTime) {
 				if (i.x >= 0 && i.x < m_Terrain.getSize().x && i.y >= 0 && i.y < m_Terrain.getSize().y - 1)
 				pixelColours.push_back(m_Terrain.getPixel(i));
 			}
-
+			m_DynamicPixelManager.createClusterOfPixels((*iter)->getPosition(), pixelColours);
 			m_Terrain.destroyTerrain((*iter)->getPosition());
 			(*iter)->setHitSomething(true);
 			(*iter).reset();
@@ -87,6 +89,8 @@ void Game::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
 	for (const auto &i : m_Bombs) {
 		p_Target.draw(*i);
 	}
+
+	p_Target.draw(m_DynamicPixelManager);
 }
 
 bool Game::isRunning() {
