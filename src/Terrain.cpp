@@ -9,7 +9,7 @@
 Terrain::Terrain(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size) 
 	: GameObject(p_Position, p_Size), PixelPerfectObject(p_Position, "./assets/scenes/MapOne.png") {
 
-	TextureManager::instance().loadTexture("Terrain", m_Image);
+	TextureManager::instance().loadTexture("Terrain", m_Image, "./assets/scenes/Default.png");
 	m_RenderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
 
 	m_Shape.setSize(m_Size);
@@ -22,17 +22,6 @@ Terrain::~Terrain() {
 
 }
 
-void Terrain::setDynamicPixel(const sf::Vector2f &p_Position, const sf::Color &p_Colour) {
-	// Remove pixel from the static image, update the texture, with the "new" image, add a dynamic pixel.
-	m_DynamicPixelManager.createSinglePixel(p_Position, p_Colour);
-
-	removePixel(p_Position);
-}
-
-void Terrain::setDynamicPixelCluster(const sf::Vector2f &p_Position, const std::vector<sf::Color> &p_Colours) {
-	m_DynamicPixelManager.createClusterOfPixels(p_Position, p_Colours);
-}
-
 sf::Vector2f Terrain::calculateCollisionNormal(const sf::Vector2f &p_Position) const {
 	static const int s_kiSearchBoxSize = 3;
 	
@@ -40,7 +29,7 @@ sf::Vector2f Terrain::calculateCollisionNormal(const sf::Vector2f &p_Position) c
 	int counter(0);
 	for (int i = -s_kiSearchBoxSize; i <= s_kiSearchBoxSize; i++) {
 		for (int j = -s_kiSearchBoxSize; j <= s_kiSearchBoxSize; j++) {
-			if (m_Image.getPixel(p_Position.x + i, p_Position.y + j) != sf::Color::Transparent) {
+			if (m_Image.getPixel((unsigned int)p_Position.x + i, (unsigned int)p_Position.y + j) != sf::Color::Transparent) {
 				average.x -= i;
 				average.y -= j;
 				counter++;
@@ -56,13 +45,10 @@ sf::Vector2f Terrain::calculateCollisionNormal(const sf::Vector2f &p_Position) c
 void Terrain::update(float p_DeltaTime) {
 	TextureManager::instance().updateTexture("Terrain", m_Image);
 	m_Shape.setTexture(TextureManager::instance().getTexture("Terrain"));
-
-	m_DynamicPixelManager.update(p_DeltaTime);
 }
 
 void Terrain::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {	
 	p_Target.draw(m_Shape);
-	p_Target.draw(m_DynamicPixelManager);
 }
 
 void Terrain::destroyTerrain(sf::Shape *p_Shape) {
@@ -82,7 +68,7 @@ void Terrain::destroyTerrain(sf::Shape *p_Shape) {
 	TextureManager::instance().updateTexture("Terrain", m_Image);
 }
 
-void Terrain::destroyTerrain(const sf::Vector2f &p_Position, const std::vector<sf::Color> &p_PixelColours, float size) {
+void Terrain::destroyTerrain(const sf::Vector2f &p_Position, float size) {
 	static sf::Sprite terrainTexture;
 	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"));
 	
@@ -100,8 +86,4 @@ void Terrain::destroyTerrain(const sf::Vector2f &p_Position, const std::vector<s
 	sf::Texture newTexture(m_RenderTexture.getTexture());
 	m_Image = newTexture.copyToImage();
 	TextureManager::instance().updateTexture("Terrain", m_Image);
-
-	// MOVE THIS TO THE GAME.cpp
-	for (const auto &i : p_PixelColours)
-		setDynamicPixel(p_Position, i);
 }

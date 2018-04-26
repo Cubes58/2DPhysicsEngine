@@ -14,14 +14,14 @@ private:
 public:
 	static TextureManager &instance();
 
-	bool loadTexture(const std::string &p_Name, const sf::Image &p_Image);
+	bool loadTexture(const std::string &p_Name, const sf::Image &p_Image, const std::string &p_OriginalImageFileLocation);
 	const sf::Texture *getTexture(const std::string &p_Name);
 	bool loadTexture(const std::string &p_Name, const std::string &p_PathToTextureFile);
 	void updateTexture(const std::string &p_Name, sf::Image p_Image);
 
 	sf::Vector2u getTextureSize(const std::string &p_Name) const;	
 
-	//Delete the copy and assignment operators.
+	// Delete the copy and assignment operators.
 	TextureManager(TextureManager const&) = delete;
 	TextureManager& operator=(TextureManager const&) = delete;
 };

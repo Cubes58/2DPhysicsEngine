@@ -15,10 +15,10 @@ TextureManager &TextureManager::instance() {
 	return instance;
 }
 
-bool TextureManager::loadTexture(const std::string &p_Name, const sf::Image &p_Image) {
+bool TextureManager::loadTexture(const std::string &p_Name, const sf::Image &p_Image, const std::string &p_OriginalImageFileLocation) {
 	if (p_Image.getSize().x != 0 && p_Image.getSize().y != 0) {
 		sf::Texture newTexture;
-		newTexture.loadFromFile("./assets/scenes/MapOne.png");	// Must have an image there, to update.
+		newTexture.loadFromFile(p_OriginalImageFileLocation);	// Must have an image there, to update.
 		newTexture.setSmooth(true);
 		newTexture.setRepeated(true);
 		newTexture.update(p_Image);
@@ -31,10 +31,10 @@ bool TextureManager::loadTexture(const std::string &p_Name, const sf::Image &p_I
 
 bool TextureManager::loadTexture(const std::string &p_Name, const std::string &p_PathToTextureFile) {
 	sf::Texture newTexture;
-	if (newTexture.loadFromFile(p_PathToTextureFile)) {										//Check to make sure it can find the texture file.
+	if (newTexture.loadFromFile(p_PathToTextureFile)) {
 		newTexture.setSmooth(true);
 		newTexture.setRepeated(true);
-		m_Textures.insert(std::pair<std::string, sf::Texture>(p_Name, newTexture));			//Load a pair into the map.
+		m_Textures.insert(std::pair<std::string, sf::Texture>(p_Name, newTexture));	
 		return true;
 	}
 	return false;

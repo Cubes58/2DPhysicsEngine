@@ -69,10 +69,10 @@ void Soldier::shoot(const sf::Vector2f &p_MousePosition) {
 void Soldier::processKeyPress(const sf::Event &p_Event) {
 	switch(p_Event.key.code) {
 	case sf::Mouse::Left:
-		jump(sf::Vector2f(p_Event.mouseButton.x, p_Event.mouseButton.y));
+		jump(sf::Vector2f((float)p_Event.mouseButton.x, (float)p_Event.mouseButton.y));
 		break;
 	case sf::Mouse::Right:
-		shoot(sf::Vector2f(p_Event.mouseButton.x, p_Event.mouseButton.y));
+		shoot(sf::Vector2f((float)p_Event.mouseButton.x, (float)p_Event.mouseButton.y));
 		break;
 	case sf::Mouse::Middle:
 		// Do something for the mouse wheel, input. (Move directly up, and then to the left or right or fire?)

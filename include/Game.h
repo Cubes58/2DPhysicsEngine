@@ -8,6 +8,8 @@
 #include "Manifold.h"
 
 #include "Terrain.h"
+#include "DynamicPixelManager.h"
+
 #include "Soldier.h"
 #include "Bomb.h"
 
@@ -16,6 +18,7 @@ class Game : public sf::Drawable {
 private:
 	Collision m_Collision;
 	Terrain m_Terrain;
+	DynamicPixelManager m_DynamicPixelManager;
 
 	Soldier m_Soldier;
 

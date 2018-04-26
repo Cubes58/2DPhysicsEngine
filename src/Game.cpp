@@ -19,18 +19,16 @@ void Game::processKeyPress(const sf::Event &p_Event, const sf::Vector2f &p_Mouse
 void Game::processKeyRelease(const sf::Event &p_Event) {
 	switch (p_Event.key.code) {
 	case sf::Mouse::Left:
-		//
+
 		break;
 	case sf::Mouse::Right:
 		if (m_Soldier.getBomb() != nullptr) {
 			m_Bombs.push_back(m_Soldier.getBomb());
 		}
 		break;
-
 	case sf::Mouse::Middle:
 
 		break;
-
 	default:
 		break;
 	}
@@ -63,7 +61,7 @@ void Game::update(float p_DeltaTime) {
 				pixelColours.push_back(m_Terrain.getPixel(i));
 			}
 
-			m_Terrain.destroyTerrain((*iter)->getPosition(), pixelColours);
+			m_Terrain.destroyTerrain((*iter)->getPosition());
 			(*iter)->setHitSomething(true);
 			(*iter).reset();
 

@@ -9,7 +9,6 @@
 class DynamicPixelManager : public sf::Drawable {
 private:
 	std::vector<std::shared_ptr<DynamicPixel>> m_DynamicPixels;
-	Randomiser &m_RandomNumberGenerator = Randomiser::getInstance();
 
 	void cleanUpPixels();
 public:
@@ -19,7 +18,8 @@ public:
 	void update(float p_DeltaTime);
 	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
 
-	void createClusterOfPixels(const sf::Vector2f &p_Position, const std::vector<sf::Color> &p_Colours);
+	void createClusterOfPixels(const sf::Vector2f &p_Position, const std::vector<sf::Color> &p_Colours, 
+		const sf::Vector2f &p_RandomXPossibleValue = sf::Vector2f(-50, 50), const sf::Vector2f &p_RandomYPossibleValue = sf::Vector2f(-50, 50));
 	void createSinglePixel(const sf::Vector2f &p_Position, const sf::Color &p_colour, 
 		const sf::Vector2f &p_RandomXPossibleValue = sf::Vector2f(-50, 50), const sf::Vector2f &p_RandomYPossibleValue = sf::Vector2f(-50, 50));
 };
