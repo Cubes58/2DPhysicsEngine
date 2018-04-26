@@ -28,7 +28,7 @@ void Game::processKeyRelease(const sf::Event &p_Event) {
 		break;
 
 	case sf::Mouse::Middle:
-		//
+
 		break;
 
 	default:
@@ -57,9 +57,6 @@ void Game::update(float p_DeltaTime) {
 		if (m_Collision(m_Terrain, (**iter), collisionNormals)) {
 			Manifold manifold(&m_Terrain, (&**iter), collisionNormals, p_DeltaTime);
 
-			// Get the pixel colours, of the pixels that have been blown up.
-			// VECTOR SUBSCRIPT ERROR OCCURS HERE!
-			// Clean up bomb (memory), when the bomb goes out of the window.
 			std::vector<sf::Color> pixelColours;
 			for (const auto &i : collisionNormals) {
 				if (i.x >= 0 && i.x < m_Terrain.getSize().x && i.y >= 0 && i.y < m_Terrain.getSize().y - 1)
@@ -70,6 +67,12 @@ void Game::update(float p_DeltaTime) {
 			(*iter)->setHitSomething(true);
 			(*iter).reset();
 
+			if ((*iter) == nullptr || (*iter)->getHitSomething()) {
+				iter = m_Bombs.erase(iter);
+				break;
+			}
+		}
+		else {
 			if ((*iter) == nullptr || (*iter)->getHitSomething()) {
 				iter = m_Bombs.erase(iter);
 				break;

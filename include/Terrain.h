@@ -20,7 +20,7 @@ public:
 	~Terrain();
 
 	void setDynamicPixel(const sf::Vector2f &p_Position, const sf::Color &p_Colour);
-	void setDynamicPixelCluster(const sf::Vector2f &p_Position, const sf::Color &p_Colour, int p_NumberOfPixels = 20);
+	void setDynamicPixelCluster(const sf::Vector2f &p_Position, const std::vector<sf::Color> &p_Colours);
 
 	sf::Vector2f calculateCollisionNormal(const sf::Vector2f &p_Position) const;
 	

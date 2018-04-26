@@ -6,11 +6,10 @@
 
 class Bomb : public DynamicObject, public PixelPerfectObject {
 private:
-	sf::RectangleShape m_Shape;
-
-	bool m_HitSomething = false;
+	bool m_DeleteMe = false;
+	bool outOfBounds();
 public:
-	Bomb(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration = sf::Vector2f(0, 98.1));
+	Bomb(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration = sf::Vector2f(0.0f, 98.1f));
 	~Bomb();
 
 	void update(float p_DeltaTime);

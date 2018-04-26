@@ -11,6 +11,9 @@ protected:
 	GameObject(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size) : m_Position(p_Position), m_Size(p_Size) {
 
 	}
+	~GameObject() {
+
+	}
 public:
 	virtual void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const = 0;
 

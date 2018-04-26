@@ -6,7 +6,7 @@ DynamicPixel::DynamicPixel(sf::Vector2f p_Position) :
 }
 
 DynamicPixel::DynamicPixel(sf::Vector2f p_Position, sf::Vector2f p_Velocity) :
-	DynamicPixel(p_Position, p_Velocity, sf::Vector2f(0, 9.81)) {
+	DynamicPixel(p_Position, p_Velocity, sf::Vector2f(0.0f, 9.81f)) {
 	
 }
 
@@ -21,7 +21,7 @@ DynamicPixel::DynamicPixel(sf::Vector2f p_Position, sf::Vector2f p_Velocity, sf:
 	m_PixelRectangle.setFillColor(m_Colour);
 	m_PixelRectangle.setPosition(p_Position);
 
-	m_LifeTime = 7.5;
+	m_LifeTime = 6.5;
 }
 
 void DynamicPixel::update(float p_DeltaTime) {

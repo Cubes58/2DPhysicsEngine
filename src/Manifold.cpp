@@ -10,8 +10,7 @@ Manifold::Manifold(Terrain *p_Terrain, Soldier *p_Soldier, std::vector<sf::Vecto
 
 	m_FinalCollisionNormal = (p_Soldier->getPosition() - m_FinalCollisionNormal);
 
-	float newTime = -p_DeltaTime / 2.0f;
-	p_Soldier->update(newTime);
+	float newTime = -p_DeltaTime;
 	p_Soldier->update(newTime);
 
 	// Check if he collides.

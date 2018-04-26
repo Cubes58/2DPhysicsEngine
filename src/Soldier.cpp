@@ -1,11 +1,11 @@
 #include "Soldier.h"
 
 Soldier::Soldier(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration)
-	: DynamicObject(p_Position, p_Size, p_Velocity, p_Acceleration) {
+	: DynamicObject(p_Position, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, *TextureManager::instance().getTexture("Soldier")) {
 	
-	m_Shape.setSize(m_Size);
-	m_Shape.setOrigin(p_Size.x / 2, p_Size.y / 2);
 	m_Shape.setTexture(TextureManager::instance().getTexture("Soldier"));
+	m_Shape.setSize(m_Size);
+	m_Shape.setOrigin(sf::Vector2f(m_Size.x / 2, m_Size.y / 2));
 	m_Shape.setPosition(m_Position);
 }
 
@@ -45,9 +45,7 @@ void Soldier::shoot(const sf::Vector2f &p_MousePosition) {
 	sf::Vector2f initialVelocity;	/* Sqrt-u = 2 * A * -y */
 	initialVelocity.y = -std::sqrt(2 * -m_Acceleration.y * -yDifference);
 
-	// Now calculate the time.
 	float time = -initialVelocity.y / m_Acceleration.y;
-
 	// Now calculate the X speed -: speed = Distance / Time.
 	sf::Vector2f bombVelocity;
 	bombVelocity.x = yDifference / time;
@@ -103,9 +101,4 @@ void Soldier::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const 
 
 std::shared_ptr<Bomb> Soldier::getBomb() {
 	return m_Bomb;
-}
-
-sf::Color Soldier::getPixel(const sf::Vector2f &p_Position) {
-	sf::Image image;
-	return image.getPixel((unsigned int)p_Position.x, (unsigned int)p_Position.y);
 }

@@ -9,9 +9,13 @@
 Terrain::Terrain(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size) 
 	: GameObject(p_Position, p_Size), PixelPerfectObject(p_Position, "./assets/scenes/MapOne.png") {
 
-	//loadTerrain("./assets/scenes/MapOne.png");	// Has to be an 8 bit image.
 	TextureManager::instance().loadTexture("Terrain", m_Image);
 	m_RenderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
+
+	m_Shape.setSize(m_Size);
+	m_Shape.setOrigin(p_Size.x / 2, p_Size.y / 2);
+	m_Shape.setPosition(p_Position);
+	m_Shape.setTexture(TextureManager::instance().getTexture("Terrain"));
 }
 
 Terrain::~Terrain() {
@@ -25,8 +29,8 @@ void Terrain::setDynamicPixel(const sf::Vector2f &p_Position, const sf::Color &p
 	removePixel(p_Position);
 }
 
-void Terrain::setDynamicPixelCluster(const sf::Vector2f &p_Position, const sf::Color &p_Colour, int p_NumberOfPixels) {
-	m_DynamicPixelManager.createClusterOfPixels(p_Position, p_Colour, p_NumberOfPixels);
+void Terrain::setDynamicPixelCluster(const sf::Vector2f &p_Position, const std::vector<sf::Color> &p_Colours) {
+	m_DynamicPixelManager.createClusterOfPixels(p_Position, p_Colours);
 }
 
 sf::Vector2f Terrain::calculateCollisionNormal(const sf::Vector2f &p_Position) const {
@@ -51,50 +55,35 @@ sf::Vector2f Terrain::calculateCollisionNormal(const sf::Vector2f &p_Position) c
 
 void Terrain::update(float p_DeltaTime) {
 	TextureManager::instance().updateTexture("Terrain", m_Image);
+	m_Shape.setTexture(TextureManager::instance().getTexture("Terrain"));
 
 	m_DynamicPixelManager.update(p_DeltaTime);
 }
 
-void Terrain::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
-	static sf::Sprite sprite;
-	sprite.setTexture(*TextureManager::instance().getTexture("Terrain"));
-	sprite.setOrigin(sf::Vector2f(640, 360));	//MOVE THESE
-	sprite.setPosition(sf::Vector2f(640, 360));
-	
-	p_Target.draw(sprite);
+void Terrain::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {	
+	p_Target.draw(m_Shape);
 	p_Target.draw(m_DynamicPixelManager);
 }
 
 void Terrain::destroyTerrain(sf::Shape *p_Shape) {
-	// Spawn some dynamic pixels, before the pixel[s] are removed, so we know the colour.
-	setDynamicPixelCluster(p_Shape->getPosition(), getPixel(p_Shape->getPosition()));
-
-	m_RenderTexture.clear(sf::Color::Transparent);
-
-	sf::Sprite terrainTexture;
+	static sf::Sprite terrainTexture;
 	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"));
 
+	// Make sure the shape's colour is Transparent.
+	p_Shape->setFillColor(sf::Color::Transparent);
+
+	m_RenderTexture.clear(sf::Color::Transparent);
 	m_RenderTexture.draw(terrainTexture);
-	p_Shape->setFillColor(sf::Color::Transparent);	// Be careful not to use Magenta for terrain pixels.
 	m_RenderTexture.draw(*p_Shape, sf::BlendMultiply);
+	m_RenderTexture.display();
 
 	sf::Texture newTexture(m_RenderTexture.getTexture());
 	m_Image = newTexture.copyToImage();
-	m_Image.flipVertically();	// Have to flip the pixels back 'cause the renderTexture flips them.
+	TextureManager::instance().updateTexture("Terrain", m_Image);
 }
 
 void Terrain::destroyTerrain(const sf::Vector2f &p_Position, const std::vector<sf::Color> &p_PixelColours, float size) {
-	// Spawn some dynamic pixels, before the pixel[s] are removed, so we know the colour.
-	//setDynamicPixelCluster(p_Position, getPixel(p_Position)); // Use a vector of sf::Colours.
-	for (const auto &i : p_PixelColours)
-		setDynamicPixel(p_Position, i);
-
-	//setDynamicPixelCluster(p_Position, sf::Color::Green);
-
-	m_RenderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
-	m_RenderTexture.clear(sf::Color::Transparent);
-
-	sf::Sprite terrainTexture;
+	static sf::Sprite terrainTexture;
 	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"));
 	
 	sf::CircleShape circle;
@@ -103,10 +92,16 @@ void Terrain::destroyTerrain(const sf::Vector2f &p_Position, const std::vector<s
 	circle.setPosition(p_Position);
 	circle.setFillColor(sf::Color::Transparent);
 
+	m_RenderTexture.clear(sf::Color::Transparent);
 	m_RenderTexture.draw(terrainTexture);
 	m_RenderTexture.draw(circle, sf::BlendMultiply);
+	m_RenderTexture.display();
 
 	sf::Texture newTexture(m_RenderTexture.getTexture());
 	m_Image = newTexture.copyToImage();
-	m_Image.flipVertically();	// Have to flip the pixels back because the renderTexture flips them.
+	TextureManager::instance().updateTexture("Terrain", m_Image);
+
+	// MOVE THIS TO THE GAME.cpp
+	for (const auto &i : p_PixelColours)
+		setDynamicPixel(p_Position, i);
 }
