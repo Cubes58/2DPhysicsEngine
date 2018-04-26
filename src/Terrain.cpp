@@ -1,5 +1,11 @@
 #include "Terrain.h"
 
+// Profile code.
+// Testing report.
+// Doxygen report.
+// Video of the game - compress, video over telling you what's going on, could go on YouTube etc... (2.5 minutes)
+// Showing the mechanics and features. (YouTube [best] - Send the link OR OneDive (Add link to upload))
+
 Terrain::Terrain(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size) 
 	: GameObject(p_Position, p_Size), PixelPerfectObject(p_Position, "./assets/scenes/MapOne.png") {
 
@@ -52,7 +58,7 @@ void Terrain::update(float p_DeltaTime) {
 void Terrain::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
 	static sf::Sprite sprite;
 	sprite.setTexture(*TextureManager::instance().getTexture("Terrain"));
-	sprite.setOrigin(sf::Vector2f(640, 360));
+	sprite.setOrigin(sf::Vector2f(640, 360));	//MOVE THESE
 	sprite.setPosition(sf::Vector2f(640, 360));
 	
 	p_Target.draw(sprite);
@@ -77,10 +83,13 @@ void Terrain::destroyTerrain(sf::Shape *p_Shape) {
 	m_Image.flipVertically();	// Have to flip the pixels back 'cause the renderTexture flips them.
 }
 
-void Terrain::destroyTerrain(const sf::Vector2f &p_Position, float size) {
+void Terrain::destroyTerrain(const sf::Vector2f &p_Position, const std::vector<sf::Color> &p_PixelColours, float size) {
 	// Spawn some dynamic pixels, before the pixel[s] are removed, so we know the colour.
-	//setDynamicPixelCluster(p_Position, getPixel(p_Position));
-	setDynamicPixelCluster(p_Position, sf::Color::Green);
+	//setDynamicPixelCluster(p_Position, getPixel(p_Position)); // Use a vector of sf::Colours.
+	for (const auto &i : p_PixelColours)
+		setDynamicPixel(p_Position, i);
+
+	//setDynamicPixelCluster(p_Position, sf::Color::Green);
 
 	m_RenderTexture.create(m_Image.getSize().x, m_Image.getSize().y);
 	m_RenderTexture.clear(sf::Color::Transparent);

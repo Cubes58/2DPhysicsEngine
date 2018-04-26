@@ -28,5 +28,5 @@ public:
 	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
 
 	void destroyTerrain(sf::Shape *p_Shape);
-	void destroyTerrain(const sf::Vector2f &p_Position, float size = 80);
+	void destroyTerrain(const sf::Vector2f &p_Position, const std::vector<sf::Color> &p_PixelColours, float size = 80);
 };

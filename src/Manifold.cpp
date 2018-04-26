@@ -7,21 +7,25 @@ Manifold::Manifold(Terrain *p_Terrain, Soldier *p_Soldier, std::vector<sf::Vecto
 	}
 	m_FinalCollisionNormal.x /= p_CollisionNormals.size();
 	m_FinalCollisionNormal.y /= p_CollisionNormals.size();
-	// Apply impulse to FinalCollisionNormal.
-
 
 	m_FinalCollisionNormal = (p_Soldier->getPosition() - m_FinalCollisionNormal);
 
 	float newTime = -p_DeltaTime / 2.0f;
 	p_Soldier->update(newTime);
 	p_Soldier->update(newTime);
+
 	// Check if he collides.
-	if (m_FinalCollisionNormal.x < 1 && m_FinalCollisionNormal.x > -1)
+	if (m_FinalCollisionNormal.x < 1 && m_FinalCollisionNormal.x > -1) {
 		m_FinalCollisionNormal.x = 0;
+		p_Soldier->setVelocity(sf::Vector2f(0, p_Soldier->getVelocity().y));
+	}
 
-	if (m_FinalCollisionNormal.y < 1 && m_FinalCollisionNormal.y > -1)
+	if (m_FinalCollisionNormal.y < 1 && m_FinalCollisionNormal.y > -1) {
 		m_FinalCollisionNormal.y = 0;
+		p_Soldier->setVelocity(sf::Vector2f(p_Soldier->getVelocity().x, 0));
+	}
 
+	// Apply impulse to FinalCollisionNormal.
 	p_Soldier->applyImpulse(sf::Vector2f(m_FinalCollisionNormal.x, m_FinalCollisionNormal.y));
 }
 

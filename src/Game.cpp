@@ -19,7 +19,7 @@ void Game::processKeyPress(const sf::Event &p_Event, const sf::Vector2f &p_Mouse
 void Game::processKeyRelease(const sf::Event &p_Event) {
 	switch (p_Event.key.code) {
 	case sf::Mouse::Left:
-
+		//
 		break;
 	case sf::Mouse::Right:
 		if (m_Soldier.getBomb() != nullptr) {
@@ -28,7 +28,7 @@ void Game::processKeyRelease(const sf::Event &p_Event) {
 		break;
 
 	case sf::Mouse::Middle:
-
+		//
 		break;
 
 	default:
@@ -46,18 +46,27 @@ void Game::update(float p_DeltaTime) {
 		i->update(p_DeltaTime);
 	}
 
-	std::vector<sf::Vector2f> normals;
-	if (m_Collision(m_Terrain, m_Soldier, normals)) {
-		Manifold manifold(&m_Terrain, &m_Soldier, normals, p_DeltaTime);
+	std::vector<sf::Vector2f> collisionNormals;
+	if (m_Collision(m_Terrain, m_Soldier, collisionNormals)) {
+		Manifold manifold(&m_Terrain, &m_Soldier, collisionNormals, p_DeltaTime);
 	}
 
 	// Check whether any bombs have collided, with the terrain, if they have deal with it.
 	for (auto iter = m_Bombs.begin(); iter != m_Bombs.end(); ++iter) {
-		normals.clear();
-		if (m_Collision(m_Terrain, (**iter), normals)) {
-			std::vector<sf::Color> colours;
-			Manifold manifold(&m_Terrain, (&**iter), normals, p_DeltaTime);
-			m_Terrain.destroyTerrain((*iter)->getPosition());
+		collisionNormals.clear();
+		if (m_Collision(m_Terrain, (**iter), collisionNormals)) {
+			Manifold manifold(&m_Terrain, (&**iter), collisionNormals, p_DeltaTime);
+
+			// Get the pixel colours, of the pixels that have been blown up.
+			// VECTOR SUBSCRIPT ERROR OCCURS HERE!
+			// Clean up bomb (memory), when the bomb goes out of the window.
+			std::vector<sf::Color> pixelColours;
+			for (const auto &i : collisionNormals) {
+				if (i.x >= 0 && i.x < m_Terrain.getSize().x && i.y >= 0 && i.y < m_Terrain.getSize().y - 1)
+				pixelColours.push_back(m_Terrain.getPixel(i));
+			}
+
+			m_Terrain.destroyTerrain((*iter)->getPosition(), pixelColours);
 			(*iter)->setHitSomething(true);
 			(*iter).reset();
 

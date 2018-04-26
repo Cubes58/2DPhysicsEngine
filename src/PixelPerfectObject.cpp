@@ -26,15 +26,14 @@ PixelPerfectObject::~PixelPerfectObject() {
 
 void PixelPerfectObject::dealWithBounds(sf::Vector2f &p_Position) {
 	if (p_Position.x >= m_Image.getSize().x)
-		p_Position.x = m_Image.getSize().x;
+		p_Position.x = m_Image.getSize().x - 1;
 	else if (p_Position.x <= 0)
 		p_Position.x = 0;
 
 	if (p_Position.y >= m_Image.getSize().y)
-		p_Position.y = m_Image.getSize().y;
+		p_Position.y = m_Image.getSize().y - 1;
 	else if (p_Position.y <= 0)
 		p_Position.y = 0;
-
 }
 
 void PixelPerfectObject::removePixel(sf::Vector2f p_Position) {
