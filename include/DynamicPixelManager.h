@@ -8,7 +8,7 @@
 
 class DynamicPixelManager : public sf::Drawable {
 private:
-	std::vector<DynamicPixel> m_DynamicPixels;
+	std::vector<std::shared_ptr<DynamicPixel>> m_DynamicPixels;
 	Randomiser &m_RandomNumberGenerator = Randomiser::getInstance();
 
 	void cleanUpPixels();

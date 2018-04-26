@@ -7,6 +7,9 @@ private:
 	sf::RectangleShape m_PixelRectangle;
 
 	float m_LifeTime;
+	float m_TimePassed = 0;
+
+	bool m_DeleteMe = false;
 	sf::Color m_Colour;
 public:
 	DynamicPixel(sf::Vector2f p_Position);
@@ -16,4 +19,7 @@ public:
 
 	void update(float p_DeltaTime);
 	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
+
+	bool getDeleteMe();
+	void setDeleteMe(bool p_DeleteMe);
 };
