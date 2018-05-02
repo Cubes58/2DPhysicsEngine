@@ -14,7 +14,8 @@ private:
 	void jump(const sf::Vector2f &p_MousePosition);
 	void shoot(const sf::Vector2f &p_MousePosition);
 public:
-	Soldier(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration = sf::Vector2f(0.0f, 98.1f));
+	Soldier(const sf::Vector2f &p_Position, const sf::Vector2f &p_Gravity, const sf::Vector2f &p_Size, 
+		const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration = sf::Vector2f(0.0f, 98.1f));
 	~Soldier();
 	
 	void processKeyPress(const sf::Event &p_Event);

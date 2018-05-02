@@ -9,17 +9,14 @@ private:
 	float m_LifeTime;
 	float m_TimePassed = 0;
 
-	bool m_DeleteMe = false;
 	sf::Color m_Colour;
 public:
-	DynamicPixel(sf::Vector2f p_Position);
-	DynamicPixel(sf::Vector2f p_Position, sf::Vector2f p_Velocity);
-	DynamicPixel(sf::Vector2f p_Position, sf::Vector2f p_Velocity, sf::Vector2f p_Acceleration);
-	DynamicPixel(sf::Vector2f p_Position, sf::Vector2f p_Velocity, sf::Vector2f p_Acceleration, sf::Color p_Colour, sf::Vector2f p_Size = sf::Vector2f(1.0f, 1.0f));
+	DynamicPixel(const sf::Vector2f &p_Position);
+	DynamicPixel(const sf::Vector2f &p_Position, const sf::Vector2f &p_Velocity);
+	DynamicPixel(const sf::Vector2f &p_Position, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration);
+	DynamicPixel(const sf::Vector2f &p_Position, const sf::Vector2f &p_Gravity, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration,
+		const sf::Color &p_Colour, const sf::Vector2f &p_Size = sf::Vector2f(1.0f, 1.0f));
 
 	void update(float p_DeltaTime);
 	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
-
-	bool getDeleteMe();
-	void setDeleteMe(bool p_DeleteMe);
 };

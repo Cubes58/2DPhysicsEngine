@@ -1,7 +1,7 @@
 #include "Soldier.h"
 
-Soldier::Soldier(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration)
-	: DynamicObject(p_Position, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, *TextureManager::instance().getTexture("Soldier")) {
+Soldier::Soldier(const sf::Vector2f &p_Position, const sf::Vector2f &p_Gravity, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration)
+	: DynamicObject(p_Position, p_Gravity, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, *TextureManager::instance().getTexture("Soldier")) {
 	
 	m_Shape.setTexture(TextureManager::instance().getTexture("Soldier"));
 	m_Shape.setSize(m_Size);
@@ -63,7 +63,7 @@ void Soldier::shoot(const sf::Vector2f &p_MousePosition) {
 	}
 
 	sf::Vector2f bombSize = sf::Vector2f(25, 25);
-	m_Bomb = std::make_shared<Bomb>(m_Position, bombSize, bombVelocity);
+	m_Bomb = std::make_shared<Bomb>(m_Position, m_Gravity, bombSize, bombVelocity);
 }
 
 void Soldier::processKeyPress(const sf::Event &p_Event) {
@@ -86,11 +86,12 @@ void Soldier::update(float p_DeltaTime) {
 	m_Position = m_Position + m_Velocity * p_DeltaTime;
 
 	m_Shape.setPosition(m_Position);
+	if (m_GravityOn) {
+		m_Acceleration.x = m_Gravity.x;
+		m_Acceleration.y = m_Gravity.y;
+	}
 
-	m_Acceleration.x = 0.0f;
-	m_Acceleration.y = 98.1f;
-
-	if(m_Bomb != nullptr && m_Bomb->getHitSomething()) {
+	if(m_Bomb != nullptr && m_Bomb->getDeleteMe()) {
 		m_Bomb = nullptr;
 	}
 }

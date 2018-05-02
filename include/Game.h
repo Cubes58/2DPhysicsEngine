@@ -16,6 +16,8 @@
 
 class Game : public sf::Drawable {
 private:
+	sf::Vector2f m_Gravity;
+
 	Collision m_Collision;
 	Terrain m_Terrain;
 	DynamicPixelManager m_DynamicPixelManager;

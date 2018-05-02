@@ -1,8 +1,8 @@
 #include "Game.h"
 
-Game::Game() : m_bIsRunning(true), 
+Game::Game() : m_bIsRunning(true), m_Gravity(sf::Vector2f(0.0f, 98.1f)),
 	m_Terrain(sf::Vector2f(640, 360), sf::Vector2f(1280, 720)),
-	m_Soldier(sf::Vector2f(400, 300), sf::Vector2f(30, 50), sf::Vector2f(1, 1), sf::Vector2f(0, 1)) {
+	m_Soldier(sf::Vector2f(400, 300), m_Gravity, sf::Vector2f(30, 50), sf::Vector2f(1, 1), sf::Vector2f(0, 1)) {
 
 	m_Bombs.reserve(3);
 }
@@ -64,19 +64,12 @@ void Game::update(float p_DeltaTime) {
 			}
 			m_DynamicPixelManager.createClusterOfPixels((*iter)->getPosition(), pixelColours);
 			m_Terrain.destroyTerrain((*iter)->getPosition());
-			(*iter)->setHitSomething(true);
+			(*iter)->setDeleteMe(true);
 			(*iter).reset();
-
-			if ((*iter) == nullptr || (*iter)->getHitSomething()) {
-				iter = m_Bombs.erase(iter);
-				break;
-			}
 		}
-		else {
-			if ((*iter) == nullptr || (*iter)->getHitSomething()) {
-				iter = m_Bombs.erase(iter);
-				break;
-			}
+		if ((*iter) == nullptr || (*iter)->getDeleteMe()) {
+			iter = m_Bombs.erase(iter);
+			break;
 		}
 	}
 }

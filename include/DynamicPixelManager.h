@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 #include "DynamicPixel.h"
 #include "Randomiser.h"

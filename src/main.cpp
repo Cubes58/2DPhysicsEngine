@@ -13,7 +13,6 @@ int main() {
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
  	while (game.isRunning()) {
-		window.clear(sf::Color::Black);
 		sf::Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
 
@@ -41,6 +40,7 @@ int main() {
 			timeSinceLastUpdate -= timePerFrame;
 			game.update(timePerFrame.asSeconds());
 		}
+		window.clear(sf::Color::Black);
 		window.draw(game);		
 		window.display();
 	}
