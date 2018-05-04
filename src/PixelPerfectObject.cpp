@@ -2,18 +2,22 @@
 
 PixelPerfectObject::PixelPerfectObject() {
 	m_Image.loadFromFile("./assets/Textures/Default.bmp");
-	
+	m_Shape.setOrigin((float)(m_Image.getSize().x / 2), (float)(m_Image.getSize().y / 2));
+	m_Shape.setPosition(0.0f, 0.0f);
 }
 
 PixelPerfectObject::PixelPerfectObject(const sf::Vector2f &p_Position, const sf::Image &p_Image) 
 	: m_Image(p_Image) {
-	
+
 	m_Shape.setOrigin((float)(m_Image.getSize().x / 2), (float)(m_Image.getSize().y / 2));
 	m_Shape.setPosition(p_Position);
 }
 
 PixelPerfectObject::PixelPerfectObject(const sf::Vector2f &p_Position, const sf::Texture &p_Texture) {
 	m_Image = p_Texture.copyToImage();
+
+	m_Shape.setOrigin((float)(m_Image.getSize().x / 2), (float)(m_Image.getSize().y / 2));
+	m_Shape.setPosition(p_Position);
 }
 
 PixelPerfectObject::PixelPerfectObject(const sf::Vector2f &p_Position, const std::string &p_FileLocation) {

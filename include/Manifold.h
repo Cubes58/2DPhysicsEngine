@@ -3,6 +3,7 @@
 #include "Terrain.h"
 #include "Soldier.h"
 #include "Bomb.h"
+#include "StaticBlock.h"
 #include "Collision.h"
 
 class Manifold {
@@ -18,4 +19,8 @@ public:
 
 	Manifold(Soldier *p_SoldierOne, Soldier *p_SoldierTwo, std::vector<sf::Vector2f> &p_CollisionNormals, float p_DeltaTime);
 	Manifold(Soldier *p_Soldier, Bomb *p_Rocket, std::vector<sf::Vector2f> &p_CollisionNormals, float p_DeltaTime);
+
+	Manifold(Terrain *p_Terrain, DynamicPixel *p_DynamicPixel, std::vector<sf::Vector2f> &p_CollisionNormals, float p_DeltaTime);
+
+	Manifold(Soldier *p_Soldier, StaticBlock *p_StaticBlock, std::vector<sf::Vector2f> &p_CollisionNormals, float p_DeltaTime);
 };

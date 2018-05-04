@@ -12,6 +12,7 @@
 
 #include "Soldier.h"
 #include "Bomb.h"
+#include "StaticBlock.h"
 
 
 class Game : public sf::Drawable {
@@ -22,7 +23,7 @@ private:
 	Terrain m_Terrain;
 	DynamicPixelManager m_DynamicPixelManager;
 
-	Soldier m_Soldier;
+	Soldier m_RedSoldier;
 
 	std::vector<std::shared_ptr<Bomb>> m_Bombs;
 

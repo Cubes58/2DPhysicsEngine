@@ -162,6 +162,7 @@
     <ClCompile Include="src\Soldier.cpp" />
     <ClCompile Include="src\Terrain.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
+    <ClCompile Include="src\UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AudioManager.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="include\Soldier.h" />
     <ClInclude Include="include\Terrain.h" />
     <ClInclude Include="include\TextureManager.h" />
+    <ClInclude Include="include\UserInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

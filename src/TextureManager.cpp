@@ -3,6 +3,7 @@
 TextureManager::TextureManager() {
 	loadTexture("Bomb", "./assets/textures/Bomb.png");
 	loadTexture("Soldier", "./assets/textures/Soldier.png");
+	loadTexture("StaticBlock", "./assets/textures/StaticBlock.png");
 }
 
 TextureManager::~TextureManager() {

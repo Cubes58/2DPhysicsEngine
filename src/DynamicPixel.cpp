@@ -26,7 +26,9 @@ DynamicPixel::DynamicPixel(const sf::Vector2f &p_Position, const sf::Vector2f &p
 }
 
 void DynamicPixel::update(float p_DeltaTime) {
-	m_TimePassed += p_DeltaTime;
+	if (p_DeltaTime > 0) {
+		m_TimePassed += p_DeltaTime;
+	}
 
 	if (m_LifeTime < m_TimePassed) {
 		m_DeleteMe = true;
@@ -37,8 +39,8 @@ void DynamicPixel::update(float p_DeltaTime) {
 
 	m_PixelRectangle.setPosition(m_Position);
 
-	m_Acceleration.x = 0.f;
-	m_Acceleration.y = 9.81f;
+	m_Acceleration.x = m_Gravity.x;
+	m_Acceleration.y = m_Gravity.y;
 }
 
 void DynamicPixel::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
