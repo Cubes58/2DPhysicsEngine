@@ -7,12 +7,13 @@
 #include "Collision.h"
 #include "Manifold.h"
 
+#include "UserInterface.h"
+
 #include "Terrain.h"
 #include "DynamicPixelManager.h"
 
 #include "Soldier.h"
 #include "Bomb.h"
-#include "StaticBlock.h"
 
 
 class Game : public sf::Drawable {
@@ -22,8 +23,12 @@ private:
 	Collision m_Collision;
 	Terrain m_Terrain;
 	DynamicPixelManager m_DynamicPixelManager;
+	UserInterface m_UserInterface;
 
 	Soldier m_RedSoldier;
+	Soldier m_BlueSoldier;
+
+	int m_PlayerTurn;
 
 	std::vector<std::shared_ptr<Bomb>> m_Bombs;
 

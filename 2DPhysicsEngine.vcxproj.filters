@@ -101,5 +101,8 @@
     <ClInclude Include="include\UserInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Team.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

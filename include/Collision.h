@@ -3,7 +3,6 @@
 #include "Soldier.h"
 #include "Bomb.h"
 #include "Terrain.h"
-#include "StaticBlock.h"
 
 class Collision {
 private:

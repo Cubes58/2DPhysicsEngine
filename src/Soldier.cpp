@@ -1,7 +1,9 @@
 #include "Soldier.h"
 
-Soldier::Soldier(const sf::Vector2f &p_Position, const sf::Vector2f &p_Gravity, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration)
-	: DynamicObject(p_Position, p_Gravity, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, *TextureManager::instance().getTexture("Soldier")) {
+Soldier::Soldier(const Team &p_Team, const sf::Vector2f &p_Position, const sf::Vector2f &p_Gravity, const sf::Vector2f &p_Size,
+	const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration)
+	: DynamicObject(p_Position, p_Gravity, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, *TextureManager::instance().getTexture("Soldier")), 
+	m_Health(100.0f), m_Team(p_Team) {
 	
 	m_Shape.setTexture(TextureManager::instance().getTexture("Soldier"));
 	m_Shape.setSize(m_Size);
@@ -63,15 +65,17 @@ void Soldier::shoot(const sf::Vector2f &p_MousePosition) {
 	}
 
 	sf::Vector2f bombSize = sf::Vector2f(25, 25);
-	m_Bomb = std::make_shared<Bomb>(m_Position, m_Gravity, bombSize, bombVelocity);
+	m_Bomb = std::make_shared<Bomb>(m_Team, m_Position, m_Gravity, bombSize, bombVelocity);
 }
 
-void Soldier::processKeyPress(const sf::Event &p_Event) {
+void Soldier::processKeyPress(const sf::Event &p_Event, int &p_PlayerCounter) {
 	switch(p_Event.key.code) {
 	case sf::Mouse::Left:
+		p_PlayerCounter++;
 		jump(sf::Vector2f((float)p_Event.mouseButton.x, (float)p_Event.mouseButton.y));
 		break;
 	case sf::Mouse::Right:
+		p_PlayerCounter++;
 		shoot(sf::Vector2f((float)p_Event.mouseButton.x, (float)p_Event.mouseButton.y));
 		break;
 	case sf::Mouse::Middle:
@@ -103,3 +107,7 @@ void Soldier::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const 
 std::shared_ptr<Bomb> Soldier::getBomb() {
 	return m_Bomb;
 }
+
+ float Soldier::getHealth() {
+	 return m_Health;
+ }
