@@ -29,7 +29,6 @@ private:
 	Soldier m_BlueSoldier;
 
 	int m_PlayerTurn;
-
 	std::vector<std::shared_ptr<Bomb>> m_Bombs;
 
 	bool m_bIsRunning;

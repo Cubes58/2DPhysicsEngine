@@ -1,7 +1,7 @@
 #include "Bomb.h"
 
 Bomb::Bomb(const Team &p_Team, const sf::Vector2f &p_Position, const sf::Vector2f &p_Gravity, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration)
-	: DynamicObject(p_Position, p_Gravity, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, "./assets/Textures/Bomb.png"), m_Team(p_Team) {
+	: DynamicObject(p_Position, p_Gravity, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, "./assets/Textures/Bomb.png"), m_Team(p_Team), m_Damage(50.0f) {
 	
 	m_Shape.setTexture(TextureManager::instance().getTexture("Bomb"));
 	m_Shape.setSize(m_Size);
@@ -37,4 +37,8 @@ bool Bomb::outOfBounds() {
 
 void Bomb::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
 	p_Target.draw(m_Shape);
+}
+
+Team Bomb::getTeam() {
+	return m_Team;
 }

@@ -111,3 +111,7 @@ std::shared_ptr<Bomb> Soldier::getBomb() {
  float Soldier::getHealth() {
 	 return m_Health;
  }
+
+ Team Soldier::getTeam() {
+	 return m_Team;
+ }

@@ -8,6 +8,7 @@
 class Bomb : public DynamicObject, public PixelPerfectObject {
 private:
 	Team m_Team;
+	float m_Damage;
 
 	bool outOfBounds();
 public:
@@ -17,4 +18,6 @@ public:
 
 	void update(float p_DeltaTime);
 	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
+
+	Team getTeam();
 };

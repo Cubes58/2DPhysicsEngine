@@ -29,4 +29,5 @@ public:
 	std::shared_ptr<Bomb> getBomb();
 
 	float getHealth();
+	Team getTeam();
 };

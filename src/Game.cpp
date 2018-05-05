@@ -53,23 +53,26 @@ void Game::update(float p_DeltaTime) {
 	for (auto &i : m_Bombs) {
 		i->update(p_DeltaTime);
 	}
-
 	m_DynamicPixelManager.update(p_DeltaTime);
 
 	std::vector<sf::Vector2f> collisionNormals;
-	collisionNormals.clear();
+	// Check whether the player's have collided with the terrain.
 	if (m_Collision(m_Terrain, m_RedSoldier, collisionNormals)) {
 		Manifold manifold(&m_Terrain, &m_RedSoldier, collisionNormals, p_DeltaTime);
 	}
-	collisionNormals.clear();
 	if (m_Collision(m_Terrain, m_BlueSoldier, collisionNormals)) {
 		Manifold manifold(&m_Terrain, &m_BlueSoldier, collisionNormals, p_DeltaTime);
 	}
 
-	// Check whether any bombs have collided, with the terrain, if they have deal with it.
+	// Check whether the soldiers have collided with each other.
+	if (m_Collision(m_RedSoldier, m_BlueSoldier, collisionNormals)) {
+		Manifold manifold(&m_RedSoldier, &m_BlueSoldier, collisionNormals, p_DeltaTime);
+	}
+
+	// Check whether any bombs have collided, with the terrain or soldier, if they have deal with it.
 	for (auto iter = m_Bombs.begin(); iter != m_Bombs.end(); ++iter) {
-		collisionNormals.clear();
-		if (m_Collision(m_Terrain, (**iter), collisionNormals)) {
+		float penetration(0.0f);
+		if (*iter != nullptr && m_Collision(m_Terrain, (**iter), collisionNormals)) {
 			std::vector<sf::Color> pixelColours;
 			for (const auto &i : collisionNormals) {
 				if (i.x >= 0 && i.x < m_Terrain.getSize().x && i.y >= 0 && i.y < m_Terrain.getSize().y - 1)
@@ -78,6 +81,28 @@ void Game::update(float p_DeltaTime) {
 
 			m_DynamicPixelManager.createClusterOfPixels((*iter)->getPosition(), pixelColours);
 			m_Terrain.destroyTerrain((*iter)->getPosition());
+			(*iter)->setDeleteMe(true);
+			(*iter).reset();
+		}
+		if (*iter != nullptr && m_Collision(m_RedSoldier, (**iter), penetration, collisionNormals)) {
+			Manifold manifold(&m_RedSoldier, &**iter, collisionNormals, penetration);
+			std::vector<sf::Color> pixelColours;
+			for (int i = 0; i < (int)m_RedSoldier.getHealth(); i++) {
+				pixelColours.push_back(sf::Color::Red);
+			}
+
+			m_DynamicPixelManager.createClusterOfPixels(m_RedSoldier.getPosition(), pixelColours);
+			(*iter)->setDeleteMe(true);
+			(*iter).reset();
+		}
+		if (*iter != nullptr && m_Collision(m_BlueSoldier, (**iter), penetration, collisionNormals)) {
+			Manifold manifold(&m_BlueSoldier, &**iter, collisionNormals, penetration);
+			std::vector<sf::Color> pixelColours;
+			for (int i = 0; i < (int)m_BlueSoldier.getHealth(); i++) {
+				pixelColours.push_back(sf::Color::Red);
+			}
+
+			m_DynamicPixelManager.createClusterOfPixels(m_BlueSoldier.getPosition(), pixelColours);
 			(*iter)->setDeleteMe(true);
 			(*iter).reset();
 		}
@@ -95,11 +120,18 @@ void Game::update(float p_DeltaTime) {
 		}
 	}
 
+	// Confine player's to the window.
 	if (m_RedSoldier.getPosition().x < 0 || m_RedSoldier.getPosition().x > 1280) {
 		m_RedSoldier.setVelocity(sf::Vector2f(-m_RedSoldier.getVelocity().x, m_RedSoldier.getVelocity().y));
 	}
 	if (m_RedSoldier.getPosition().y < m_RedSoldier.getSize().y / 2) {
 		m_RedSoldier.setVelocity(sf::Vector2f(m_RedSoldier.getVelocity().x, -m_RedSoldier.getVelocity().y));
+	}
+	if (m_BlueSoldier.getPosition().x < 0 || m_BlueSoldier.getPosition().x > 1280) {
+		m_BlueSoldier.setVelocity(sf::Vector2f(-m_BlueSoldier.getVelocity().x, m_BlueSoldier.getVelocity().y));
+	}
+	if (m_BlueSoldier.getPosition().y < m_BlueSoldier.getSize().y / 2) {
+		m_BlueSoldier.setVelocity(sf::Vector2f(m_BlueSoldier.getVelocity().x, -m_BlueSoldier.getVelocity().y));
 	}
 }
 
