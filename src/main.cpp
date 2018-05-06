@@ -6,7 +6,7 @@ int main() {
 	const int kiHeight = 720;
 
 	sf::RenderWindow window(sf::VideoMode(kiWidth, kiHeight), "Blaster", sf::Style::Default);
-	Game game;
+	Game game(sf::Vector2f((float)kiWidth, (float)kiHeight));
 	const sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 
 	sf::Clock clock;

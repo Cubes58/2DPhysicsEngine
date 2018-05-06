@@ -4,22 +4,21 @@
 
 #include <SFML\Graphics.hpp>
 
+#include "TextureManager.h"
 #include "Collision.h"
 #include "Manifold.h"
-
 #include "UserInterface.h"
-
+#include "Background.h"
 #include "Terrain.h"
 #include "DynamicPixelManager.h"
-
 #include "Soldier.h"
 #include "Bomb.h"
-
 
 class Game : public sf::Drawable {
 private:
 	sf::Vector2f m_Gravity;
 
+	Background m_Background;
 	Collision m_Collision;
 	Terrain m_Terrain;
 	DynamicPixelManager m_DynamicPixelManager;
@@ -33,7 +32,7 @@ private:
 
 	bool m_bIsRunning;
 public:
-	Game();
+	Game(const sf::Vector2f &p_WindowSize);
 	~Game();
 
 	void processKeyPress(const sf::Event &p_Event, const sf::Vector2f &p_MousePosition = sf::Vector2f(0, 0));

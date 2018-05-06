@@ -42,3 +42,7 @@ void Bomb::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
 Team Bomb::getTeam() {
 	return m_Team;
 }
+
+float Bomb::getDamage() {
+	return m_Damage;
+}

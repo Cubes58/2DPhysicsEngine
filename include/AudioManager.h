@@ -19,7 +19,7 @@ public:
 	sf::Sound getSoundEffect(const std::string &p_Name) const;
 	sf::Music *getBackgroundMusic();
 
-	//Delete the copy and assignment operators.
+	// Delete the copy and assignment operators.
 	AudioManager(AudioManager const&) = delete;
 	AudioManager& operator=(AudioManager const&) = delete;
 };

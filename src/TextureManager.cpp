@@ -2,8 +2,10 @@
 
 TextureManager::TextureManager() {
 	loadTexture("Bomb", "./assets/textures/Bomb.png");
-	loadTexture("Soldier", "./assets/textures/Soldier.png");
-	loadTexture("StaticBlock", "./assets/textures/StaticBlock.png");
+	loadTexture("SoldierTemplate", "./assets/textures/SoldierTemplate.png");
+	loadTexture("RedSoldier", "./assets/textures/RedSoldier.png");
+	loadTexture("BlueSoldier", "./assets/textures/BlueSoldier.png");
+	loadTexture("Background", "./assets/scenes/MapOneBackground.png");
 }
 
 TextureManager::~TextureManager() {

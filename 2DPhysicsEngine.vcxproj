@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AudioManager.cpp" />
+    <ClCompile Include="src\Background.cpp" />
     <ClCompile Include="src\DynamicPixel.cpp" />
     <ClCompile Include="src\DynamicPixelManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AudioManager.h" />
+    <ClInclude Include="include\Background.h" />
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\DynamicObject.h" />
     <ClInclude Include="include\DynamicPixel.h" />

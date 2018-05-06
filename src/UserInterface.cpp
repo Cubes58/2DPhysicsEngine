@@ -5,11 +5,11 @@ UserInterface::UserInterface(const sf::Vector2f &p_WindowSize) {
 
 	initialiseRectangle(m_RedPlayerHealthBar, sf::Vector2f(p_WindowSize.x - ((p_WindowSize.x / 10.0f) * 9.5f), p_WindowSize.y / 12.0f), sf::Color::Red);
 	initialiseRectangle(m_RedPlayerAreaBackground, sf::Vector2f(p_WindowSize.x - ((p_WindowSize.x / 10.0f) * 9.7f), (p_WindowSize.y / 12.0f) / 4.2f),
-		sf::Color::Black, sf::Vector2f(p_WindowSize.x / 10.0f, (p_WindowSize.y / 12.0f) * 1.2f));
+		sf::Color(0, 0, 0, 110), sf::Vector2f(p_WindowSize.x / 10.0f, (p_WindowSize.y / 12.0f) * 1.2f));
 
 	initialiseRectangle(m_BluePlayerHealthBar, sf::Vector2f((p_WindowSize.x - (p_WindowSize.x / 10.0f)), p_WindowSize.y / 12.0f), sf::Color::Blue);
 	initialiseRectangle(m_BluePlayerAreaBackground, sf::Vector2f(p_WindowSize.x - (p_WindowSize.x / 10.0f * 1.2), (p_WindowSize.y / 12.0f) / 4.2f),
-		sf::Color::Black, sf::Vector2f(p_WindowSize.x / 10.0f, (p_WindowSize.y / 12.0f) * 1.2f));
+		sf::Color(0, 0, 0, 110), sf::Vector2f(p_WindowSize.x / 10.0f, (p_WindowSize.y / 12.0f) * 1.2f));
 
 	initialiseText(m_RedPlayerScore, "Score: ", sf::Vector2f(p_WindowSize.x - ((p_WindowSize.x / 10.0f) * 9.5f), (p_WindowSize.y / 12.0f) / 3.5f), sf::Color::Red, m_Font);
 	initialiseText(m_RedPlayerHealth, "Health: ", sf::Vector2f(p_WindowSize.x - ((p_WindowSize.x / 10.0f) * 9.5f), (p_WindowSize.y / 12.0f) / 1.4f), sf::Color::Red, m_Font);
@@ -45,8 +45,12 @@ void UserInterface::setText(sf::Text &p_Text, const std::string &p_StringText) {
 }
 
 void UserInterface::update(float p_RedPlayerHealth, float p_BluePlayerHealth) {
-	m_RedPlayerHealthBar.setSize(sf::Vector2f(p_RedPlayerHealth * 0.75f, 15.0f));
+	if (p_RedPlayerHealth < 0) 
+		p_RedPlayerHealth = 0;
+	if (p_BluePlayerHealth < 0)
+		p_BluePlayerHealth = 0;
 
+	m_RedPlayerHealthBar.setSize(sf::Vector2f(p_RedPlayerHealth * 0.75f, 15.0f));
 	m_BluePlayerHealthBar.setSize(sf::Vector2f(p_BluePlayerHealth * 0.75f, 15.0f));
 }
 

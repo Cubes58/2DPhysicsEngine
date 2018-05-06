@@ -20,4 +20,5 @@ public:
 	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
 
 	Team getTeam();
+	float getDamage();
 };

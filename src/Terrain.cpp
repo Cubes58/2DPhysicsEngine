@@ -1,11 +1,5 @@
 #include "Terrain.h"
 
-// Profile code.
-// Testing report.
-// Doxygen report.
-// Video of the game - compress, video over telling you what's going on, could go on YouTube etc... (2.5 minutes)
-// Showing the mechanics and features. (YouTube [best] - Send the link OR OneDive (Add link to upload))
-
 Terrain::Terrain(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size) 
 	: GameObject(p_Position, p_Size), PixelPerfectObject(p_Position, "./assets/scenes/MapOne.png") {
 

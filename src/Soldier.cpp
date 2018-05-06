@@ -1,13 +1,16 @@
 #include "Soldier.h"
 
-Soldier::Soldier(const Team &p_Team, const sf::Vector2f &p_Position, const sf::Vector2f &p_Gravity, const sf::Vector2f &p_Size,
-	const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration)
-	: DynamicObject(p_Position, p_Gravity, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, *TextureManager::instance().getTexture("Soldier")), 
-	m_Health(100.0f), m_Team(p_Team) {
+const float Soldier::m_s_ScoreForHittingSoldier = 100.0f;
+const float Soldier::m_s_ScoreForHittingTerrain = 33.5f;
+
+Soldier::Soldier(const Team &p_Team, const sf::Texture &p_Texture, const sf::Vector2f &p_Position, 
+	const sf::Vector2f &p_Gravity, const sf::Vector2f &p_Size, const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration)
+	: DynamicObject(p_Position, p_Gravity, p_Size, p_Velocity, p_Acceleration), PixelPerfectObject(p_Position, p_Texture), 
+	m_Health(100.0f), m_Team(p_Team), m_Score(0.0f), m_Lives(1) {
 	
-	m_Shape.setTexture(TextureManager::instance().getTexture("Soldier"));
+	m_Shape.setTexture(&p_Texture);
 	m_Shape.setSize(m_Size);
-	m_Shape.setOrigin(sf::Vector2f(m_Size.x / 2, m_Size.y / 2));
+	m_Shape.setOrigin(sf::Vector2f(m_Size.x / 2.0f, m_Size.y / 2.0f));
 	m_Shape.setPosition(m_Position);
 }
 
@@ -35,8 +38,8 @@ void Soldier::jump(const sf::Vector2f &p_MousePosition) {
 
 	// If the mouse click is below the object don't move it, set velocity to 0.
 	if (p_MousePosition.y > m_Position.y) {
-		m_Velocity.x = 0;
-		m_Velocity.y = 0;
+		m_Velocity.x = 0.0f;
+		m_Velocity.y = 0.0f;
 	}
 }
 
@@ -60,8 +63,8 @@ void Soldier::shoot(const sf::Vector2f &p_MousePosition) {
 
 	// If the mouse click is below the object don't move it, set velocity to 0.
 	if (p_MousePosition.y > m_Position.y) {
-		bombVelocity.x = 0;
-		bombVelocity.y = 0;
+		bombVelocity.x = 0.0f;
+		bombVelocity.y = 0.0f;
 	}
 
 	sf::Vector2f bombSize = sf::Vector2f(25, 25);
@@ -108,10 +111,33 @@ std::shared_ptr<Bomb> Soldier::getBomb() {
 	return m_Bomb;
 }
 
- float Soldier::getHealth() {
-	 return m_Health;
- }
+int Soldier::getLives() {
+	return m_Lives;
+}
 
- Team Soldier::getTeam() {
+void Soldier::setLives(int p_Lives) {
+	m_Lives = p_Lives;
+}
+
+float Soldier::getHealth() {
+	 return m_Health;
+}
+
+void Soldier::setHealth(float p_Health) {
+	m_Health = p_Health;
+}
+
+Team Soldier::getTeam() {
 	 return m_Team;
- }
+}
+
+ float Soldier::getScore() {
+	 return m_Score;
+}
+void Soldier::setScore(float p_Score) {
+	m_Score = p_Score;
+}
+
+void Soldier::addScore(float p_AddScore) {
+	m_Score += p_AddScore;
+}

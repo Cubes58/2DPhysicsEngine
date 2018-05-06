@@ -1,9 +1,11 @@
 #include "Game.h"
 
-Game::Game() : m_bIsRunning(true), m_Gravity(sf::Vector2f(0.0f, 98.1f)), m_UserInterface(sf::Vector2f(1280, 720)),
-	m_Terrain(sf::Vector2f(640, 360), sf::Vector2f(1280, 720)), m_PlayerTurn(0),
-	m_RedSoldier(Team::RED, sf::Vector2f(400, 300), m_Gravity, sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)), 
-	m_BlueSoldier(Team::BLUE, sf::Vector2f(400, 300), m_Gravity, sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)) {
+Game::Game(const sf::Vector2f &p_WindowSize) : m_bIsRunning(true), m_Gravity(sf::Vector2f(0.0f, 98.1f)), m_UserInterface(p_WindowSize),
+	m_Terrain(sf::Vector2f(p_WindowSize.x / 2, p_WindowSize.y / 2), p_WindowSize), m_PlayerTurn(0), m_Background(p_WindowSize),
+	m_RedSoldier(Team::RED, *TextureManager::instance().getTexture("RedSoldier"), sf::Vector2f(p_WindowSize.x / 10, p_WindowSize.y / 10), m_Gravity, 
+		sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)),
+	m_BlueSoldier(Team::BLUE, *TextureManager::instance().getTexture("BlueSoldier"), sf::Vector2f((p_WindowSize.x / 10) * 9, p_WindowSize.y / 10), m_Gravity,
+		sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)) {
 
 	m_Bombs.reserve(3);
 }
@@ -21,8 +23,6 @@ void Game::processKeyPress(const sf::Event &p_Event, const sf::Vector2f &p_Mouse
 
 void Game::processKeyRelease(const sf::Event &p_Event) {
 	switch (p_Event.key.code) {
-	case sf::Mouse::Left:
-		break;
 	case sf::Mouse::Right:
 		if (m_PlayerTurn % 2 == 0) {
 			if (m_RedSoldier.getBomb() != nullptr) {
@@ -35,8 +35,6 @@ void Game::processKeyRelease(const sf::Event &p_Event) {
 			}
 		}
 		break;
-	case sf::Mouse::Middle:
-		break;
 	default:
 		break;
 	}
@@ -45,7 +43,6 @@ void Game::processKeyRelease(const sf::Event &p_Event) {
 void Game::update(float p_DeltaTime) {
 	// Update game logic.
 	m_Terrain.update(p_DeltaTime);
-	m_UserInterface.update(m_RedSoldier.getHealth(), m_BlueSoldier.getHealth());
 
 	m_RedSoldier.update(p_DeltaTime);
 	m_BlueSoldier.update(p_DeltaTime);
@@ -79,6 +76,11 @@ void Game::update(float p_DeltaTime) {
 					pixelColours.push_back(m_Terrain.getPixel(i));
 			}
 
+			if((*iter)->getTeam() == Team::RED) 
+				m_RedSoldier.addScore(Soldier::m_s_ScoreForHittingTerrain);
+			else 
+				m_BlueSoldier.addScore(Soldier::m_s_ScoreForHittingTerrain);
+
 			m_DynamicPixelManager.createClusterOfPixels((*iter)->getPosition(), pixelColours);
 			m_Terrain.destroyTerrain((*iter)->getPosition());
 			(*iter)->setDeleteMe(true);
@@ -86,6 +88,8 @@ void Game::update(float p_DeltaTime) {
 		}
 		if (*iter != nullptr && m_Collision(m_RedSoldier, (**iter), penetration, collisionNormals)) {
 			Manifold manifold(&m_RedSoldier, &**iter, collisionNormals, penetration);
+			m_RedSoldier.setHealth(m_RedSoldier.getHealth() - (*iter)->getDamage());
+			m_RedSoldier.addScore(Soldier::m_s_ScoreForHittingSoldier);
 			std::vector<sf::Color> pixelColours;
 			for (int i = 0; i < (int)m_RedSoldier.getHealth(); i++) {
 				pixelColours.push_back(sf::Color::Red);
@@ -97,6 +101,8 @@ void Game::update(float p_DeltaTime) {
 		}
 		if (*iter != nullptr && m_Collision(m_BlueSoldier, (**iter), penetration, collisionNormals)) {
 			Manifold manifold(&m_BlueSoldier, &**iter, collisionNormals, penetration);
+			m_BlueSoldier.setHealth(m_BlueSoldier.getHealth() - (*iter)->getDamage());
+			m_BlueSoldier.addScore(Soldier::m_s_ScoreForHittingSoldier);
 			std::vector<sf::Color> pixelColours;
 			for (int i = 0; i < (int)m_BlueSoldier.getHealth(); i++) {
 				pixelColours.push_back(sf::Color::Red);
@@ -133,20 +139,48 @@ void Game::update(float p_DeltaTime) {
 	if (m_BlueSoldier.getPosition().y < m_BlueSoldier.getSize().y / 2) {
 		m_BlueSoldier.setVelocity(sf::Vector2f(m_BlueSoldier.getVelocity().x, -m_BlueSoldier.getVelocity().y));
 	}
+
+	m_UserInterface.update(m_RedSoldier.getHealth(), m_BlueSoldier.getHealth());
+	m_UserInterface.setText(m_UserInterface.getRedPlayerHealth(), "Health: " +  std::to_string((int)m_RedSoldier.getHealth()));
+	m_UserInterface.setText(m_UserInterface.getBluePlayerHealth(), "Health: " + std::to_string((int)m_BlueSoldier.getHealth()));
+
+	m_UserInterface.setText(m_UserInterface.getRedPlayerScore(), "Score: " + std::to_string((int)m_RedSoldier.getScore()));
+	m_UserInterface.setText(m_UserInterface.getBluePlayerScore(), "Score: " + std::to_string((int)m_BlueSoldier.getScore()));
+
+	if (m_RedSoldier.getPosition().y > 720) {
+		m_RedSoldier.setLives(m_RedSoldier.getLives() - 1);
+	}
+	if (m_BlueSoldier.getPosition().y > 720) {
+		m_BlueSoldier.setLives(m_BlueSoldier.getLives() - 1);
+	}
+
+	if (m_RedSoldier.getHealth() <= 0) {
+		m_RedSoldier.setLives(m_RedSoldier.getLives() - 1);
+		m_bIsRunning = false;
+	}
+	else if (m_BlueSoldier.getHealth() <= 0) {
+		m_BlueSoldier.setLives(m_BlueSoldier.getLives() - 1);
+		m_bIsRunning = false;
+	}
+
+	if (m_RedSoldier.getLives() <= 0 || m_BlueSoldier.getLives() <= 0) {
+		m_bIsRunning = false;
+	}
 }
 
 void Game::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
-	p_Target.draw(m_Terrain);
+	p_Target.draw(m_Background, p_States);
+	p_Target.draw(m_Terrain, p_States);
 
-	p_Target.draw(m_RedSoldier);
-	p_Target.draw(m_BlueSoldier);
+	p_Target.draw(m_RedSoldier, p_States);
+	p_Target.draw(m_BlueSoldier, p_States);
 
 	for (const auto &i : m_Bombs) {
-		p_Target.draw(*i);
+		p_Target.draw(*i, p_States);
 	}
 
-	p_Target.draw(m_DynamicPixelManager);
-	p_Target.draw(m_UserInterface);
+	p_Target.draw(m_DynamicPixelManager, p_States);
+	p_Target.draw(m_UserInterface, p_States);
 }
 
 bool Game::isRunning() {
