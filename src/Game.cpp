@@ -2,10 +2,10 @@
 
 Game::Game(const sf::Vector2f &p_WindowSize) : m_bIsRunning(true), m_Gravity(sf::Vector2f(0.0f, 98.1f)), m_UserInterface(p_WindowSize),
 	m_Terrain(sf::Vector2f(p_WindowSize.x / 2, p_WindowSize.y / 2), p_WindowSize), m_PlayerTurn(0), m_Background(p_WindowSize),
-	m_RedSoldier(Team::RED, *TextureManager::instance().getTexture("RedSoldier"), sf::Vector2f(p_WindowSize.x / 10, p_WindowSize.y / 10), m_Gravity, 
-		sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)),
-	m_BlueSoldier(Team::BLUE, *TextureManager::instance().getTexture("BlueSoldier"), sf::Vector2f((p_WindowSize.x / 10) * 9, p_WindowSize.y / 10), m_Gravity,
-		sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)) {
+	m_RedSoldier(Team::RED, *TextureManager::instance().getTexture("RedSoldier"), sf::Vector2f(p_WindowSize.x / 10, p_WindowSize.y / 10), 
+		m_Gravity, sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)),
+	m_BlueSoldier(Team::BLUE, *TextureManager::instance().getTexture("BlueSoldier"), sf::Vector2f((p_WindowSize.x / 10) * 9, p_WindowSize.y / 10), 
+		m_Gravity, sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)) {
 
 	m_Bombs.reserve(3);
 }
@@ -24,7 +24,7 @@ void Game::processKeyPress(const sf::Event &p_Event, const sf::Vector2f &p_Mouse
 void Game::processKeyRelease(const sf::Event &p_Event) {
 	switch (p_Event.key.code) {
 	case sf::Mouse::Right:
-		if (m_PlayerTurn % 2 == 0) {
+		if ((m_PlayerTurn - 1) % 2 == 0) {
 			if (m_RedSoldier.getBomb() != nullptr) {
 				m_Bombs.push_back(m_RedSoldier.getBomb());
 			}

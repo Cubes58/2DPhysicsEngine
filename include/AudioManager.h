@@ -15,7 +15,7 @@ private:
 	sf::Music m_BackgroundMusic; //!< Background music, object. 
 public:
 	AudioManager(); //!< Constructor.
-	~AudioManager();  //!< Destructor.
+	~AudioManager(); //!< Destructor.
 
 	void loadMusicFile(const std::string &p_PathToAudioFile); //!< Loads a music file.
 	void loadSoundEffect(const std::string &p_Name, const std::string &p_PathToAudioFile); //!< Loads a sound effect, from a file. 
