@@ -1,3 +1,6 @@
+/**
+@file Soldier.h
+*/
 #pragma once
 
 #include <cmath>
@@ -10,38 +13,37 @@
 
 class Soldier : public DynamicObject, public PixelPerfectObject {
 private:
-	std::shared_ptr<Bomb> m_Bomb;
+	std::shared_ptr<Bomb> m_Bomb; //!< A bomb, generated when the player fires one.
 
-	int m_Lives;
-	float m_Score;
-	float m_Health;
-	Team m_Team;
+	int m_Lives; //!< Number of lives the soldier has.
+	float m_Score; //!< How much score the player has.
+	float m_Health; //!< How much health the soldier has.
+	Team m_Team; //!< The team the solider is on.
 
-	void jump(const sf::Vector2f &p_MousePosition);
-	void shoot(const sf::Vector2f &p_MousePosition);
+	void jump(const sf::Vector2f &p_MousePosition); //!< Makes the soldier jump, calculating the projection.
+	void shoot(const sf::Vector2f &p_MousePosition); //!< Throws a bomb, calculating the projection.
 public:
 	Soldier(const Team &p_Team, const sf::Texture &p_Texture, const sf::Vector2f &p_Position, const sf::Vector2f &p_Gravity, const sf::Vector2f &p_Size,
-		const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration = sf::Vector2f(0.0f, 98.1f));
-	~Soldier();
+		const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration = sf::Vector2f(0.0f, 98.1f)); //!< Constructor.
+	~Soldier(); //!< Destructor.
 	
-	const static float m_s_ScoreForHittingSoldier;
-	const static float m_s_ScoreForHittingTerrain;
+	const static float m_s_ScoreForHittingSoldier; //!< Score earned from hitting a solider, with a bomb.
+	const static float m_s_ScoreForHittingTerrain; //!< Score earned from hitting the terrain, with a bomb.
 
-	void processKeyPress(const sf::Event &p_Event, int &p_PlayerCounter);
-	void update(float p_DeltaTime);
-	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
+	void processKeyPress(const sf::Event &p_Event, int &p_PlayerCounter); //!< Processes key presses, action any keys.
+	void update(float p_DeltaTime); //!< Update the soldier.
+	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const; //!< Draw method (from DynamicObject/GameObject/sf::Drawable).
 
-	std::shared_ptr<Bomb> getBomb();
+	std::shared_ptr<Bomb> getBomb(); //!< Return the bomb.
+	Team getTeam(); //!< Return the team the soldier is on.
 
-	Team getTeam();
+	int getLives(); //!< Return how many lives the player has.
+	void setLives(int p_Lives); //!< Set how many lives the player has.
 
-	int getLives();
-	void setLives(int p_Lives);
+	float getScore(); //!< Returns the score.
+	void setScore(float p_Score); //!< Set the player score.
+	void addScore(float p_AddScore); //!< Adds to the player's score.
 
-	float getScore();
-	void setScore(float p_Score);
-	void addScore(float p_AddScore);
-
-	float getHealth();
-	void setHealth(float p_Health);
+	float getHealth(); //!< Returns how much health the soldier has.
+	void setHealth(float p_Health); //!< Sets how much health the soldier has.
 };

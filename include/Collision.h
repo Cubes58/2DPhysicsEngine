@@ -1,3 +1,6 @@
+/**
+@file Collision.h
+*/
 #pragma once
 
 #include <cmath>
@@ -5,6 +8,7 @@
 #include "Soldier.h"
 #include "Bomb.h"
 #include "Terrain.h"
+#include "DynamicPixel.h"
 
 class Collision {
 private:

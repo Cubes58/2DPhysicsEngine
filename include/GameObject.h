@@ -1,33 +1,24 @@
+/**
+@file GameObject.h
+*/
 #pragma once
 
 #include <SFML\Graphics\Drawable.hpp>
 
 class GameObject : public sf::Drawable {
 protected:
-	sf::Vector2f m_Position;
-	sf::Vector2f m_Size;
+	sf::Vector2f m_Position; //!< The position of the object.
+	sf::Vector2f m_Size; //!< The size of the object.
 
-	GameObject() = default;
-	GameObject(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size) : m_Position(p_Position), m_Size(p_Size) {
-
-	}
-	~GameObject() {
-
-	}
+	GameObject() = default; //!< Default (synthesized) constructor.
+	GameObject(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size); //!< Constructor.
+	~GameObject(); //!< Destructor.
 public:
-	virtual void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const = 0;
+	virtual void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const = 0; //!< Draw method (from sf::Drawable).
 
-	sf::Vector2f getPosition() {
-		return m_Position;
-	}
-	void setPosition(const sf::Vector2f &p_Position) {
-		m_Position = p_Position;
-	}
+	sf::Vector2f getPosition(); //!< Return GameObject's position.
+	void setPosition(const sf::Vector2f &p_Position); //!< Set GameObject's position.
 
-	sf::Vector2f getSize() {
-		return m_Size;
-	}
-	void setSize(const sf::Vector2f &p_Size) {
-		m_Size = p_Size;
-	}
+	sf::Vector2f getSize(); //!< Return GameObject's size.
+	void setSize(const sf::Vector2f &p_Size); //!< Set GameObject's Size.
 };

@@ -33,10 +33,10 @@ void DynamicPixelManager::draw(sf::RenderTarget &p_Target, sf::RenderStates p_St
 
 void DynamicPixelManager::createClusterOfPixels(const sf::Vector2f &p_Position, std::vector<sf::Color> &p_Colours, 
 	const sf::Vector2f &p_RandomXPossibleValue, const sf::Vector2f &p_RandomYPossibleValue) {
-	static int s_MinimumNumberOfColours(35);
+	static unsigned int s_MinimumNumberOfColours(35);
 
 	if (p_Colours.size() <= s_MinimumNumberOfColours) {
-		for (int i = 0; i < s_MinimumNumberOfColours; i++) {
+		for (unsigned int i = 0; i < s_MinimumNumberOfColours; i++) {
 			if(p_Colours.size() > 0)
 				p_Colours.push_back(p_Colours[i]);
 		}

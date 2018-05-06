@@ -4,6 +4,10 @@ AudioManager::AudioManager() {
 
 }
 
+AudioManager::~AudioManager() {
+
+}
+
 void AudioManager::loadMusicFile(const std::string &p_PathToAudioFile) {
 	if (m_BackgroundMusic.openFromFile(p_PathToAudioFile))
 		return;

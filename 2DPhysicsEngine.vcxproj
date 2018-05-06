@@ -152,9 +152,11 @@
   <ItemGroup>
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\Background.cpp" />
+    <ClCompile Include="src\DynamicObject.cpp" />
     <ClCompile Include="src\DynamicPixel.cpp" />
     <ClCompile Include="src\DynamicPixelManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Manifold.cpp" />
     <ClCompile Include="src\PixelPerfectObject.cpp" />

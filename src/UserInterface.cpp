@@ -8,7 +8,7 @@ UserInterface::UserInterface(const sf::Vector2f &p_WindowSize) {
 		sf::Color(0, 0, 0, 110), sf::Vector2f(p_WindowSize.x / 10.0f, (p_WindowSize.y / 12.0f) * 1.2f));
 
 	initialiseRectangle(m_BluePlayerHealthBar, sf::Vector2f((p_WindowSize.x - (p_WindowSize.x / 10.0f)), p_WindowSize.y / 12.0f), sf::Color::Blue);
-	initialiseRectangle(m_BluePlayerAreaBackground, sf::Vector2f(p_WindowSize.x - (p_WindowSize.x / 10.0f * 1.2), (p_WindowSize.y / 12.0f) / 4.2f),
+	initialiseRectangle(m_BluePlayerAreaBackground, sf::Vector2f(p_WindowSize.x - (p_WindowSize.x / 10.0f * 1.2f), (p_WindowSize.y / 12.0f) / 4.2f),
 		sf::Color(0, 0, 0, 110), sf::Vector2f(p_WindowSize.x / 10.0f, (p_WindowSize.y / 12.0f) * 1.2f));
 
 	initialiseText(m_RedPlayerScore, "Score: ", sf::Vector2f(p_WindowSize.x - ((p_WindowSize.x / 10.0f) * 9.5f), (p_WindowSize.y / 12.0f) / 3.5f), sf::Color::Red, m_Font);
