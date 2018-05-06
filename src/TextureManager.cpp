@@ -21,7 +21,7 @@ TextureManager &TextureManager::instance() {
 bool TextureManager::loadTexture(const std::string &p_Name, const sf::Image &p_Image, const std::string &p_OriginalImageFileLocation) {
 	if (p_Image.getSize().x != 0 && p_Image.getSize().y != 0) {
 		sf::Texture newTexture;
-		newTexture.loadFromFile(p_OriginalImageFileLocation);	// Must have an image there, to update.
+		newTexture.loadFromFile(p_OriginalImageFileLocation);	// Must have an image there, that's the same size, to update.
 		newTexture.setSmooth(true);
 		newTexture.setRepeated(true);
 		newTexture.update(p_Image);
@@ -52,12 +52,23 @@ const sf::Texture *TextureManager::getTexture(const std::string &p_Name) {
 	return nullptr;
 }
 
-void TextureManager::updateTexture(const std::string &p_Name, sf::Image p_Image) {
-	m_Textures.at(p_Name).update(p_Image);
+bool TextureManager::updateTexture(const std::string &p_Name, sf::Image p_Image) {
+	std::map<std::string, sf::Texture>::iterator iter = m_Textures.find(p_Name);
+
+	if (iter != m_Textures.end()) {
+		iter->second.update(p_Image);
+		return true;
+	}
+	return false;
 }
 
-sf::Vector2u TextureManager::getTextureSize(const std::string &p_Name) const {
-	return ((m_Textures.at(p_Name)).getSize());
+sf::Vector2u TextureManager::getTextureSize(const std::string &p_Name) {
+	std::map<std::string, sf::Texture>::iterator iter = m_Textures.find(p_Name);
+
+	if (iter != m_Textures.end()) 
+		return (iter->second.getSize());
+	
+	return sf::Vector2u(0, 0);
 }
 
 

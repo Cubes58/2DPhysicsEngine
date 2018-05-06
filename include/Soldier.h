@@ -27,6 +27,7 @@ public:
 		const sf::Vector2f &p_Velocity, const sf::Vector2f &p_Acceleration = sf::Vector2f(0.0f, 98.1f)); //!< Constructor.
 	~Soldier(); //!< Destructor.
 	
+	const static float m_s_ScoreForKillingSoldier; //!< Score earned from killing a solider, with a bomb.
 	const static float m_s_ScoreForHittingSoldier; //!< Score earned from hitting a solider, with a bomb.
 	const static float m_s_ScoreForHittingTerrain; //!< Score earned from hitting the terrain, with a bomb.
 

@@ -32,8 +32,9 @@ private:
 
 	int m_PlayerTurn; //!< Turn manager.
 	std::vector<std::shared_ptr<Bomb>> m_Bombs; //!< Vector of shared pointers, pointing to bombs, to keep track of them (the bombs).
-
-	bool m_bIsRunning; //!< Manages whether the game is running, or not.
+	
+	bool m_GameOverScreen = false; //!< Manages game over screen.
+	bool m_IsRunning; //!< Manages whether the game is running, or not.
 public:
 	Game(const sf::Vector2f &p_WindowSize); //!< Constructor.
 	~Game(); //!< Destructor.

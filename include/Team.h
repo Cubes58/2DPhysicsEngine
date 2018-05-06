@@ -4,6 +4,7 @@
 #pragma once
 
 enum class Team : unsigned int {
-	RED, 
-	BLUE
+	RED = 0, 
+	BLUE, 
+	NONE
 };

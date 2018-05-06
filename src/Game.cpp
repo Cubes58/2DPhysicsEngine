@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game(const sf::Vector2f &p_WindowSize) : m_bIsRunning(true), m_Gravity(sf::Vector2f(0.0f, 98.1f)), m_UserInterface(p_WindowSize),
+Game::Game(const sf::Vector2f &p_WindowSize) : m_IsRunning(true), m_Gravity(sf::Vector2f(0.0f, 98.1f)), m_UserInterface(p_WindowSize, m_GameOverScreen),
 	m_Terrain(sf::Vector2f(p_WindowSize.x / 2, p_WindowSize.y / 2), p_WindowSize), m_PlayerTurn(0), m_Background(p_WindowSize),
 	m_RedSoldier(Team::RED, *TextureManager::instance().getTexture("RedSoldier"), sf::Vector2f(p_WindowSize.x / 10, p_WindowSize.y / 10), 
 		m_Gravity, sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)),
@@ -15,6 +15,15 @@ Game::~Game() {
 }
 
 void Game::processKeyPress(const sf::Event &p_Event, const sf::Vector2f &p_MousePosition) {
+	if (m_GameOverScreen) {
+		m_UserInterface.processKeyPress(p_Event);
+
+		if (!m_GameOverScreen)
+			m_IsRunning = false;
+
+		return;
+	}
+
 	if(m_PlayerTurn % 2 == 0)
 		m_RedSoldier.processKeyPress(p_Event, m_PlayerTurn);
 	else
@@ -24,6 +33,9 @@ void Game::processKeyPress(const sf::Event &p_Event, const sf::Vector2f &p_Mouse
 void Game::processKeyRelease(const sf::Event &p_Event) {
 	switch (p_Event.key.code) {
 	case sf::Mouse::Right:
+		if (m_GameOverScreen)
+			break;
+
 		if ((m_PlayerTurn - 1) % 2 == 0) {
 			if (m_RedSoldier.getBomb() != nullptr) {
 				m_Bombs.push_back(m_RedSoldier.getBomb());
@@ -41,6 +53,18 @@ void Game::processKeyRelease(const sf::Event &p_Event) {
 }
 
 void Game::update(float p_DeltaTime) {
+	if (m_GameOverScreen) {
+		if(m_RedSoldier.getScore() > m_BlueSoldier.getScore()) {
+			m_UserInterface.setWinner(Team::RED);
+		}
+		else if (m_BlueSoldier.getScore() > m_RedSoldier.getScore()) {
+			m_UserInterface.setWinner(Team::BLUE);
+		}
+		else {
+			m_UserInterface.setWinner(Team::NONE);
+		}
+		return;
+	}
 	// Update game logic.
 	m_Terrain.update(p_DeltaTime);
 
@@ -156,19 +180,30 @@ void Game::update(float p_DeltaTime) {
 
 	if (m_RedSoldier.getHealth() <= 0) {
 		m_RedSoldier.setLives(m_RedSoldier.getLives() - 1);
-		m_bIsRunning = false;
+		m_GameOverScreen = true;
 	}
 	else if (m_BlueSoldier.getHealth() <= 0) {
 		m_BlueSoldier.setLives(m_BlueSoldier.getLives() - 1);
-		m_bIsRunning = false;
+		m_GameOverScreen = true;
 	}
 
-	if (m_RedSoldier.getLives() <= 0 || m_BlueSoldier.getLives() <= 0) {
-		m_bIsRunning = false;
+	if (m_RedSoldier.getLives() <= 0) {
+		m_BlueSoldier.setScore(m_BlueSoldier.getLives() * Soldier::m_s_ScoreForKillingSoldier);
+		m_GameOverScreen = true;
+	}
+	else if (m_BlueSoldier.getLives() <= 0) {
+		m_RedSoldier.setScore(m_RedSoldier.getLives() * Soldier::m_s_ScoreForKillingSoldier);
+		m_GameOverScreen = true;
 	}
 }
 
 void Game::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
+	if(m_GameOverScreen) {
+		// Draw game over screen.
+		p_Target.draw(m_UserInterface, p_States);
+		return;
+	}
+
 	p_Target.draw(m_Background, p_States);
 	p_Target.draw(m_Terrain, p_States);
 
@@ -184,9 +219,9 @@ void Game::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
 }
 
 bool Game::isRunning() {
-	return m_bIsRunning;
+	return m_IsRunning;
 }
 
 void Game::setRunningState(bool p_bRunningState) {
-	m_bIsRunning = p_bRunningState;
+	m_IsRunning = p_bRunningState;
 }

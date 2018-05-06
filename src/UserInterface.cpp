@@ -1,6 +1,6 @@
 #include "UserInterface.h"
 
-UserInterface::UserInterface(const sf::Vector2f &p_WindowSize) {
+UserInterface::UserInterface(const sf::Vector2f &p_WindowSize, bool &p_GameOver) : m_GameOver(p_GameOver) {
 	m_Font.loadFromFile("./assets/fonts/Arial.ttf");
 
 	initialiseRectangle(m_RedPlayerHealthBar, sf::Vector2f(p_WindowSize.x - ((p_WindowSize.x / 10.0f) * 9.5f), p_WindowSize.y / 12.0f), sf::Color::Red);
@@ -16,6 +16,10 @@ UserInterface::UserInterface(const sf::Vector2f &p_WindowSize) {
 
 	initialiseText(m_BluePlayerScore, "Score: ", sf::Vector2f((p_WindowSize.x - (p_WindowSize.x / 10.0f)), (p_WindowSize.y / 12.0f) / 3.5f), sf::Color::Blue, m_Font);
 	initialiseText(m_BluePlayerHealth, "Health: ", sf::Vector2f((p_WindowSize.x - (p_WindowSize.x / 10.0f)), (p_WindowSize.y / 12.0f) / 1.4f), sf::Color::Blue, m_Font);
+
+	initialiseRectangle(m_GameOverBackground, sf::Vector2f(p_WindowSize.x / 2, p_WindowSize.y / 2), sf::Color::Black, p_WindowSize);
+	initialiseText(m_WinnerInformation, "Winner: ", sf::Vector2f((p_WindowSize.x / 2) * 0.725f, p_WindowSize.y / 4), sf::Color::Cyan, m_Font, 64);
+	initialiseText(m_ExitTextInformatiom, "Press any key to exit!", sf::Vector2f((p_WindowSize.x / 2) * 0.65f, (p_WindowSize.y / 2) * 1.5f), sf::Color::Cyan, m_Font, 48);
 }
 
 UserInterface::~UserInterface() {
@@ -55,6 +59,12 @@ void UserInterface::update(float p_RedPlayerHealth, float p_BluePlayerHealth) {
 }
 
 void UserInterface::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const {
+	if(m_GameOver) {
+		p_Target.draw(m_GameOverBackground, p_States);
+		p_Target.draw(m_WinnerInformation, p_States);
+		p_Target.draw(m_ExitTextInformatiom, p_States);
+	}
+
 	p_Target.draw(m_RedPlayerAreaBackground, p_States);
 	p_Target.draw(m_RedPlayerScore, p_States);
 	p_Target.draw(m_RedPlayerHealth, p_States);
@@ -64,6 +74,24 @@ void UserInterface::draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) 
 	p_Target.draw(m_BluePlayerScore, p_States);
 	p_Target.draw(m_BluePlayerHealth, p_States);
 	p_Target.draw(m_BluePlayerHealthBar, p_States);
+}
+
+void UserInterface::processKeyPress(const sf::Event &p_Event) {
+	m_GameOver = false;
+}
+
+void UserInterface::setWinner(const Team &p_TeamWinner) {
+	m_Winner = p_TeamWinner;
+
+	if(m_Winner == Team::RED) {
+		m_WinnerInformation.setString("Winner: Red");
+	}
+	else if (m_Winner == Team::BLUE) {
+		m_WinnerInformation.setString("Winner: Blue");
+	}
+	else {
+		m_WinnerInformation.setString("Draw!");
+	}
 }
 
 sf::Text &UserInterface::getRedPlayerScore() {

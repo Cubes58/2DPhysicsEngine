@@ -10,8 +10,15 @@
 #include "Terrain.h"
 #include "DynamicPixel.h"
 
+/*!
+	\brief Collision detection. 
+*/
+
 class Collision {
 private:
+	/*!
+		\brief Check whether position is in bounds.
+	*/
 	bool inBounds(const sf::Vector2f &p_Position, const sf::Vector2f &p_MaxSize) {
 		if ((p_Position.x >= 0 && p_Position.x < p_MaxSize.x) && (p_Position.y >= 0 && p_Position.y < p_MaxSize.y))
 			return true;
@@ -19,6 +26,9 @@ private:
 		return false;
 	}
 public:
+	/*!
+		\brief Functor, to detect a collision between the terrain and a soldier.
+	*/
 	bool operator()(Terrain &p_Terrain, Soldier &p_Soldier, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();
 		bool bCollision(false);
@@ -43,6 +53,9 @@ public:
 		return bCollision;
 	}
 
+	/*!
+		\brief Functor, to detect a collision between the terrain and a bomb.
+	*/
 	bool operator()(Terrain &p_Terrain, Bomb &p_Bomb, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();
 		bool bCollision(false);
@@ -63,6 +76,9 @@ public:
 		return bCollision;
 	}
 
+	/*!
+		\brief Functor, to detect a collision between two soldiers.
+	*/
 	bool operator()(Soldier &p_SoldierOne, Soldier &p_SoldierTwo, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();
 		bool bCollision(false);
@@ -83,6 +99,9 @@ public:
 		return bCollision;
 	}
 
+	/*!
+		\brief Functor, to detect a collision between a soldier and a bomb (AABB).
+	*/
 	bool operator()(Soldier &p_Soldier, Bomb &p_Bomb, float &p_Penetration, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();
 		if (p_Soldier.getTeam() == p_Bomb.getTeam()) {
@@ -117,6 +136,9 @@ public:
 		return false;
 	}
 
+	/*!
+		\brief Functor, to detect a collision between the terrain and a dynamic pixel.
+	*/
 	bool operator()(Terrain &p_Terrain, DynamicPixel &p_DynamicPixel, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();
 		bool bCollision(false);
