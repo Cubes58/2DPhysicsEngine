@@ -18,6 +18,10 @@
 #include "Soldier.h"
 #include "Bomb.h"
 
+/*! \class Game.h
+	\brief Holds all of the information about the game components in the game and allows rendering, updating, and key pressed.
+*/
+
 class Game : public sf::Drawable {
 private:
 	sf::Vector2f m_Gravity; //!< World's gravity.

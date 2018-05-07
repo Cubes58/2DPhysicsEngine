@@ -9,6 +9,10 @@
 #include "Collision.h"
 #include "DynamicPixel.h"
 
+/*! \class Manifold.h
+	\brief A class that resolves the collision, these tend to be generated when needed.
+*/
+
 class Manifold {
 private:
 	Collision m_Collision; //!< Collision object, to check whether the objects are still colliding or not.

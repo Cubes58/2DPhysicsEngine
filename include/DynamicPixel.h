@@ -5,6 +5,10 @@
 
 #include "DynamicObject.h"
 
+/*! \class DynamicPixel.h
+	\brief A pixel sized rectangle, with a timer for deletion, which represents a dynamic pixel.
+*/
+
 class DynamicPixel : public DynamicObject {
 private:
 	sf::RectangleShape m_PixelRectangle; //!< Pixel sized rectangle.

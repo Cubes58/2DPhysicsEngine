@@ -12,6 +12,10 @@
 #include "PixelPerfectObject.h"
 #include "TextureManager.h"
 
+/*! \class Terrain.h
+	\brief Game's terrain.
+*/
+
 class Terrain : public GameObject, public PixelPerfectObject {
 private:
 	sf::RenderTexture m_RenderTexture; //!< Draw terrain to, modify it, update texture to modified terrain.

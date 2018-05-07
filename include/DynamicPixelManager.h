@@ -10,6 +10,10 @@
 #include "DynamicPixel.h"
 #include "Randomiser.h"
 
+/*! \class DynamicPixelManager.h
+\brief Manages Dynamic Pixels.
+*/
+
 class DynamicPixelManager : public sf::Drawable {
 private:
 	std::vector<std::shared_ptr<DynamicPixel>> m_DynamicPixels; //!< A vector of DynamicPixel objects.

@@ -7,6 +7,10 @@
 
 #include <SFML/Graphics.hpp>
 
+/*! \class DynamicObject.h
+	\brief Abstract base class, which has all of the attributes and behaviour necessary to make an object dynamic.
+*/
+
 class DynamicObject : public GameObject {
 protected:
 	bool m_GravityOn = true; //!< Decides if gravity is on.

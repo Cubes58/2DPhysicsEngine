@@ -7,6 +7,10 @@
 
 #include "TextureManager.h"
 
+/*! \class Background.h
+\brief Manages the game's background.
+*/
+
 class Background : public sf::Drawable {
 private:
 	sf::RectangleShape m_Background; //!< RectangleShape to draw the background.

@@ -5,6 +5,10 @@
 
 #include <SFML\Graphics\Drawable.hpp>
 
+/*! \class GameObject.h
+	\brief An Abstract base class, that has the basic properties a GameObject would need.
+*/
+
 class GameObject : public sf::Drawable {
 protected:
 	sf::Vector2f m_Position; //!< The position of the object.
@@ -14,7 +18,7 @@ protected:
 	GameObject(const sf::Vector2f &p_Position, const sf::Vector2f &p_Size); //!< Constructor.
 	~GameObject(); //!< Destructor.
 public:
-	virtual void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const = 0; //!< Draw method (from sf::Drawable).
+	virtual void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const = 0; //!< Pure virtual draw method (from sf::Drawable).
 
 	sf::Vector2f getPosition(); //!< Return GameObject's position.
 	void setPosition(const sf::Vector2f &p_Position); //!< Set GameObject's position.

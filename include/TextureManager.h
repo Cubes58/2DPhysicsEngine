@@ -12,6 +12,10 @@ using namespace std::experimental::filesystem::v1;
 
 #include <SFML/Graphics/Texture.hpp>
 
+/*! \class TextureManager.h
+	\brief Manages the game's textures.
+*/
+
 class TextureManager {
 private:
 	std::map<std::string, sf::Texture> m_Textures; //!< Map of textures. Names are used for the identifier, to texture objects.

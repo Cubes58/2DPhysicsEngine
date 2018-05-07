@@ -10,8 +10,8 @@
 #include "Terrain.h"
 #include "DynamicPixel.h"
 
-/*!
-	\brief Collision detection. 
+/*! \class Collision.h
+	\brief Used to detect collisions between object. 
 */
 
 class Collision {

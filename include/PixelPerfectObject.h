@@ -7,6 +7,10 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+/*! \class PixelPerfectObject.h
+	\brief A base class, which has the properties, and behaviour necessary to make an object pixel perfect.
+*/
+
 class PixelPerfectObject {
 protected:
 	sf::Image m_Image; //!< Image used for the pixel perfect collision.

@@ -11,6 +11,10 @@
 #include "Bomb.h"
 #include "Team.h"
 
+/*! \class Soldier.h
+	\brief A class that has the properties and methods to create a soldier.
+*/
+
 class Soldier : public DynamicObject, public PixelPerfectObject {
 private:
 	std::shared_ptr<Bomb> m_Bomb; //!< A bomb, generated when the player fires one.
