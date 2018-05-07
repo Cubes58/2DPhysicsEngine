@@ -9,7 +9,7 @@ Game::Game(const sf::Vector2f &p_WindowSize) : m_IsRunning(true), m_Gravity(sf::
 
 	m_AudioManager.loadMusicFile("./assets/audio/Blaster.wav");
 	m_AudioManager.getBackgroundMusic()->setLoop(true);
-	//m_AudioManager.getBackgroundMusic()->play();
+	m_AudioManager.getBackgroundMusic()->play();
 
 	m_Bombs.reserve(2);
 }
