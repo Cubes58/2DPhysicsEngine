@@ -1,5 +1,6 @@
 /**
 @file UserInterface.h
+@brief Manages the player's HUD.
 */
 #pragma once
 
@@ -8,10 +9,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Team.h"
-
-/*! \class UserInterface.h
-	\brief Manages the player's HUD.
-*/
 
 class UserInterface : public sf::Drawable {
 private:
@@ -33,26 +30,71 @@ private:
 	sf::RectangleShape m_GameOverBackground; //!< Game over background, displayed at the end of the game.
 	Team m_Winner; //!< Player winner.
 
+	/*!
+		\brief Initialize rectangle objects.
+		\param p_RectangleShape
+		\param p_Position
+		\param p_Colour
+		\param p_Size
+	*/
 	void initialiseRectangle(sf::RectangleShape &p_RectangleShape, const sf::Vector2f &p_Position, 
-		const sf::Color &p_Colour, const sf::Vector2f &p_Size = sf::Vector2f(50.0f, 15.0f)); //!< Initialise rectangle objects.
+		const sf::Color &p_Colour, const sf::Vector2f &p_Size = sf::Vector2f(50.0f, 15.0f));
 
+	/*!
+		\brief Initialize text objects.
+		\param p_Text text object, displayed on the window.
+		\param p_StringText the information that'll be displayed.
+		\param p_Position the position of the text.
+		\param p_Colour the colour of the text.
+		\param p_Font the font of the text.
+		\param p_CharacterSize the size of the text.
+	*/
 	void initialiseText(sf::Text &p_Text, const std::string &p_StringText, const sf::Vector2f &p_Position, 
-		const sf::Color p_Colour, sf::Font &p_Font, unsigned int p_CharacterSize = 14); //!< Initialise text objects.
+		const sf::Color p_Colour, sf::Font &p_Font, unsigned int p_CharacterSize = 14); 
 public:
+	/*!
+		\brief Constructor.
+		\param p_WindowSize size of the window.
+		\param p_GameOver state of the game.
+	*/
 	UserInterface(const sf::Vector2f &p_WindowSize, bool &p_GameOver); //!< Constructor.
 	~UserInterface(); //!< Destructor.
 
-	void setText(sf::Text &p_Text, const std::string &p_StringText); //!< Set the string of a text object.
+	/*!
+		\brief Set the string of a text object.
+		\param p_Text text object that's displayed on the window.
+		\param p_StringText the information the text object will show.
+	*/
+	void setText(sf::Text &p_Text, const std::string &p_StringText);
 
-	void update(float p_RedPlayerHealth, float p_BluePlayerHealth); //!< Update the game's user interface (HUD).
-	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const; //!< Draw method (from sf::Drawable).
+	/*!
+		\brief Update the game's user interface (HUD).
+		\param p_RedPlayerHealth the health of the red player.
+		\param p_BluePlayerHealth the health of the blue player.
+	*/
+	void update(float p_RedPlayerHealth, float p_BluePlayerHealth);
 
-	void processKeyPress(const sf::Event &p_Event); //!< Process key event[s].
+	/*!
+		\brief Draw method (from sf::Drawable).
+		\param p_Target the canvas/window to draw to.
+		\param p_States the state of the draw method.
+	*/
+	void draw(sf::RenderTarget &p_Target, sf::RenderStates p_States) const;
+
+	/*!
+		\brief Process key event[s].
+		\param p_Event the event that invoked this method.
+	*/
+	void processKeyPress(const sf::Event &p_Event);
 	
+	/*!
+		\brief Set the team that's won the game.
+		\param p_TeamWinner the team that won, the game.
+	*/
 	void setWinner(const Team &p_TeamWinner);
 
-	sf::Text &getRedPlayerScore(); //!< Return the red player's score text.
-	sf::Text &getRedPlayerHealth(); //!< Return the red player's health text.
-	sf::Text &getBluePlayerScore(); //!< Return the blue player's score text.
-	sf::Text &getBluePlayerHealth(); //!< Return the blue player's health text.
+	sf::Text &getRedPlayerScore(); //!< Returns the red player's score text.
+	sf::Text &getRedPlayerHealth(); //!< Returns the red player's health text.
+	sf::Text &getBluePlayerScore(); //!< Returns the blue player's score text.
+	sf::Text &getBluePlayerHealth(); //!< Returns the blue player's health text.
 };

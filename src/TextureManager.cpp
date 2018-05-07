@@ -1,11 +1,8 @@
 #include "TextureManager.h"
 
 TextureManager::TextureManager() {
-	loadTexture("Bomb", "./assets/textures/Bomb.png");
-	loadTexture("SoldierTemplate", "./assets/textures/SoldierTemplate.png");
-	loadTexture("RedSoldier", "./assets/textures/RedSoldier.png");
-	loadTexture("BlueSoldier", "./assets/textures/BlueSoldier.png");
-	loadTexture("Background", "./assets/scenes/MapOneBackground.png");
+	loadTexturesFromFolder("./assets/textures");
+	loadTexturesFromFolder("./assets/scenes");
 }
 
 TextureManager::~TextureManager() {
@@ -16,6 +13,23 @@ TextureManager &TextureManager::instance() {
 	static TextureManager instance;
 
 	return instance;
+}
+
+// Reference: http://www.martinbroadhurst.com/list-the-files-in-a-directory-in-c.html
+int TextureManager::loadTexturesFromFolder(const std::string &p_FolderLocation) {
+	std::vector<std::pair<std::string, std::string>> files;
+	
+	std::experimental::filesystem::path pathLocation(p_FolderLocation);
+	std::experimental::filesystem::directory_iterator start(pathLocation);
+	std::experimental::filesystem::directory_iterator end;
+	std::transform(start, end, std::back_inserter(files), PathLeafString());
+	
+	for (auto &i : files) {
+		std::string fileLocation = p_FolderLocation + "/"+ i.first;
+		loadTexture(i.first.substr(0, i.first.size() - i.second.size()), fileLocation);
+	}
+
+	return files.size();
 }
 
 bool TextureManager::loadTexture(const std::string &p_Name, const sf::Image &p_Image, const std::string &p_OriginalImageFileLocation) {

@@ -18,7 +18,7 @@ UserInterface::UserInterface(const sf::Vector2f &p_WindowSize, bool &p_GameOver)
 	initialiseText(m_BluePlayerHealth, "Health: ", sf::Vector2f((p_WindowSize.x - (p_WindowSize.x / 10.0f)), (p_WindowSize.y / 12.0f) / 1.4f), sf::Color::Blue, m_Font);
 
 	initialiseRectangle(m_GameOverBackground, sf::Vector2f(p_WindowSize.x / 2, p_WindowSize.y / 2), sf::Color::Black, p_WindowSize);
-	initialiseText(m_WinnerInformation, "Winner: ", sf::Vector2f((p_WindowSize.x / 2) * 0.725f, p_WindowSize.y / 4), sf::Color::Cyan, m_Font, 64);
+	initialiseText(m_WinnerInformation, "The Winner is: ", sf::Vector2f((p_WindowSize.x / 2) * 0.6f, p_WindowSize.y / 4), sf::Color::Cyan, m_Font, 64);
 	initialiseText(m_ExitTextInformatiom, "Press any key to exit!", sf::Vector2f((p_WindowSize.x / 2) * 0.65f, (p_WindowSize.y / 2) * 1.5f), sf::Color::Cyan, m_Font, 48);
 }
 
@@ -84,13 +84,13 @@ void UserInterface::setWinner(const Team &p_TeamWinner) {
 	m_Winner = p_TeamWinner;
 
 	if(m_Winner == Team::RED) {
-		m_WinnerInformation.setString("Winner: Red");
+		m_WinnerInformation.setString("The winner is: Red");
 	}
 	else if (m_Winner == Team::BLUE) {
-		m_WinnerInformation.setString("Winner: Blue");
+		m_WinnerInformation.setString("The winner is: Blue");
 	}
 	else {
-		m_WinnerInformation.setString("Draw!");
+		m_WinnerInformation.setString("It's a draw!");
 	}
 }
 

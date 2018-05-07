@@ -62,13 +62,13 @@ void Terrain::destroyTerrain(sf::Shape *p_Shape) {
 	TextureManager::instance().updateTexture("Terrain", m_Image);
 }
 
-void Terrain::destroyTerrain(const sf::Vector2f &p_Position, float size) {
+void Terrain::destroyTerrain(const sf::Vector2f &p_Position, float p_Size) {
 	static sf::Sprite terrainTexture;
 	terrainTexture.setTexture(*TextureManager::instance().getTexture("Terrain"));
 	
 	sf::CircleShape circle;
-	circle.setOrigin(sf::Vector2f(size / 2, size / 2));
-	circle.setRadius(size / 2);
+	circle.setOrigin(sf::Vector2f(p_Size / 2, p_Size / 2));
+	circle.setRadius(p_Size / 2);
 	circle.setPosition(p_Position);
 	circle.setFillColor(sf::Color::Transparent);
 

@@ -1,5 +1,6 @@
 /**
 @file Collision.h
+@brief Used to detect collisions between object. 
 */
 #pragma once
 
@@ -10,14 +11,13 @@
 #include "Terrain.h"
 #include "DynamicPixel.h"
 
-/*! \class Collision.h
-	\brief Used to detect collisions between object. 
-*/
-
 class Collision {
 private:
 	/*!
 		\brief Check whether position is in bounds.
+		\param p_Position the position to check whether its in bounds or not. 
+		\param p_MaxSize the size of the boundary.
+		\return true if p_Position is within the bounds, false otherwise.
 	*/
 	bool inBounds(const sf::Vector2f &p_Position, const sf::Vector2f &p_MaxSize) {
 		if ((p_Position.x >= 0 && p_Position.x < p_MaxSize.x) && (p_Position.y >= 0 && p_Position.y < p_MaxSize.y))
@@ -28,6 +28,10 @@ private:
 public:
 	/*!
 		\brief Functor, to detect a collision between the terrain and a soldier.
+		\param p_Terrain the terrain object to check collisions with.
+		\param p_Solder the solider object to check collisions with.
+		\param p_CollisionPoints the collision points that will be generated when the collision happens.
+		\return bool returns true if a collision has happened, false otherwise.
 	*/
 	bool operator()(Terrain &p_Terrain, Soldier &p_Soldier, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();
@@ -55,6 +59,10 @@ public:
 
 	/*!
 		\brief Functor, to detect a collision between the terrain and a bomb.
+		\param p_Terrain the terrain object to check collisions with.
+		\param p_Bomb the bomb object to check collisions with.
+		\param p_CollisionPoints the collision points that will be generated when the collision happens.
+		\return bool returns true if a collision has happened, false otherwise.
 	*/
 	bool operator()(Terrain &p_Terrain, Bomb &p_Bomb, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();
@@ -78,6 +86,10 @@ public:
 
 	/*!
 		\brief Functor, to detect a collision between two soldiers.
+		\param p_SolderOne the solider object to check collisions with.
+		\param p_SolderTwo the solider object to check collisions with.
+		\param p_CollisionPoints the collision points that will be generated when the collision happens.
+		\return bool returns true if a collision has happened, false otherwise.
 	*/
 	bool operator()(Soldier &p_SoldierOne, Soldier &p_SoldierTwo, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();
@@ -101,6 +113,11 @@ public:
 
 	/*!
 		\brief Functor, to detect a collision between a soldier and a bomb (AABB).
+		\param p_Solder the solider object to check collisions with.
+		\param p_Bomb the bomb object to check collisions with.
+		\param p_Penetration how much the AABBs have overlapped.
+		\param p_CollisionPoints the collision points that will be generated when the collision happens.
+		\return bool returns true if a collision has happened, false otherwise.
 	*/
 	bool operator()(Soldier &p_Soldier, Bomb &p_Bomb, float &p_Penetration, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();
@@ -138,6 +155,10 @@ public:
 
 	/*!
 		\brief Functor, to detect a collision between the terrain and a dynamic pixel.
+		\param p_Terrain the terrain object to check collisions with.
+		\param p_DynamicPixel the dynamic pixel to check collisions with.
+		\param p_CollisionPoints the collision points that will be generated when the collision happens.
+		\return bool returns true if a collision has happened, false otherwise.
 	*/
 	bool operator()(Terrain &p_Terrain, DynamicPixel &p_DynamicPixel, std::vector<sf::Vector2f> &p_CollisionPoints) {
 		p_CollisionPoints.clear();

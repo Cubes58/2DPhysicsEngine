@@ -1,11 +1,8 @@
 /**
 @file Team.h
+@brief Team enumerator, to set an objects team.
 */
 #pragma once
-
-/*! \class Team.h
-	\brief Team enumerator, to set an objects team.
-*/
 
 enum class Team : unsigned int {
 	RED = 0, 

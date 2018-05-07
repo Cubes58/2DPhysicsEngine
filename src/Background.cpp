@@ -4,7 +4,7 @@ Background::Background(const sf::Vector2f &p_WindowSize) {
 	m_Background.setOrigin(sf::Vector2f(p_WindowSize.x / 2, p_WindowSize.y / 2));
 	m_Background.setPosition(sf::Vector2f(p_WindowSize.x / 2, p_WindowSize.y / 2));
 	m_Background.setSize(p_WindowSize);
-	m_Background.setTexture(TextureManager::instance().getTexture("Background"));
+	m_Background.setTexture(TextureManager::instance().getTexture("MapOneBackground"));
 
 	m_TintColour = sf::Color(255, 255, 255, 120);
 
