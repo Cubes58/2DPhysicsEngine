@@ -32,10 +32,10 @@ private:
 
 	/*!
 		\brief Initialize rectangle objects.
-		\param p_RectangleShape
-		\param p_Position
-		\param p_Colour
-		\param p_Size
+		\param p_RectangleShape the rectangle shape, being initialized.
+		\param p_Position the starting position of the rectangle shape.
+		\param p_Colour the colour of the rectangle shape.
+		\param p_Size the size of the rectangle.
 	*/
 	void initialiseRectangle(sf::RectangleShape &p_RectangleShape, const sf::Vector2f &p_Position, 
 		const sf::Color &p_Colour, const sf::Vector2f &p_Size = sf::Vector2f(50.0f, 15.0f));
@@ -57,7 +57,7 @@ public:
 		\param p_WindowSize size of the window.
 		\param p_GameOver state of the game.
 	*/
-	UserInterface(const sf::Vector2f &p_WindowSize, bool &p_GameOver); //!< Constructor.
+	UserInterface(const sf::Vector2f &p_WindowSize, bool &p_GameOver);
 	~UserInterface(); //!< Destructor.
 
 	/*!
