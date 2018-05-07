@@ -1,6 +1,6 @@
 #include "Soldier.h"
 
-const float Soldier::m_s_ScoreForKillingSoldier = 335.2f;
+const float Soldier::m_s_ScoreForKillingSoldier = 305.2f;
 const float Soldier::m_s_ScoreForHittingSoldier = 155.0f;
 const float Soldier::m_s_ScoreForHittingTerrain = 33.5f;
 
@@ -82,9 +82,6 @@ void Soldier::processKeyPress(const sf::Event &p_Event, int &p_PlayerCounter) {
 		p_PlayerCounter++;
 		shoot(sf::Vector2f((float)p_Event.mouseButton.x, (float)p_Event.mouseButton.y));
 		break;
-	case sf::Mouse::Middle:
-		// Do something for the mouse wheel, input. (Move directly up, and then to the left or right or fire?)
-		break;
 	}
 }
 
@@ -97,6 +94,17 @@ void Soldier::update(float p_DeltaTime) {
 	if (m_GravityOn) {
 		m_Acceleration.x = m_Gravity.x;
 		m_Acceleration.y = m_Gravity.y;
+	}
+
+	if (m_Position.x < 0 || m_Position.x > 1280) {
+		setVelocity(sf::Vector2f(-m_Velocity.x, m_Velocity.y));
+	}
+	if (m_Position.y < m_Size.y / 2) {
+		setVelocity(sf::Vector2f(m_Velocity.x, -m_Velocity.y));
+	}
+
+	if (m_Position.y > 720) {
+		m_Lives--;
 	}
 
 	if(m_Bomb != nullptr && m_Bomb->getDeleteMe()) {

@@ -9,6 +9,10 @@
 
 #include "Team.h"
 
+/*! \class UserInterface.h
+	\brief Manages the player's HUD.
+*/
+
 class UserInterface : public sf::Drawable {
 private:
 	sf::Font m_Font; //!< Font used for the text.

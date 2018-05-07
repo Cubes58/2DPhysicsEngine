@@ -9,7 +9,7 @@ Game::Game(const sf::Vector2f &p_WindowSize) : m_IsRunning(true), m_Gravity(sf::
 
 	m_AudioManager.loadMusicFile("./assets/audio/Blaster.wav");
 	m_AudioManager.getBackgroundMusic()->setLoop(true);
-	m_AudioManager.getBackgroundMusic()->play();
+	//m_AudioManager.getBackgroundMusic()->play();
 
 	m_Bombs.reserve(2);
 }
@@ -58,6 +58,9 @@ void Game::processKeyRelease(const sf::Event &p_Event) {
 
 void Game::update(float p_DeltaTime) {
 	if (m_GameOverScreen) {
+		m_UserInterface.setText(m_UserInterface.getRedPlayerScore(), "Score: " + std::to_string((int)m_RedSoldier.getScore()));
+		m_UserInterface.setText(m_UserInterface.getBluePlayerScore(), "Score: " + std::to_string((int)m_BlueSoldier.getScore()));
+
 		if(m_RedSoldier.getScore() > m_BlueSoldier.getScore()) {
 			m_UserInterface.setWinner(Team::RED);
 		}
@@ -154,49 +157,25 @@ void Game::update(float p_DeltaTime) {
 		}
 	}
 
-	// Confine player's to the window.
-	if (m_RedSoldier.getPosition().x < 0 || m_RedSoldier.getPosition().x > 1280) {
-		m_RedSoldier.setVelocity(sf::Vector2f(-m_RedSoldier.getVelocity().x, m_RedSoldier.getVelocity().y));
-	}
-	if (m_RedSoldier.getPosition().y < m_RedSoldier.getSize().y / 2) {
-		m_RedSoldier.setVelocity(sf::Vector2f(m_RedSoldier.getVelocity().x, -m_RedSoldier.getVelocity().y));
-	}
-	if (m_BlueSoldier.getPosition().x < 0 || m_BlueSoldier.getPosition().x > 1280) {
-		m_BlueSoldier.setVelocity(sf::Vector2f(-m_BlueSoldier.getVelocity().x, m_BlueSoldier.getVelocity().y));
-	}
-	if (m_BlueSoldier.getPosition().y < m_BlueSoldier.getSize().y / 2) {
-		m_BlueSoldier.setVelocity(sf::Vector2f(m_BlueSoldier.getVelocity().x, -m_BlueSoldier.getVelocity().y));
-	}
-
 	m_UserInterface.update(m_RedSoldier.getHealth(), m_BlueSoldier.getHealth());
 	m_UserInterface.setText(m_UserInterface.getRedPlayerHealth(), "Health: " +  std::to_string((int)m_RedSoldier.getHealth()));
 	m_UserInterface.setText(m_UserInterface.getBluePlayerHealth(), "Health: " + std::to_string((int)m_BlueSoldier.getHealth()));
-
 	m_UserInterface.setText(m_UserInterface.getRedPlayerScore(), "Score: " + std::to_string((int)m_RedSoldier.getScore()));
 	m_UserInterface.setText(m_UserInterface.getBluePlayerScore(), "Score: " + std::to_string((int)m_BlueSoldier.getScore()));
 
-	if (m_RedSoldier.getPosition().y > 720) {
-		m_RedSoldier.setLives(m_RedSoldier.getLives() - 1);
-	}
-	if (m_BlueSoldier.getPosition().y > 720) {
-		m_BlueSoldier.setLives(m_BlueSoldier.getLives() - 1);
-	}
-
 	if (m_RedSoldier.getHealth() <= 0) {
 		m_RedSoldier.setLives(m_RedSoldier.getLives() - 1);
-		m_GameOverScreen = true;
 	}
 	else if (m_BlueSoldier.getHealth() <= 0) {
 		m_BlueSoldier.setLives(m_BlueSoldier.getLives() - 1);
-		m_GameOverScreen = true;
 	}
 
 	if (m_RedSoldier.getLives() <= 0) {
-		m_BlueSoldier.setScore(m_BlueSoldier.getLives() * Soldier::m_s_ScoreForKillingSoldier);
+		m_BlueSoldier.setScore(m_BlueSoldier.getScore() + Soldier::m_s_ScoreForKillingSoldier);
 		m_GameOverScreen = true;
 	}
 	else if (m_BlueSoldier.getLives() <= 0) {
-		m_RedSoldier.setScore(m_RedSoldier.getLives() * Soldier::m_s_ScoreForKillingSoldier);
+		m_RedSoldier.setScore(m_RedSoldier.getScore() + Soldier::m_s_ScoreForKillingSoldier);
 		m_GameOverScreen = true;
 	}
 }
