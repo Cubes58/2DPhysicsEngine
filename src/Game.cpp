@@ -7,7 +7,11 @@ Game::Game(const sf::Vector2f &p_WindowSize) : m_IsRunning(true), m_Gravity(sf::
 	m_BlueSoldier(Team::BLUE, *TextureManager::instance().getTexture("BlueSoldier"), sf::Vector2f((p_WindowSize.x / 10) * 9, p_WindowSize.y / 10), 
 		m_Gravity, sf::Vector2f(25, 40), sf::Vector2f(1.0f, 1.0f), sf::Vector2f(0.0f, 1.0f)) {
 
-	m_Bombs.reserve(3);
+	m_AudioManager.loadMusicFile("./assets/audio/Blaster.wav");
+	m_AudioManager.getBackgroundMusic()->setLoop(true);
+	m_AudioManager.getBackgroundMusic()->play();
+
+	m_Bombs.reserve(2);
 }
 
 Game::~Game() {

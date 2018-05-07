@@ -1,7 +1,7 @@
 #include "AudioManager.h"
 
-AudioManager::AudioManager() {
-
+AudioManager::AudioManager(const std::string &p_MusicFileLocation) {
+	loadMusicFile(p_MusicFileLocation);
 }
 
 AudioManager::~AudioManager() {
@@ -9,8 +9,8 @@ AudioManager::~AudioManager() {
 }
 
 void AudioManager::loadMusicFile(const std::string &p_PathToAudioFile) {
-	if (m_BackgroundMusic.openFromFile(p_PathToAudioFile))
-		return;
+	if (!m_BackgroundMusic.openFromFile(p_PathToAudioFile))
+		m_BackgroundMusic.openFromFile("./assets/audio/Default.wav");
 }
 
 void AudioManager::loadSoundEffect(const std::string &p_Name, const std::string &p_PathToAudioFile) {

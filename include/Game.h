@@ -10,6 +10,7 @@
 #include "TextureManager.h"
 #include "Collision.h"
 #include "Manifold.h"
+#include "AudioManager.h"
 #include "UserInterface.h"
 #include "Background.h"
 #include "Terrain.h"
@@ -21,6 +22,7 @@ class Game : public sf::Drawable {
 private:
 	sf::Vector2f m_Gravity; //!< World's gravity.
 
+	AudioManager m_AudioManager;
 	Background m_Background; //!< Background object, to manage the background.
 	Collision m_Collision; //!< Collision object, to check for collisions.
 	Terrain m_Terrain; //!< Terrain object, for the terrain.

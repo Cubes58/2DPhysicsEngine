@@ -14,7 +14,8 @@ private:
 	std::map<std::string, sf::SoundBuffer> m_SoundEffects; //!< A map of sound buffers, for sound effect. A string is used for the identifier. 
 	sf::Music m_BackgroundMusic; //!< Background music, object. 
 public:
-	AudioManager(); //!< Constructor.
+	AudioManager() = default; //!< Constructor.
+	AudioManager(const std::string &p_MusicFileLocation); //!< Constructor.
 	~AudioManager(); //!< Destructor.
 
 	void loadMusicFile(const std::string &p_PathToAudioFile); //!< Loads a music file.
