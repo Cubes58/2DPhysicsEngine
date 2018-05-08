@@ -13,6 +13,10 @@
 #include "PixelPerfectObject.h"
 #include "TextureManager.h"
 
+/*! \class Terrain
+	\brief Game's terrain.
+*/
+
 class Terrain : public GameObject, public PixelPerfectObject {
 private:
 	sf::RenderTexture m_RenderTexture; //!< Draw terrain to, modify it, update texture to modified terrain.
@@ -33,12 +37,12 @@ public:
 	
 	/*!
 		\brief Updates the terrain.
-		\param p_DeletaTime time passed, since the last update.
+		\param p_DeltaTime time passed, since the last update.
 	*/
 	void update(float p_DeltaTime);
 
 	/*!
-		\brief Draw method (from GameObject/sf::drawable).
+		\brief Draw method (from GameObject/Drawable).
 		\param p_Target renderTarget to draw to.
 		\param p_States states of the openGL context.
 	*/

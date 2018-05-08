@@ -8,6 +8,10 @@
 
 #include "TextureManager.h"
 
+/*! \class Background
+	\brief Manages the game's background.
+*/
+
 class Background : public sf::Drawable {
 private:
 	sf::RectangleShape m_Background; //!< RectangleShape to draw the background.
@@ -22,7 +26,7 @@ public:
 	~Background(); //!< Destructor.
 
 	/*!
-		\brief Draw method (from sf::Drawable).
+		\brief Draw method (from Drawable).
 		\param p_Target the canvas/window to draw to.
 		\param p_States the state of the openGL context.
 	*/

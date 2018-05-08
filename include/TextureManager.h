@@ -14,6 +14,10 @@ using namespace std::experimental::filesystem::v1;
 
 #include <SFML/Graphics/Texture.hpp>
 
+/*! \class TextureManager
+	\brief Manages the game's textures.
+*/
+
 class TextureManager {
 private:
 	std::map<std::string, sf::Texture> m_Textures; //!< Map of textures. Names are used for the identifier, to texture objects.
@@ -24,7 +28,7 @@ private:
 	struct PathLeafString {
 		/*!
 			\brief The file name, and extension of the file, from a filesystem object.
-			\param filesystem::directory_entry p_Entry File directory.
+			\param p_Entry filesystem::directory_entry p_Entry File directory.
 		*/
 		std::pair<std::string, std::string> operator()(const std::experimental::filesystem::directory_entry &p_Entry) const {
 			return std::pair<std::string, std::string>(p_Entry.path().filename().string(), p_Entry.path().extension().string());
@@ -66,21 +70,22 @@ public:
 		\param p_PathToTextureFile path to image file.
 		\return bool that's true if the texture is loaded, otherwise false.
 	*/
-	bool loadTexture(const std::string &p_Name, const std::string &p_PathToTextureFile); //!< Loads a texture, from a file.
+	bool loadTexture(const std::string &p_Name, const std::string &p_PathToTextureFile);
 
 	/*!
-		\brief Load files (textures) from a folder.
-		\param p_FolderLocation folder location of the textures.
-		\return int that's the size of how many files were found.
+		\brief Updates a texture's pixels/image, using an image object.
+		\param p_Name texture name.
+		\param p_Image the image used to update the texture.
+		\return bool that's true if the texture is loaded, otherwise false.
 	*/
-	bool updateTexture(const std::string &p_Name, sf::Image p_Image); //!< Updates a texture's pixels/image, using an image object.
+	bool updateTexture(const std::string &p_Name, sf::Image p_Image);
 
 	/*!
 		\brief Load files (textures) from a folder.
 		\param p_Name name of the texture, stored in the map.
 		\return sf::Vector2u the size of the texture.
 	*/
-	sf::Vector2u getTextureSize(const std::string &p_Name); //!< Returns a texture's size.
+	sf::Vector2u getTextureSize(const std::string &p_Name);
 
 	// Delete the copy and assignment operators.
 	TextureManager(TextureManager const&) = delete; //!< Copy operator, deleted.

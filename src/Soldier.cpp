@@ -1,6 +1,6 @@
 #include "Soldier.h"
 
-const float Soldier::m_s_ScoreForKillingSoldier = 305.2f;
+const float Soldier::m_s_ScoreForKillingSoldier = 355.2f;
 const float Soldier::m_s_ScoreForHittingSoldier = 155.0f;
 const float Soldier::m_s_ScoreForHittingTerrain = 33.5f;
 

@@ -8,6 +8,10 @@
 
 #include <SFML/Graphics.hpp>
 
+/*! \class DynamicObject
+	\brief Abstract base class, which has all of the attributes and behavior necessary to make an object dynamic.
+*/
+
 class DynamicObject : public GameObject {
 protected:
 	bool m_GravityOn = true; //!< Decides if gravity is on.
@@ -35,7 +39,7 @@ public:
 	virtual void update(float p_DeltaTime) = 0;
 
 	/*! 
-		\brief Pure virtual draw method (from GameObject/sf::Drawable).
+		\brief Pure virtual draw method (from GameObject/Drawable).
 		\param p_Target the canvas/window to draw to.
 		\param p_States the state[s] of the OpenGL context.
 	*/
@@ -43,7 +47,7 @@ public:
 
 	/*!
 		\brief Applies an impulse vector.
-		\param p_ImpluseVector the impulse vector to apply to the object.
+		\param p_ImpulseVector the impulse vector to apply to the object.
 	*/
 	void applyImpulse(const sf::Vector2f &p_ImpulseVector); 
 
@@ -59,9 +63,9 @@ public:
 
 	/*!
 		\brief Sets a new acceleration value.
-		\param p_Acceleration the new accleration value.
+		\param p_Acceleration the new acceleration value.
 	*/
-	void setAcceleration(const sf::Vector2f &p_Accleration);
+	void setAcceleration(const sf::Vector2f &p_Acceleration);
 
 	bool getGravityOn(); //!< Returns whether gravity is on.
 
@@ -75,7 +79,7 @@ public:
 
 	/*!
 		\brief
-		\param Sets whether the DynamicObject should be deleted.
+		\param p_DeleteMe sets whether the DynamicObject should be deleted.
 	*/
 	void setDeleteMe(bool p_DeleteMe);
 };

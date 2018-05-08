@@ -7,6 +7,10 @@
 #include <time.h>
 #include <cstdlib>
 
+/*! \class Randomiser
+	\brief A class that generates random numbers when needed.
+*/
+
 class Randomiser {
 private:
 	Randomiser(); //!< Constructor.

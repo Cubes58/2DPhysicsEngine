@@ -19,6 +19,10 @@
 #include "Soldier.h"
 #include "Bomb.h"
 
+/*! \class Game
+	\brief Holds all of the information about the game components in the game and allows rendering, updating, and key pressed.
+*/
+
 class Game : public sf::Drawable {
 private:
 	sf::Vector2f m_Gravity; //!< World's gravity.
@@ -62,7 +66,7 @@ public:
 	void update(float p_DeltaTime);
 
 	/*!
-		\brief Draw method (from sf::Drawable).
+		\brief Draw method (from Drawable).
 		\param p_Target the canvas/window to draw to.
 		\param p_States the state[s] of the OpenGL context.
 	*/

@@ -10,6 +10,10 @@
 
 #include "Team.h"
 
+/*! \class UserInterface
+	\brief Manages the player's HUD.
+*/
+
 class UserInterface : public sf::Drawable {
 private:
 	sf::Font m_Font; //!< Font used for the text.
@@ -75,7 +79,7 @@ public:
 	void update(float p_RedPlayerHealth, float p_BluePlayerHealth);
 
 	/*!
-		\brief Draw method (from sf::Drawable).
+		\brief Draw method (from Drawable).
 		\param p_Target the canvas/window to draw to.
 		\param p_States the state of the draw method.
 	*/

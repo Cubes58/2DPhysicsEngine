@@ -6,6 +6,10 @@
 
 #include <SFML\Graphics\Drawable.hpp>
 
+/*! \class GameObject
+	\brief An Abstract base class, that has the basic properties a GameObject would need.
+*/
+
 class GameObject : public sf::Drawable {
 protected:
 	sf::Vector2f m_Position; //!< The position of the object.
@@ -22,7 +26,7 @@ protected:
 	~GameObject(); //!< Destructor.
 public:
 	/*!
-		\brief Pure virtual draw method (from sf::Drawable).
+		\brief Pure virtual draw method (from Drawable).
 		\param p_Target the canvas/window to draw to.
 		\param p_States the state[s] of the OpenGL context.
 	*/

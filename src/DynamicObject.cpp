@@ -19,8 +19,8 @@ void DynamicObject::setVelocity(const sf::Vector2f &p_Velocity) {
 sf::Vector2f DynamicObject::getAcceleration() {
 	return m_Acceleration;
 }
-void DynamicObject::setAcceleration(const sf::Vector2f &p_Accleration) {
-	m_Acceleration = p_Accleration;
+void DynamicObject::setAcceleration(const sf::Vector2f &p_Acceleration) {
+	m_Acceleration = p_Acceleration;
 }
 
 bool DynamicObject::getGravityOn() {

@@ -11,6 +11,10 @@
 #include "Terrain.h"
 #include "DynamicPixel.h"
 
+/*! \class Collision
+	\brief Used to detect collisions between object.
+*/
+
 class Collision {
 private:
 	/*!
@@ -29,7 +33,7 @@ public:
 	/*!
 		\brief Functor, to detect a collision between the terrain and a soldier.
 		\param p_Terrain the terrain object to check collisions with.
-		\param p_Solder the solider object to check collisions with.
+		\param p_Soldier the solider object to check collisions with.
 		\param p_CollisionPoints the collision points that will be generated when the collision happens.
 		\return bool returns true if a collision has happened, false otherwise.
 	*/
@@ -86,8 +90,8 @@ public:
 
 	/*!
 		\brief Functor, to detect a collision between two soldiers.
-		\param p_SolderOne the solider object to check collisions with.
-		\param p_SolderTwo the solider object to check collisions with.
+		\param p_SoldierOne the solider object to check collisions with.
+		\param p_SoldierTwo the solider object to check collisions with.
 		\param p_CollisionPoints the collision points that will be generated when the collision happens.
 		\return bool returns true if a collision has happened, false otherwise.
 	*/
@@ -113,7 +117,7 @@ public:
 
 	/*!
 		\brief Functor, to detect a collision between a soldier and a bomb (AABB).
-		\param p_Solder the solider object to check collisions with.
+		\param p_Soldier the solider object to check collisions with.
 		\param p_Bomb the bomb object to check collisions with.
 		\param p_Penetration how much the AABBs have overlapped.
 		\param p_CollisionPoints the collision points that will be generated when the collision happens.

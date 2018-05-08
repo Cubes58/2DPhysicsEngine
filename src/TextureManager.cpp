@@ -29,7 +29,7 @@ int TextureManager::loadTexturesFromFolder(const std::string &p_FolderLocation) 
 		loadTexture(i.first.substr(0, i.first.size() - i.second.size()), fileLocation);
 	}
 
-	return files.size();
+	return (int)files.size();
 }
 
 bool TextureManager::loadTexture(const std::string &p_Name, const sf::Image &p_Image, const std::string &p_OriginalImageFileLocation) {

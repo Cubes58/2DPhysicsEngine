@@ -9,6 +9,7 @@ Game::Game(const sf::Vector2f &p_WindowSize) : m_IsRunning(true), m_Gravity(sf::
 
 	m_AudioManager.loadMusicFile("./assets/audio/Blaster.wav");
 	m_AudioManager.getBackgroundMusic()->setLoop(true);
+	m_AudioManager.getBackgroundMusic()->setVolume(24);
 	m_AudioManager.getBackgroundMusic()->play();
 
 	m_Bombs.reserve(2);
@@ -156,13 +157,13 @@ void Game::update(float p_DeltaTime) {
 			Manifold manifold(&m_Terrain, &*i, collisionNormals, p_DeltaTime);
 		}
 	}
-
+	
 	m_UserInterface.update(m_RedSoldier.getHealth(), m_BlueSoldier.getHealth());
 	m_UserInterface.setText(m_UserInterface.getRedPlayerHealth(), "Health: " +  std::to_string((int)m_RedSoldier.getHealth()));
 	m_UserInterface.setText(m_UserInterface.getBluePlayerHealth(), "Health: " + std::to_string((int)m_BlueSoldier.getHealth()));
 	m_UserInterface.setText(m_UserInterface.getRedPlayerScore(), "Score: " + std::to_string((int)m_RedSoldier.getScore()));
 	m_UserInterface.setText(m_UserInterface.getBluePlayerScore(), "Score: " + std::to_string((int)m_BlueSoldier.getScore()));
-
+	
 	if (m_RedSoldier.getHealth() <= 0) {
 		m_RedSoldier.setLives(m_RedSoldier.getLives() - 1);
 	}

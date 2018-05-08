@@ -9,6 +9,10 @@
 #include "TextureManager.h"
 #include "Team.h"
 
+/*! \class Bomb
+	\brief A bomb weapon class.
+*/
+
 class Bomb : public DynamicObject, public PixelPerfectObject {
 private:
 	Team m_Team; //!< What team threw the bomb.

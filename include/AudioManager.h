@@ -10,6 +10,10 @@
 #include <SFML\Audio\Sound.hpp>
 #include <SFML\Audio\Music.hpp>
 
+/*! \class AudioManager
+	\brief Manages the game's audio (background music, and sound effects).
+*/
+
 class AudioManager {
 private:
 	std::map<std::string, sf::SoundBuffer> m_SoundEffects; //!< A map of sound buffers, for sound effect. A string is used for the identifier. 

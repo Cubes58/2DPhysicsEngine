@@ -12,6 +12,10 @@
 #include "Bomb.h"
 #include "Team.h"
 
+/*! \class Soldier
+	\brief A class that has the properties and methods to create a soldier.
+*/
+
 class Soldier : public DynamicObject, public PixelPerfectObject {
 private:
 	std::shared_ptr<Bomb> m_Bomb; //!< A bomb, generated when the player fires one.
@@ -65,7 +69,7 @@ public:
 	void update(float p_DeltaTime);
 
 	/*!
-		\brief Draw method (from DynamicObject/GameObject/sf::Drawable).
+		\brief Draw method (from DynamicObject/GameObject/Drawable).
 		\param p_Target the canvas/window to draw to.
 		\param p_States the state of the openGL context.
 	*/
